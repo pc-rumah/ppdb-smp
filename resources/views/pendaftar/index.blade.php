@@ -6,6 +6,7 @@
             <div class="card">
                 <div class="card-body">
                     <main id="main" class="main">
+                        <!-- Page Title -->
                         <div class="pagetitle">
                             <h4>Kelola Data PPDB</h4>
                             <nav>
@@ -81,8 +82,12 @@
                                                                     </span>
                                                                 </td>
                                                                 <td class="d-flex gap-2">
+                                                                    <a href="{{ route('pendaftar.show', $item) }}"
+                                                                        class="btn btn-primary btn-sm">Show</a>
+
                                                                     <a href="{{ route('pendaftar.edit', $item) }}"
                                                                         class="btn btn-primary btn-sm">Edit</a>
+
                                                                     <button type="button" class="btn btn-danger btn-sm"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#alert-hapus-kategori{{ $item->id }}">

@@ -119,7 +119,8 @@ class PendaftarController extends Controller
 
     public function show(string $id)
     {
-        //
+        $pendaftar = Pendaftar::findOrFail($id);
+        return view('pendaftar.show', compact('pendaftar'));
     }
 
     /**

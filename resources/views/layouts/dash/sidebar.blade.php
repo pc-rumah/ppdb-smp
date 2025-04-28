@@ -17,7 +17,8 @@
                     <span class="hide-menu">Home</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./index.html" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard"
+                        aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -29,7 +30,8 @@
                     <span class="hide-menu">MENU</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/pendaftar" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('pendaftar*') ? 'active' : '' }}"
+                        href="{{ route('pendaftar.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-article"></i>
                         </span>
@@ -37,7 +39,8 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/sakit" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('sakit*') ? 'active' : '' }}"
+                        href="{{ route('sakit.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-alert-circle"></i>
                         </span>
@@ -53,7 +56,8 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/saudara" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('saudara*') ? 'active' : '' }}"
+                        href="{{ route('saudara.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-alert-circle"></i>
                         </span>
