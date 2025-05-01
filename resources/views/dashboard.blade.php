@@ -31,7 +31,6 @@
     <script src="{{ asset('dash/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dash/assets/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('dash/assets/js/app.min.js') }}"></script>
-    <script src="{{ asset('dash/assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('dash/assets/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="{{ asset('dash/assets/js/dashboard.js') }}"></script>
 

@@ -1,7 +1,7 @@
 <!-- Gallery Section -->
 <section id="gallery" class="py-16">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold section-title">School Gallery</h2>
+        <h2 class="text-3xl font-bold section-title">Galeri Sekolah</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <!-- Gallery Items -->
             <div class="gallery-item rounded-lg overflow-hidden shadow-lg"

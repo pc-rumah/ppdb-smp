@@ -16,7 +16,7 @@ class PendaftarController extends Controller
      */
     public function index()
     {
-        $pendaftar = Pendaftar::all();
+        $pendaftar = Pendaftar::paginate(5);
         return view('pendaftar.index', compact('pendaftar'));
     }
 

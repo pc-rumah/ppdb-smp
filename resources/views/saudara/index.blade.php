@@ -13,12 +13,12 @@
         </div><!-- End Page Title -->
         <div class="row">
             <div class="col-xl-12">
-                <div class="card">
+                <div class="card bg-info bg-gradient">
                     <div class="card-body pt-3">
                         <!-- Bordered Tabs -->
                         <div class="row">
                             <div class="col-lg-8">
-                                <a href="{{ route('saudara.create') }}" type="button" class="btn btn-primary">Tambah
+                                <a href="{{ route('saudara.create') }}" type="button" class="btn btn-light">Tambah
                                     Data</a>
                             </div>
                             <div class="col-lg-4">

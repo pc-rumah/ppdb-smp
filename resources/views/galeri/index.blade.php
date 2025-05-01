@@ -3,11 +3,11 @@
 @section('content')
     <main id="main" class="main">
         <div class="pagetitle">
-            <h4>Kelola Data Penyakit</h4>
+            <h4>Kelola Data Galeri</h4>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Data Penyakit</li>
+                    <li class="breadcrumb-item active">Data Galeri</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -18,7 +18,7 @@
                         <!-- Bordered Tabs -->
                         <div class="row">
                             <div class="col-lg-8">
-                                <a href="{{ route('sakit.create') }}" type="button" class="btn btn-light">Tambah
+                                <a href="{{ route('galeri.create') }}" type="button" class="btn btn-light">Tambah
                                     Data</a>
                             </div>
                             <div class="col-lg-4">
@@ -45,17 +45,27 @@
                                     <thead>
                                         <tr class="bg-info bg-gradient bg-opacity-75 text-dark">
                                             <th scope="col">#</th>
-                                            <th scope="col">Nama</th>
+                                            <th scope="col">Judul</th>
+                                            <th scope="col">Gambar</th>
+                                            <th scope="col">Deskripsi</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($sakit as $item)
+                                        @forelse ($data as $item)
                                             <tr>
-                                                <th scope="row">{{ $loop->iteration }}</th>
-                                                <td>{{ $item->nama }}</td>
+                                                <th scope="row">{{ $data->firstItem() + $loop->index }}</th>
+                                                <td>{{ $item->judul }}</td>
+                                                <td>
+                                                    @if ($item->gambar)
+                                                        <img src="{{ asset('storage/' . $item->gambar) }}"
+                                                            alt="{{ $item->name }}" class="img-fluid"
+                                                            style="width: 100px; height: 100px; object-fit: cover;">
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->deskripsi }}</td>
                                                 <td class="d-flex gap-2">
-                                                    <a href="{{ route('sakit.edit', $item) }}"
+                                                    <a href="{{ route('galeri.edit', $item) }}"
                                                         class="btn btn-primary">Edit</a>
                                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                         data-bs-target="#alert-hapus-kategori{{ $item->id }}">
@@ -86,7 +96,7 @@
                                                                         <button type="button" class="btn btn-secondary"
                                                                             data-bs-dismiss="modal">Batal</button>
                                                                         <form id="deleteForm{{ $item->id }}"
-                                                                            action="{{ route('sakit.destroy', $item->id) }}"
+                                                                            action="{{ route('galeri.destroy', $item->id) }}"
                                                                             method="POST">
                                                                             @csrf
                                                                             @method('DELETE')
@@ -106,6 +116,7 @@
                                             </tr>
                                         @endforelse
                                     </tbody>
+                                    {{ $data->links() }}
                                 </table>
                                 <!-- End Default Table Example -->
                             </div>

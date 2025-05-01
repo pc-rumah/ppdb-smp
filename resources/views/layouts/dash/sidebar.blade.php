@@ -30,6 +30,15 @@
                     <span class="hide-menu">MENU</span>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('staff*') ? 'active' : '' }}"
+                        href="{{ route('staff.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Staff</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('pendaftar*') ? 'active' : '' }}"
                         href="{{ route('pendaftar.index') }}" aria-expanded="false">
                         <span>
@@ -62,6 +71,47 @@
                             <i class="ti ti-alert-circle"></i>
                         </span>
                         <span class="hide-menu">Saudara</span>
+                    </a>
+                </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Konten Web</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('manage*') ? 'active' : '' }}"
+                        href="{{ route('manage.create') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Setting Landing</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('event*') ? 'active' : '' }}"
+                        href="{{ route('event.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Event</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('pengumuman*') ? 'active' : '' }}"
+                        href="{{ route('pengumuman.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Pengumuman</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('galeri*') ? 'active' : '' }}"
+                        href="{{ route('galeri.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Galeri</span>
                     </a>
                 </li>
             </ul>

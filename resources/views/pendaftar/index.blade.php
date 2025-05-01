@@ -19,12 +19,12 @@
 
                         <div class="row">
                             <div class="col-xl-12">
-                                <div class="card">
+                                <div class="card bg-info bg-gradient">
                                     <div class="card-body pt-3">
                                         <!-- Bordered Tabs -->
                                         <div class="col-lg-8">
                                             <a href="{{ route('pendaftar.create') }}" type="button"
-                                                class="btn btn-primary">Tambah
+                                                class="btn btn-light">Tambah
                                                 Data</a>
                                         </div>
                                         <div class="row">
@@ -69,7 +69,9 @@
                                                     <tbody>
                                                         @forelse ($pendaftar as $item)
                                                             <tr>
-                                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                                <th scope="row">
+                                                                    {{ $pendaftar->firstItem() + $loop->index }}
+                                                                </th>
                                                                 <td>{{ $item->no_pendaftaran }}</td>
                                                                 <td>{{ $item->nama_lengkap }}</td>
                                                                 <td>{{ ucfirst($item->jenis_pendaftaran) }}</td>
@@ -140,6 +142,7 @@
                                                             </tr>
                                                         @endforelse
                                                     </tbody>
+                                                    {{ $pendaftar->links() }}
                                                 </table>
                                                 <!-- End Default Table Example -->
                                             </div>
