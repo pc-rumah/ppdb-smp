@@ -13,7 +13,7 @@ class StafController extends Controller
      */
     public function index()
     {
-        $data = Staff::paginate(5);
+        $data = Staff::orderBy('created_at', 'desc')->paginate(5);
         return view('managestaff.index', compact('data'));
     }
 
@@ -32,6 +32,7 @@ class StafController extends Controller
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'description' => 'nullable|string',
         ]);
 
         // Handle upload file jika ada
@@ -68,10 +69,11 @@ class StafController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'description' => 'nullable|string',
         ]);
 
-        $data = $request->only(['name', 'position']);
+        $data = $request->only(['name', 'position', 'description']);
 
         if ($request->hasFile('image')) {
             // Hapus gambar lama jika ada

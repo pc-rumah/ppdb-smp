@@ -1,111 +1,227 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="lofi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excellence Academy</title>
-
+    <title>PPDB - SMP</title>
     <!-- Tailwind CSS and DaisyUI -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <!-- Swiper JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 3px;
-            background-color: #3b82f6;
-        }
-
-        .gallery-item {
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
+        /* Custom styles for the timeline */
         .timeline-container {
             position: relative;
         }
 
-        .timeline-container::before {
+        .timeline-container::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
             width: 4px;
-            height: 100%;
-            background-color: #3b82f6;
+            background: linear-gradient(to bottom, #a78bfa, #60a5fa);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
         }
 
-        @media (max-width: 768px) {
-            .timeline-container::before {
-                left: 30px;
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 10px 40px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid #8b5cf6;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .timeline-left {
+            left: 0;
+        }
+
+        .timeline-right {
+            left: 50%;
+        }
+
+        .timeline-left::after {
+            right: -10px;
+        }
+
+        .timeline-right::after {
+            left: -10px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline-container::after {
+                left: 31px;
             }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 21px;
+            }
+
+            .timeline-right {
+                left: 0;
+            }
+        }
+
+        /* Soft gradient backgrounds */
+        .gradient-primary {
+            background: linear-gradient(135deg, #c7d2fe, #ddd6fe);
+        }
+
+        .gradient-secondary {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+        }
+
+        .gradient-accent {
+            background: linear-gradient(135deg, #fae8ff, #ede9fe);
+        }
+
+        .gradient-header {
+            background: linear-gradient(135deg, #818cf8, #a78bfa);
+        }
+
+        .gradient-footer {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+        }
+
+        .gradient-card {
+            background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-card:hover {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            transform: translateY(-5px);
+        }
+
+        .gradient-timeline-1 {
+            background: linear-gradient(135deg, #c7d2fe, #ddd6fe);
+        }
+
+        .gradient-timeline-2 {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+        }
+
+        .gradient-timeline-3 {
+            background: linear-gradient(135deg, #fae8ff, #ede9fe);
+        }
+
+        /* Soft shadows */
+        .soft-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
         }
     </style>
 </head>
 
-<body>
-    @include('layouts.welcomebagan.navbar')
+<body class="bg-gray-50">
+    @include('layouts.welcomebagan.header')
+
+    @include('layouts.welcomebagan.mobilenav')
 
     @include('layouts.welcomebagan.hero')
 
     @include('layouts.welcomebagan.about')
 
-    @include('layouts.welcomebagan.staff')
-
-    @include('layouts.welcomebagan.pengumuman')
+    @include('layouts.welcomebagan.teacher')
 
     @include('layouts.welcomebagan.galeri')
 
-    @include('layouts.welcomebagan.ppdb')
+    @include('layouts.welcomebagan.registimeline')
 
     @include('layouts.welcomebagan.kontak')
 
-    <div class="footer footer-center p-4 bg-base-300 text-base-content">
-        <div>
-            <p>Copyright © 2025 - All rights reserved by Excellence Academy</p>
-        </div>
-    </div>
+    @include('layouts.welcomebagan.footer')
 
-    <!-- JavaScript for Gallery Modal -->
+    <!-- JavaScript -->
     <script>
-        function openModal(title, description, imageUrl) {
-            const modal = document.getElementById('gallery_modal');
-            const modalTitle = document.getElementById('modal_title');
-            const modalImage = document.getElementById('modal_image');
-            const modalDescription = document.getElementById('modal_description');
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-            modalTitle.textContent = title;
-            modalImage.src = imageUrl;
-            modalImage.alt = title;
-            modalDescription.textContent = description;
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-            modal.showModal();
-        }
+        // Initialize Swiper
+        const swiper = new Swiper('.mySwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Here you would typically send the form data to a server
+            // For this example, we'll just show an alert
+            alert(`Thank you, ${name}! Your message has been received. We will contact you shortly.`);
+
+            // Reset the form
+            contactForm.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for header height
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
     </script>
 </body>
 

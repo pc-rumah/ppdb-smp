@@ -48,6 +48,7 @@
                                             <th scope="col">Nama</th>
                                             <th scope="col">Jabatan</th>
                                             <th scope="col">Foto</th>
+                                            <th scope="col">Deskripsi</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
@@ -66,6 +67,7 @@
                                                             style="width: 100px; height: 100px; object-fit: cover;">
                                                     @endif
                                                 </td>
+                                                <td>{{ $item->description }}</td>
                                                 <td class="d-flex gap-2">
                                                     <a href="{{ route('staff.edit', $item) }}"
                                                         class="btn btn-primary">Edit</a>
@@ -75,8 +77,8 @@
                                                     </button>
                                                     <!-- Modal delete foto -->
                                                     @if (isset($item))
-                                                        <div class="modal fade" id="alert-hapus-kategori{{ $item->id }}"
-                                                            tabindex="-1"
+                                                        <div class="modal fade"
+                                                            id="alert-hapus-kategori{{ $item->id }}" tabindex="-1"
                                                             aria-labelledby="confirmDeleteModal{{ $item->id }}Label"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog">
@@ -111,6 +113,7 @@
                                                         </div>
                                                     @endif
                                                 </td>
+
                                             </tr>
                                         @empty
                                             <tr>

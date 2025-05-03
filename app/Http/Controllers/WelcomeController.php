@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Staff;
+use App\Models\Galeri;
 use App\Models\Welcome;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
@@ -13,9 +14,10 @@ class WelcomeController extends Controller
     public function welcome()
     {
         $welcome = Welcome::first();
-        $staf = Staff::all();
+        $staf = Staff::latest()->take(8)->get();
         $event = Event::latest()->take(3)->get();
         $pengumuman = Announcement::latest()->take(3)->get();
+        $galeri = Galeri::latest()->take(8)->get();
 
         if (!$welcome) {
             return view('welcome', ['slides' => [], 'welcome' => null]);
@@ -42,6 +44,7 @@ class WelcomeController extends Controller
 
         return view('welcome', [
             'staf' => $staf,
+            'galeri' => $galeri,
             'event' => $event,
             'pengumuman' => $pengumuman,
             'slides' => $slides,

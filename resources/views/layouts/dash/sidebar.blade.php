@@ -57,14 +57,6 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-alert-circle"></i>
-                        </span>
-                        <span class="hide-menu">Data Siswa</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('saudara*') ? 'active' : '' }}"
                         href="{{ route('saudara.index') }}" aria-expanded="false">
                         <span>

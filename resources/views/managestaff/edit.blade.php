@@ -32,6 +32,11 @@
                                             style="max-width: 200px; display: block; margin-bottom: 10px;">
                                     @endif
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Deskripsi</label>
+                                    <textarea type="text" name="description" class="form-control" id="description" aria-describedby="">{{ $data->description }}</textarea>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
