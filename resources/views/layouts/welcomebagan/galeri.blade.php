@@ -7,12 +7,18 @@
             @foreach ($galeri as $item)
                 <div class="card gradient-card soft-shadow">
                     <figure>
-                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="Classroom"
-                            class="w-full h-48 object-cover">
+                        @isset($item->gambar)
+                            <img src="{{ asset('storage/' . $item->gambar) }}" alt="Classroom"
+                                class="w-full h-48 object-cover">
+                        @endisset
                     </figure>
                     <div class="card-body">
-                        <h3 class="card-title text-purple-700">{{ $item->judul }}</h3>
-                        <p class="text-gray-600">{{ $item->deskripsi }}</p>
+                        @isset($item->judul)
+                            <h3 class="card-title text-purple-700">{{ $item->judul }}</h3>
+                        @endisset
+                        @isset($item->deskripsi)
+                            <p class="text-gray-600">{{ $item->deskripsi }}</p>
+                        @endisset
                         </p>
                     </div>
                 </div>

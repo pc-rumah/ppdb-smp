@@ -10,19 +10,31 @@
             @foreach ($staf as $item)
                 <div class="card gradient-card soft-shadow">
                     <figure>
-                        <img src="{{ asset('storage/' . $item->image) }}" alt="gambar staff"
-                            class="w-full h-64 object-cover object-center">
+                        @isset($item->image)
+                            <img src="{{ asset('storage/' . $item->image) }}" alt="gambar staff"
+                                class="w-full h-64 object-cover object-center">
+                        @endisset
                     </figure>
                     <div class="card-body">
-                        <div
-                            class="badge bg-gradient-to-r from-purple-400 to-blue-400 text-white border-none absolute right-2 top-2">
-                            {{ $item->position }}</div>
-                        <h3 class="card-title text-xl text-purple-700">{{ $item->name }}</h3>
-                        <p class="text-gray-600">Ph.D. in Educational Leadership with over 15 years of experience in
-                            education administration.</p>
+                        @isset($item->position)
+                            <div
+                                class="badge bg-gradient-to-r from-purple-400 to-blue-400 text-white border-none absolute right-2 top-2">
+                                {{ $item->position }}
+                            </div>
+                        @endisset
+
+                        @isset($item->name)
+                            <h3 class="card-title text-xl text-purple-700">{{ $item->name }}</h3>
+                        @endisset
+
+                        <p class="text-gray-600">
+                            Ph.D. in Educational Leadership with over 15 years of experience in education
+                            administration.
+                        </p>
                     </div>
                 </div>
             @endforeach
+
         </div>
 
         <div class="text-center mt-12">
