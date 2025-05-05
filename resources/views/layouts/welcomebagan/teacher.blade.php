@@ -7,33 +7,31 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Teacher Card 1 -->
-            @foreach ($staf as $item)
-                <div class="card gradient-card soft-shadow">
-                    <figure>
-                        @isset($item->image)
+            @if (isset($staf))
+                @foreach ($staf as $item)
+                    <div class="card gradient-card soft-shadow">
+                        <figure>
                             <img src="{{ asset('storage/' . $item->image) }}" alt="gambar staff"
                                 class="w-full h-64 object-cover object-center">
-                        @endisset
-                    </figure>
-                    <div class="card-body">
-                        @isset($item->position)
+                        </figure>
+                        <div class="card-body">
                             <div
                                 class="badge bg-gradient-to-r from-purple-400 to-blue-400 text-white border-none absolute right-2 top-2">
                                 {{ $item->position }}
                             </div>
-                        @endisset
-
-                        @isset($item->name)
                             <h3 class="card-title text-xl text-purple-700">{{ $item->name }}</h3>
-                        @endisset
-
-                        <p class="text-gray-600">
-                            Ph.D. in Educational Leadership with over 15 years of experience in education
-                            administration.
-                        </p>
+                            <p class="text-gray-600">
+                                Ph.D. in Educational Leadership with over 15 years of experience in education
+                                administration.
+                            </p>
+                        </div>
                     </div>
+                @endforeach
+            @else
+                <div class="col-span-full flex items-center justify-center min-h-[200px]">
+                    <p class="text-lg text-gray-700 text-center">Informasi tentang Staf belum tersedia.</p>
                 </div>
-            @endforeach
+            @endif
 
         </div>
 

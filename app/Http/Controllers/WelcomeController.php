@@ -20,7 +20,23 @@ class WelcomeController extends Controller
         $galeri = Galeri::latest()->take(8)->get();
 
         if (!$welcome) {
-            return view('welcome', ['slides' => [], 'welcome' => null]);
+            return view('welcome', ['slides' => [
+                [
+                    'title' => 'Selamat Datang di Sekolah Kami',
+                    'description' => 'Ini adalah deskripsi dummy slide pertama.',
+                    'image' => 'images/dummy1.jpg',
+                ],
+                [
+                    'title' => 'Fasilitas Lengkap dan Modern',
+                    'description' => 'Ini adalah deskripsi dummy slide kedua.',
+                    'image' => 'images/dummy2.jpg',
+                ],
+                [
+                    'title' => 'Lingkungan Nyaman untuk Belajar',
+                    'description' => 'Ini adalah deskripsi dummy slide ketiga.',
+                    'image' => 'images/dummy3.jpg',
+                ]
+            ], 'welcome' => null]);
         }
 
         // Buat array slide dari title1-title3, image1-image3, dll

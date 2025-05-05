@@ -5,7 +5,8 @@
             <!-- Slide 1 -->
             @foreach ($slides as $item)
                 <div class="swiper-slide relative">
-                    <img src="https://placehold.co/1200x500/png" alt="gammbar carousel" class="w-full h-full object-cover">
+                    <img src="{{ asset('storage/' . $item['image']) }}" alt="gammbar carousel"
+                        class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-r flex items-center justify-center">
                         <div class="text-center text-white px-4">
                             <h2 class="text-4xl md:text-6xl font-bold mb-4">{{ $item['title'] }}</h2>
