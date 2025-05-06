@@ -41,7 +41,7 @@
             </div>
         @endif
 
-        @if ($errors->any()))
+        @if ($errors->any())
             <div class="alert alert-error shadow-sm text-xs sm:text-sm">
                 <ul class="list-disc pl-4 space-y-1">
                     @foreach ($errors->all() as $error)

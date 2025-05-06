@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Description 1</label>
-                                    <textarea name="description1" class="form-control">{{ $welcome->description1 }}</textarea>
+                                    <textarea name="description1" class="form-control">{{ $welcome->description1 ?? '' }}</textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Image 1</label>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Description 2</label>
-                                    <textarea name="description2" class="form-control">{{ $welcome->description2 }}</textarea>
+                                    <textarea name="description2" class="form-control">{{ $welcome->description2 ?? '' }}</textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Image 2</label>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Description 3</label>
-                                    <textarea name="description3" class="form-control">{{ $welcome->description3 }}</textarea>
+                                    <textarea name="description3" class="form-control">{{ $welcome->description3 ?? '' }}</textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Image 3</label>
