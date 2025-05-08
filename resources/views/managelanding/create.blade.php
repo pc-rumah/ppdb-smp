@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Image 3</label>
-                                    <input type="file" name="image3" class="form-control">
+                                    <input type="file" name="image3" class="form-control"><br>
                                     @if (isset($welcome->image3))
                                         <img src="{{ asset('storage/' . $welcome->image3) }}"
                                             style="max-width: 200px; display: block; margin-bottom: 10px;">

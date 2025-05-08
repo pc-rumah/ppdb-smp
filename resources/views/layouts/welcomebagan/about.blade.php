@@ -10,7 +10,7 @@
                 </div>
                 <div class="flex items-center justify-center">
                     <div class="text-lg text-gray-700">
-                        {!! $welcome->about_description !!}
+                        <p>{!! $welcome->about_description !!}</p>
                     </div>
                 </div>
             @else

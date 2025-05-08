@@ -67,7 +67,7 @@
                                                             style="width: 100px; height: 100px; object-fit: cover;">
                                                     @endif
                                                 </td>
-                                                <td>{{ $item->description }}</td>
+                                                <td>{{ Str::limit(strip_tags($item->description), 100) }}</td>
                                                 <td class="d-flex gap-2">
                                                     <a href="{{ route('staff.edit', $item) }}"
                                                         class="btn btn-primary">Edit</a>

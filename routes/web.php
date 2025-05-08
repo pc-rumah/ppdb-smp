@@ -12,6 +12,9 @@ use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'welcome']);
+
+Route::redirect('/admin', 'dashboard');
+
 Route::get('pendaftar/{pendaftar}/download', [PendaftarController::class, 'download'])->name('pendaftar.download');
 
 Route::get('/dashboard', function () {

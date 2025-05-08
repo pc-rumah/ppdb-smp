@@ -63,7 +63,6 @@
                 <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus
                     class="input input-bordered w-full text-xs sm:text-sm" />
                 @error('email')
-                    )
                     <p class="text-error text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>

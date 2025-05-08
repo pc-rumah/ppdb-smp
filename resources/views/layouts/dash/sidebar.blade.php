@@ -2,7 +2,7 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="./index.html" class="text-nowrap logo-img">
+            <a href="/" class="text-nowrap logo-img">
                 <img src="{{ asset('dash/assets/images/logos/dark-logo.svg') }}" width="180" alt="" />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -28,15 +28,6 @@
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">MENU</span>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('staff*') ? 'active' : '' }}"
-                        href="{{ route('staff.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-article"></i>
-                        </span>
-                        <span class="hide-menu">Staff</span>
-                    </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('pendaftar*') ? 'active' : '' }}"
@@ -77,6 +68,15 @@
                             <i class="ti ti-article"></i>
                         </span>
                         <span class="hide-menu">Setting Landing</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('staff*') ? 'active' : '' }}"
+                        href="{{ route('staff.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Staff</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
