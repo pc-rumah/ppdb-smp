@@ -14,11 +14,10 @@ class WelcomeController extends Controller
     public function welcome()
     {
         $welcome = Welcome::first();
-        $staf = Staff::latest()->take(8)->get();
+        $staf = Staff::latest()->take(4)->get();
         $event = Event::latest()->take(3)->get();
         $pengumuman = Announcement::latest()->take(3)->get();
-        $galeri = Galeri::latest()->take(8)->get();
-
+        $galeri = Galeri::latest()->take(6)->get();
         if (!$welcome) {
             return view('welcome', ['slides' => [
                 [

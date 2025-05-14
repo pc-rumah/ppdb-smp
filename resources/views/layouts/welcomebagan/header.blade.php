@@ -1,34 +1,35 @@
-<!-- Header with Logo and Navigation -->
-<header class="navbar gradient-header text-white shadow-lg fixed top-0 z-50">
-    <div class="container mx-auto">
-        <div class="flex-1">
-            <div class="flex items-center">
-                <img src="https://placehold.co/50x50/png" alt="School Logo" class="h-12">
-                <h1 class="ml-3 text-2xl font-bold">SMP</h1>
-            </div>
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <div class="flex-none md:hidden">
-            <button id="menu-toggle" class="btn btn-square btn-ghost">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
-                    </path>
+<header class="navbar bg-base-100 fixed top-0 z-50 shadow-md">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                 </svg>
-            </button>
-        </div>
-
-        <!-- Desktop Navigation -->
-        <div class="flex-none hidden md:flex">
-            <ul class="menu menu-horizontal px-1">
-                <li><a href="#home" class="font-medium">Home</a></li>
-                <li><a href="#about" class="font-medium">Tentang</a></li>
-                <li><a href="#staf" class="font-medium">Staff</a></li>
-                <li><a href="#gallery" class="font-medium">Galeri</a></li>
-                <li><a href="#registration" class="font-medium">PPDB</a></li>
-                <li><a href="#contact" class="font-medium">Kontak</a></li>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#staff">Staff & Teachers</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#registration">Registration</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
+        <a class="btn btn-ghost text-xl">
+            <img src="{{ asset('gambar/logo.jpg') }}" alt="School Logo" class="h-10">
+        </a>
+    </div>
+    <div class="navbar-end hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#staff">Staff & Teachers</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#registration">Registration</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </div>
 </header>
