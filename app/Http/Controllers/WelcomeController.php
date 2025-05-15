@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unit;
 use App\Models\Event;
 use App\Models\Staff;
 use App\Models\Galeri;
@@ -14,6 +15,7 @@ class WelcomeController extends Controller
     public function welcome()
     {
         $welcome = Welcome::first();
+        $unit = Unit::latest()->take(3)->get();
         $staf = Staff::latest()->take(4)->get();
         $event = Event::latest()->take(3)->get();
         $pengumuman = Announcement::latest()->take(3)->get();
@@ -63,6 +65,7 @@ class WelcomeController extends Controller
             'event' => $event,
             'pengumuman' => $pengumuman,
             'slides' => $slides,
+            'unit' => $unit,
             'welcome' => $welcome // Untuk bagian about, contact, dll
         ]);
     }

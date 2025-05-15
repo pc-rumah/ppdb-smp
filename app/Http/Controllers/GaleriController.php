@@ -69,18 +69,17 @@ class GaleriController extends Controller
             'deskripsi' => 'required|string|max:1000',
         ]);
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
-            if ($galeri->gambar && Storage::disk('public')->exists($galeri->image)) {
+            if ($galeri->gambar && Storage::disk('public')->exists($galeri->gambar)) {
                 Storage::disk('public')->delete($galeri->gambar);
             }
 
-            // Upload gambar baru
             $file = $request->file('gambar');
             $filename = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('galeri', $filename, 'public');
 
-            $data['gambar'] = $filePath;
+            $galeri->gambar = $filePath; // ✅ ini penting
         }
+
         $galeri->judul = $request->judul;
         $galeri->deskripsi = $request->deskripsi;
         $galeri->save();

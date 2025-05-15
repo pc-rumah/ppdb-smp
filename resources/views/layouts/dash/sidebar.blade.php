@@ -109,12 +109,12 @@
 
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Konten Web</span>
+                    <span class="hide-menu">Bagan Tentang</span>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('galeri*') ? 'active' : '' }}"
-                        href="{{ route('galeri.index') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('unit*') ? 'active' : '' }}"
+                        href="{{ route('unit.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-article"></i>
                         </span>
