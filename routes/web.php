@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\KeunggulanController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RsaudaraController;
@@ -42,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/galeri', GaleriController::class);
 
     Route::resource('/unit', UnitController::class);
+    Route::resource('/fasilitas', FasilitasController::class)->parameters(['fasilitas' => 'fasilitas']);
+    Route::resource('/keunggulan', KeunggulanController::class);
 
     Route::get('/manage', [WelcomeController::class, 'welcome'])->name('manage');
     Route::get('/manage/create', [WelcomeController::class, 'create'])->name('manage.create');

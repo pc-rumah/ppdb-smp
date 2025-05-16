@@ -12,13 +12,13 @@ class Unit extends Model
 
 
 
-    public function facilities()
+    public function fasilitas()
     {
-        return $this->hasMany(Fasilitas::class);
+        return $this->hasMany(Fasilitas::class, 'unit_id');
     }
 
-    public function strengths()
+    public function keunggulan()
     {
-        return $this->hasMany(Keunggulan::class);
+        return $this->hasMany(Keunggulan::class, 'unit_id');
     }
 }

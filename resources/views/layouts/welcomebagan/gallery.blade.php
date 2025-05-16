@@ -8,8 +8,9 @@
                 <a href="{{ asset('storage/' . $item->gambar) }}" class="gallery-item"
                     data-sub-html="{{ $item->judul }}<p>{{ $item->deskripsi }}</p>">
                     <div class="card bg-base-100 shadow-xl">
-                        <figure><img style="width:80%;height:300px;" src="{{ asset('storage/' . $item->gambar) }}"
-                                alt="Science Fair" />
+                        <figure class="h-64 w-full overflow-hidden">
+                            <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}"
+                                class="w-full h-full object-cover" />
                         </figure>
                         <div class="card-body">
                             <h3 class="card-title">{{ $item->judul }}</h3>
@@ -18,6 +19,7 @@
                     </div>
                 </a>
             @endforeach
+
         </div>
 
         <div class="text-center mt-12">

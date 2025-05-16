@@ -1,6 +1,6 @@
 <section id="registration" class="py-20 bg-neutral">
     <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center mb-16">Registration Process</h2>
+        <h2 class="text-4xl font-bold text-center mb-16">Proses Registrasi</h2>
 
         <div class="timeline-container">
             <!-- Timeline Item 1 -->
@@ -16,8 +16,9 @@
                                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </div>
-                                <h3 class="text-xl font-bold">Step 1: Online Application</h3>
+                                <h3 class="text-xl font-bold">Langkah 1:</h3>
                             </div>
+                            <h3 class="text-xl font-bold">Pendaftaran Online</h3>
                             <p class="mt-4">Complete the online application form with basic student and family
                                 information.</p>
                         </div>

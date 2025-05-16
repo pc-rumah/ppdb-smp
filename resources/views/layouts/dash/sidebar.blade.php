@@ -122,8 +122,8 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('galeri*') ? 'active' : '' }}"
-                        href="{{ route('galeri.index') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('fasilitas*') ? 'active' : '' }}"
+                        href="{{ route('fasilitas.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-article"></i>
                         </span>
@@ -131,8 +131,8 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('galeri*') ? 'active' : '' }}"
-                        href="{{ route('galeri.index') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('keunggulan*') ? 'active' : '' }}"
+                        href="{{ route('keunggulan.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-article"></i>
                         </span>

@@ -15,7 +15,7 @@ class WelcomeController extends Controller
     public function welcome()
     {
         $welcome = Welcome::first();
-        $unit = Unit::latest()->take(3)->get();
+        $unit = Unit::latest()->take(3)->with(['fasilitas', 'keunggulan'])->get();
         $staf = Staff::latest()->take(4)->get();
         $event = Event::latest()->take(3)->get();
         $pengumuman = Announcement::latest()->take(3)->get();

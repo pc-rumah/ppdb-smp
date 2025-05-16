@@ -1,27 +1,27 @@
 // Initialize Swiper
 document.addEventListener('DOMContentLoaded', function() {
     // Highlights Swiper
-    var highlightsSwiper = new Swiper('.highlightsSwiper', {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        loop: true,
-        effect: 'fade',
-        fadeEffect: {
-            crossFade: true
-        },
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
+    var heroSwiper = new Swiper('.heroSwiper', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                loop: true,
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
 
     // Initialize LightGallery
     const lightGallery = document.getElementById('lightgallery');
@@ -41,10 +41,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    document.getElementById('year').textContent = new Date().getFullYear();
+
     // Mobile Menu Toggle
     const mobileMenuButton = document.querySelector('.navbar .dropdown > div[role="button"]');
     const mobileMenu = document.querySelector('.navbar .dropdown > ul');
-    
+
     if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', function() {
             mobileMenu.classList.toggle('hidden');
@@ -55,16 +57,16 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 window.scrollTo({
                     top: targetElement.offsetTop - 80, // Adjust for header height
                     behavior: 'smooth'
                 });
-                
+
                 // Close mobile menu if open
                 if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');

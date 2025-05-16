@@ -42,9 +42,6 @@
     <!-- Header -->
     @include('layouts.welcomebagan.header')
 
-    <!-- Hero Section with Cover and CTA -->
-    @include('layouts.welcomebagan.hero')
-
     <!-- School Highlights with Carousel -->
     @include('layouts.welcomebagan.carousel')
 

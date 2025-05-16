@@ -5,7 +5,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach ($unit as $item)
                 <div class="card bg-base-100 shadow-xl h-full flex flex-col">
-                    <figure class="h-48 overflow-hidden flex items-center justify-center">
+                    <figure class="h-64 overflow-hidden flex items-center justify-center">
                         <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}"
                             class="object-cover w-full h-full" />
                     </figure>
@@ -38,22 +38,22 @@
                                 <h3 class="text-2xl font-bold mb-4">{{ $item->judul }}</h3>
                                 <p class="mb-4">{{ $item->deskripsi }}</p>
 
-                                <h4 class="text-xl font-semibold mb-2">Facilities:</h4>
-                                <ul class="list-disc pl-5 mb-4">
-                                    <li>Modern classrooms with interactive whiteboards</li>
-                                    <li>Dedicated science and computer labs</li>
-                                    <li>Library with age-appropriate resources</li>
-                                    <li>Playground and sports facilities</li>
-                                    <li>Art and music rooms</li>
+                                <h4 class="text-xl font-semibold mb-2">Fasilitas:</h4>
+                                <ul class="list-disc pl-5">
+                                    @forelse ($item->fasilitas as $fasilitas)
+                                        <li>{{ $fasilitas->name }}</li>
+                                    @empty
+                                        <li>Tidak ada keunggulan yang tersedia.</li>
+                                    @endforelse
                                 </ul>
 
-                                <h4 class="text-xl font-semibold mb-2">Key Strengths:</h4>
+                                <h4 class="text-xl font-semibold mb-2">Keunggulan:</h4>
                                 <ul class="list-disc pl-5">
-                                    <li>Low student-to-teacher ratio</li>
-                                    <li>Integrated curriculum approach</li>
-                                    <li>Focus on character development</li>
-                                    <li>Regular parent-teacher communication</li>
-                                    <li>Extracurricular activities</li>
+                                    @forelse ($item->keunggulan as $keunggulan)
+                                        <li>{{ $keunggulan->name }}</li>
+                                    @empty
+                                        <li>Tidak ada keunggulan yang tersedia.</li>
+                                    @endforelse
                                 </ul>
                             </div>
                         </div>
