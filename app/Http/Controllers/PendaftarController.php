@@ -31,10 +31,25 @@ class PendaftarController extends Controller
         return view('pendaftar.create', compact('riwayatPenyakitList', 'saudara'));
     }
 
+    public function updateStatus(Request $request, Pendaftar $pendaftar)
+    {
+        $request->validate([
+            'administrasi_lunas' => 'required|in:0,1',
+        ]);
+
+        $pendaftar->update([
+            'administrasi_lunas' => $request->administrasi_lunas,
+        ]);
+
+        return back()->with('success', 'Status administrasi berhasil diperbarui.');
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'jenis_pendaftaran' => 'required|in:online,offline',
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required|date',
@@ -45,27 +60,30 @@ class PendaftarController extends Controller
             'kecamatan' => 'required|string|max:50',
             'kabupaten' => 'required|string|max:50',
             'provinsi' => 'required|string|max:50',
-
             'nama_ayah' => 'required|string|max:100',
             'nama_ibu' => 'required|string|max:100',
             'no_wa' => 'required|regex:/^[0-9]+$/|min:10|max:18',
             'email' => 'required|email|max:100',
             'asal_sekolah' => 'required|string|max:100',
-            'administrasi_lunas' => 'required|in:1,0',
-            'riwayat_penyakit' => 'required',
+            'riwayat_penyakit' => 'required|array',
             'riwayat_saudara' => 'required',
-            'penanggung_jawab' => 'required',
+            'penanggung_jawab' => 'required|string|max:255',
+            'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
         $lastPendaftar = Pendaftar::latest()->first();
         $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
         $noPendaftaran = 'SMP' . date('Y') . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
-        $buktiPendaftaran = null;
+        $buktiPembayaranPath = null;
+        if ($request->hasFile('bukti_pembayaran')) {
+            $buktiPembayaranPath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+        }
 
         $pendaftar = Pendaftar::create([
             'no_pendaftaran' => $noPendaftaran,
             'nama_lengkap' => $request->nama_lengkap,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'jenis_pendaftaran' => $request->jenis_pendaftaran,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -81,18 +99,17 @@ class PendaftarController extends Controller
             'no_wa' => $request->no_wa,
             'email' => $request->email,
             'asal_sekolah' => $request->asal_sekolah,
-            'administrasi_lunas' => $request->administrasi_lunas,
             'saudaras_id' => $request->riwayat_saudara,
             'penanggung_jawab' => $request->penanggung_jawab,
+            'bukti_pembayaran' => $buktiPembayaranPath,
         ]);
 
-        // Generate Bukti Pendaftaran
+        // Generate Bukti Pendaftaran PDF (Optional jika kamu ingin tetap buat PDF juga)
         if ($request->jenis_pendaftaran === 'online') {
-            $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar')); // buat file blade pdf
+            $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
             $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '.pdf';
             Storage::disk('public')->put($pdfPath, $pdf->output());
 
-            // Update bukti_pendaftaran field di database
             $pendaftar->update([
                 'bukti_pendaftaran' => $pdfPath,
             ]);
@@ -103,8 +120,8 @@ class PendaftarController extends Controller
         }
 
         return view('pendaftar.success', compact('pendaftar'));
-        // return redirect()->route('pendaftar.download', ['pendaftar' => $pendaftar->id]);
     }
+
 
     public function download(Pendaftar $pendaftar)
     {

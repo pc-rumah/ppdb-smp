@@ -5,6 +5,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KeunggulanController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RsaudaraController;
@@ -36,8 +37,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('sakit', SakitController::class);
     Route::resource('saudara', RsaudaraController::class);
-    Route::resource('pendaftar', PendaftarController::class);
     Route::resource('/staff', StafController::class);
+
+    Route::resource('pendaftar', PendaftarController::class);
+    Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');
+
 
     Route::resource('/event', EventController::class);
     Route::resource('/pengumuman', AnnouncementController::class);
@@ -50,6 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage', [WelcomeController::class, 'welcome'])->name('manage');
     Route::get('/manage/create', [WelcomeController::class, 'create'])->name('manage.create');
     Route::post('/manage/store', [WelcomeController::class, 'store'])->name('manage.store');
+
+    Route::get('/kontakweb', [KontakController::class, 'create'])->name('kontakweb.create');
+    Route::post('/kontakweb/store', [KontakController::class, 'store'])->name('kontakweb.store');
 });
 
 require __DIR__ . '/auth.php';

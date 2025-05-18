@@ -71,6 +71,15 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('kontakweb*') ? 'active' : '' }}"
+                        href="{{ route('kontakweb.create') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Setting Kontak</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('staff*') ? 'active' : '' }}"
                         href="{{ route('staff.index') }}" aria-expanded="false">
                         <span>

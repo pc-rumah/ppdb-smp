@@ -3,7 +3,7 @@
         <h2 class="text-4xl font-bold text-center mb-16">Unit Sekolah Kami</h2>
         <!-- Primary School Modal -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach ($unit as $item)
+            @forelse ($unit as $item)
                 <div class="card bg-base-100 shadow-xl h-full flex flex-col">
                     <figure class="h-64 overflow-hidden flex items-center justify-center">
                         <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}"
@@ -43,7 +43,7 @@
                                     @forelse ($item->fasilitas as $fasilitas)
                                         <li>{{ $fasilitas->name }}</li>
                                     @empty
-                                        <li>Tidak ada keunggulan yang tersedia.</li>
+                                        <li>Tidak ada Data</li>
                                     @endforelse
                                 </ul>
 
@@ -52,14 +52,18 @@
                                     @forelse ($item->keunggulan as $keunggulan)
                                         <li>{{ $keunggulan->name }}</li>
                                     @empty
-                                        <li>Tidak ada keunggulan yang tersedia.</li>
+                                        <li>Tidak ada Data</li>
                                     @endforelse
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </dialog>
-            @endforeach
+            @empty
+                <div class="flex justify-center items-center">
+                    <h5 class="text-center">Tidak ada data</h5>
+                </div>
+            @endforelse
         </div>
     </div>
 </section>

@@ -8,6 +8,7 @@ use App\Models\Staff;
 use App\Models\Galeri;
 use App\Models\Welcome;
 use App\Models\Announcement;
+use App\Models\Kontak;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -15,29 +16,26 @@ class WelcomeController extends Controller
     public function welcome()
     {
         $welcome = Welcome::first();
+        $kontak = Kontak::first();
         $unit = Unit::latest()->take(3)->with(['fasilitas', 'keunggulan'])->get();
         $staf = Staff::latest()->take(4)->get();
         $event = Event::latest()->take(3)->get();
         $pengumuman = Announcement::latest()->take(3)->get();
         $galeri = Galeri::latest()->take(6)->get();
         if (!$welcome) {
-            return view('welcome', ['slides' => [
-                [
-                    'title' => 'Selamat Datang di Sekolah Kami',
-                    'description' => 'Ini adalah deskripsi dummy slide pertama.',
-                    'image' => 'images/dummy1.jpg',
-                ],
-                [
-                    'title' => 'Fasilitas Lengkap dan Modern',
-                    'description' => 'Ini adalah deskripsi dummy slide kedua.',
-                    'image' => 'images/dummy2.jpg',
-                ],
-                [
-                    'title' => 'Lingkungan Nyaman untuk Belajar',
-                    'description' => 'Ini adalah deskripsi dummy slide ketiga.',
-                    'image' => 'images/dummy3.jpg',
-                ]
-            ], 'welcome' => null]);
+            // Buat dummy object agar tidak null
+            $welcome = (object)[
+                'title1' => 'Selamat Datang di Sekolah Kami',
+                'description1' => 'Ini adalah deskripsi dummy slide pertama.',
+                'image1' => '',
+                'title2' => 'Fasilitas Lengkap dan Modern',
+                'description2' => 'Ini adalah deskripsi dummy slide kedua.',
+                'image2' => '',
+                'title3' => 'Lingkungan Nyaman untuk Belajar',
+                'description3' => 'Ini adalah deskripsi dummy slide ketiga.',
+                'image3' => '',
+                // Kamu juga bisa tambahkan property dummy lain kalau perlu (about, contact, dll)
+            ];
         }
 
         // Buat array slide dari title1-title3, image1-image3, dll
@@ -66,6 +64,7 @@ class WelcomeController extends Controller
             'pengumuman' => $pengumuman,
             'slides' => $slides,
             'unit' => $unit,
+            'kontak' => $kontak,
             'welcome' => $welcome // Untuk bagian about, contact, dll
         ]);
     }

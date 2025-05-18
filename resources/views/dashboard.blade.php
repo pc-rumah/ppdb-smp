@@ -56,6 +56,27 @@
                 }, 5000); // tunggu 5 detik
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const jenisPendaftaran = document.getElementById('jenis_pendaftaran');
+            const buktiPembayaranGroup = document.getElementById('bukti_pembayaran_group');
+            const buktiPembayaranInput = document.getElementById('bukti_pembayaran');
+
+            function toggleBuktiPembayaran() {
+                if (jenisPendaftaran.value === 'online') {
+                    buktiPembayaranGroup.classList.remove('d-none');
+                    buktiPembayaranInput.required = true;
+                } else {
+                    buktiPembayaranGroup.classList.add('d-none');
+                    buktiPembayaranInput.required = false;
+                }
+            }
+
+            jenisPendaftaran.addEventListener('change', toggleBuktiPembayaran);
+
+            // Trigger saat load pertama kali (jika user reload)
+            toggleBuktiPembayaran();
+        });
     </script>
 </body>
 

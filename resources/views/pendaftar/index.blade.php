@@ -57,12 +57,13 @@
                                                     <thead>
                                                         <tr class="bg-info bg-gradient bg-opacity-75 text-dark">
                                                             <th scope="col">#</th>
-                                                            <th scope="col">No. Pendaftaran</th>
+                                                            {{-- <th scope="col">No. Pendaftaran</th> --}}
                                                             <th scope="col">Nama Lengkap</th>
+                                                            <th scope="col">Jenis Kelamin</th>
                                                             <th scope="col">Jenis Pendaftaran</th>
                                                             <th scope="col">Asal Sekolah</th>
+                                                            <th scope="col">Status Pendaftaran</th>
                                                             <th scope="col">No. WA</th>
-                                                            <th scope="col">Administrasi</th>
                                                             <th scope="col">Aksi</th>
                                                         </tr>
                                                     </thead>
@@ -72,17 +73,18 @@
                                                                 <th scope="row">
                                                                     {{ $pendaftar->firstItem() + $loop->index }}
                                                                 </th>
-                                                                <td>{{ $item->no_pendaftaran }}</td>
+                                                                {{-- <td>{{ $item->no_pendaftaran }}</td> --}}
                                                                 <td>{{ $item->nama_lengkap }}</td>
+                                                                <td>{{ ucfirst($item->jenis_kelamin) }}</td>
                                                                 <td>{{ ucfirst($item->jenis_pendaftaran) }}</td>
                                                                 <td>{{ $item->asal_sekolah }}</td>
-                                                                <td>{{ $item->no_wa }}</td>
                                                                 <td>
                                                                     <span
                                                                         class="badge {{ $item->administrasi_lunas ? 'bg-success' : 'bg-danger' }}">
                                                                         {{ $item->administrasi_lunas ? 'Lunas' : 'Belum' }}
                                                                     </span>
                                                                 </td>
+                                                                <td>{{ $item->no_wa }}</td>
                                                                 <td class="d-flex gap-2">
                                                                     <a href="{{ route('pendaftar.show', $item) }}"
                                                                         class="btn btn-primary btn-sm">Show</a>
