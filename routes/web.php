@@ -7,6 +7,7 @@ use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KeunggulanController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PendaftarController;
+use App\Http\Controllers\PPDBController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RsaudaraController;
 use App\Http\Controllers\SakitController;
@@ -21,7 +22,11 @@ Route::get('/staffpage', function () {
     return view('staffpage');
 })->name('staffpage');
 
-Route::get('pendaftar/{pendaftar}/download', [PendaftarController::class, 'download'])->name('pendaftar.download');
+Route::get('/formppdb', [PPDBController::class, 'create'])->name('ppdb.create');
+Route::post('/formppdb', [PPDBController::class, 'store'])->name('ppdb.store');
+Route::get('/pendaftaran/sukses/{id}', [PPDBController::class, 'success'])->name('pendaftar.success');
+Route::get('formppdb/{pendaftar}/download', [PPDBController::class, 'download'])->name('ppdb.download');
+
 
 Route::redirect('/admin', 'dashboard');
 Route::get('/dashboard', function () {
@@ -41,7 +46,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('pendaftar', PendaftarController::class);
     Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');
-
+    Route::get('pendaftar/{pendaftar}/download', [PendaftarController::class, 'download'])->name('pendaftar.download');
 
     Route::resource('/event', EventController::class);
     Route::resource('/pengumuman', AnnouncementController::class);

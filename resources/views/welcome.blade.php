@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Sekolah</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('gambar/logo.jpg') }}">
 
     <!-- Tailwind CSS and DaisyUI -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />

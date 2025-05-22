@@ -67,12 +67,14 @@
                                                 </div>
                                             @endif
 
-                                            @if ($pendaftar->administrasi_lunas == 1)
-                                                <div class="alert alert-success mt-3">
+                                            @if ($pendaftar->administrasi_lunas)
+                                                <div
+                                                    class="mt-3 p-3 border border-success rounded-3 bg-success bg-opacity-10 text-success">
                                                     Administrasi: <strong>Lunas</strong>
                                                 </div>
                                             @else
-                                                <div class="alert alert-warning mt-3">
+                                                <div
+                                                    class="mt-3 p-3 border border-warning rounded-3 bg-warning bg-opacity-10 text-warning">
                                                     Administrasi: <strong>Belum Lunas</strong>
                                                 </div>
                                             @endif

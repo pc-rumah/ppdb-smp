@@ -1,169 +1,195 @@
-@extends('dashboard')
+@extends('layouts.ppdbpart.layout')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-semibold mb-4">MANAGE PPDB</h5>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+    <form action="{{ route('ppdb.store') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        <!-- Data Diri -->
+        <div class="form-section">
+            <h2 class="text-xl font-semibold mb-4">Data Diri</h2>
+
+            <div class="form-group">
+                <label for="nama_lengkap" class="label required">Nama Lengkap</label>
+                <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}"
+                    class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-group">
+                <label class="label required">Jenis Kelamin</label>
+                <div class="flex gap-4">
+                    <label class="label cursor-pointer">
+                        <input type="radio" name="jenis_kelamin" value="Laki-laki" class="radio radio-primary" required>
+                        <span class="label-text ml-2">Laki-laki</span>
+                    </label>
+                    <label class="label cursor-pointer">
+                        <input type="radio" name="jenis_kelamin" value="Perempuan" class="radio radio-primary" required>
+                        <span class="label-text ml-2">Perempuan</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jenis_pendaftaran" class="label required">Jenis Pendaftaran</label>
+                <select id="jenis_pendaftaran" name="jenis_pendaftaran" class="select select-bordered w-full" required>
+                    <option value="" disabled selected>Pilih jenis pendaftaran</option>
+                    <option value="online">Online</option>
+                    <option value="offline">Offline</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tempat_lahir" class="label required">Tempat Lahir</label>
+                <input type="text" value="{{ old('tempat_lahir') }}" id="tempat_lahir" name="tempat_lahir"
+                    class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tanggal_lahir" class="label required">Tanggal Lahir</label>
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="input input-bordered w-full" required>
+            </div>
+        </div>
+
+        <!-- Alamat -->
+        <fieldset>
+            <legend>Alamat</legend>
+            <div class="address-grid">
+                <div class="form-group">
+                    <label for="dusun" class="label">Dusun</label>
+                    <input value="{{ old('dusun') }}" type="text" id="dusun" name="dusun"
+                        class="input input-bordered w-full">
+                </div>
+
+                <div class="form-group">
+                    <label for="rt" class="label">RT</label>
+                    <input value="{{ old('rt') }}" type="text" id="rt" name="rt"
+                        class="input input-bordered w-full">
+                </div>
+
+                <div class="form-group">
+                    <label for="rw" class="label">RW</label>
+                    <input value="{{ old('rw') }}" type="text" id="rw" name="rw"
+                        class="input input-bordered w-full">
+                </div>
+
+                <div class="form-group">
+                    <label for="desa" class="label required">Desa/Kelurahan</label>
+                    <input value="{{ old('desa') }}" type="text" id="desa" name="desa"
+                        class="input input-bordered w-full" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="kecamatan" class="label required">Kecamatan</label>
+                    <input value="{{ old('kecamatan') }}" type="text" id="kecamatan" name="kecamatan"
+                        class="input input-bordered w-full" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="kabupaten" class="label required">Kabupaten/Kota</label>
+                    <input value="{{ old('kabupaten') }}" type="text" id="kabupaten" name="kabupaten"
+                        class="input input-bordered w-full" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="provinsi" class="label required">Provinsi</label>
+                    <input value="{{ old('provinsi') }}" type="text" id="provinsi" name="provinsi"
+                        class="input input-bordered w-full" required>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Data Orang Tua -->
+        <div class="form-section">
+            <h2 class="text-xl font-semibold mb-4">Data Orang Tua</h2>
+
+            <div class="form-group">
+                <label for="nama_ayah" class="label required">Nama Ayah</label>
+                <input value="{{ old('nama_ayah') }}" type="text" id="nama_ayah" name="nama_ayah"
+                    class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nama_ibu" class="label required">Nama Ibu</label>
+                <input value="{{ old('nama_ibu') }}" type="text" id="nama_ibu" name="nama_ibu"
+                    class="input input-bordered w-full" required>
+            </div>
+        </div>
+
+        <!-- Kontak dan Informasi Tambahan -->
+        <div class="form-section">
+            <h2 class="text-xl font-semibold mb-4">Kontak dan Informasi Tambahan</h2>
+
+            <div class="form-group">
+                <label for="no_wa" class="label required">Nomor WhatsApp</label>
+                <input value="{{ old('no_wa') }}" type="tel" id="no_wa" name="no_wa"
+                    class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="label required">Email</label>
+                <input value="{{ old('email') }}" type="email" id="email" name="email"
+                    class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-group">
+                <label for="asal_sekolah" class="label required">Asal Sekolah</label>
+                <input value="{{ old('asal_sekolah') }}" type="text" id="asal_sekolah" name="asal_sekolah"
+                    class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-group hidden" id="form-grouppembayaran">
+                <label for="bukti_pembayaran" class="label required">Bukti Pembayaran</label>
+                <input type="file" id="bukti_pembayaran" name="bukti_pembayaran"
+                    class="file-input file-input-bordered w-full" accept="image/*,application/pdf" required>
+                <p class="text-xs mt-1">Format: JPG, PNG, atau PDF. Maksimal 2MB.</p>
+
+                <!-- File Preview Container -->
+                <div id="file-preview" class="file-preview">
+                    <div id="preview-content"></div>
+                    <div class="file-info">
+                        <div>
+                            <p id="file-name" class="font-medium"></p>
+                            <p id="file-size" class="text-sm text-gray-500"></p>
                         </div>
-                    @endif
-                    <div class="card">
-                        <div class="card-body">
-                            <form method="POST" action="{{ route('pendaftar.store') }}" enctype="multipart/form-data">
-                                @csrf
-
-                                {{-- Nama Lengkap --}}
-                                <div class="mb-3">
-                                    <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                    <input type="text" name="nama_lengkap" class="form-control" id="nama_lengkap"
-                                        value="{{ old('nama_lengkap') }}" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Jenis Kelamin</label><br>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki_laki"
-                                            value="Laki-laki" required>
-                                        <label class="form-check-label" for="laki_laki">Laki-laki</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan"
-                                            value="Perempuan" required>
-                                        <label class="form-check-label" for="perempuan">Perempuan</label>
-                                    </div>
-                                </div>
-
-                                {{-- Jenis Pendaftaran --}}
-                                <div class="mb-3">
-                                    <label for="jenis_pendaftaran" class="form-label">Pendaftaran</label>
-                                    <select name="jenis_pendaftaran" class="form-control" id="jenis_pendaftaran" required>
-                                        <option value="online">Online</option>
-                                        <option value="offline">Offline</option>
-                                    </select>
-                                </div>
-
-                                {{-- Tempat & Tanggal Lahir --}}
-                                <div class="mb-3">
-                                    <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-                                    <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir"
-                                        value="{{ old('tempat_lahir') }}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir">
-                                </div>
-
-                                {{-- Alamat --}}
-                                <div class="mb-3">
-                                    <label class="form-label">Alamat</label>
-                                    <input type="text" name="dusun" class="form-control mb-2" placeholder="Dusun"
-                                        value="{{ old('dusun') }}">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" name="rt" class="form-control" placeholder="RT"
-                                                value="{{ old('rt') }}">
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" name="rw" class="form-control" placeholder="RW"
-                                                value="{{ old('rw') }}">
-                                        </div>
-                                    </div>
-                                    <input type="text" name="desa" class="form-control mt-2"
-                                        placeholder="Desa/Kelurahan" value="{{ old('desa') }}">
-                                    <input type="text" name="kecamatan" class="form-control mt-2" placeholder="Kecamatan"
-                                        value="{{ old('kecamatan') }}">
-                                    <input type="text" name="kabupaten" class="form-control mt-2"
-                                        placeholder="Kabupaten/Kota" value="{{ old('kabupaten') }}">
-                                    <input type="text" name="provinsi" class="form-control mt-2" placeholder="Provinsi"
-                                        value="{{ old('provinsi') }}">
-                                </div>
-
-                                {{-- Nama Orang Tua --}}
-                                <div class="mb-3">
-                                    <label for="nama_ayah" class="form-label">Nama Ayah</label>
-                                    <input type="text" name="nama_ayah" class="form-control" id="nama_ayah"
-                                        value="{{ old('nama_ayah') }}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nama_ibu" class="form-label">Nama Ibu</label>
-                                    <input type="text" name="nama_ibu" class="form-control" id="nama_ibu"
-                                        value="{{ old('nama_ibu') }}">
-                                </div>
-
-                                {{-- Kontak --}}
-                                <div class="mb-3">
-                                    <label for="no_wa" class="form-label">No. WA</label>
-                                    <input type="number" name="no_wa" class="form-control" id="no_wa"
-                                        value="{{ old('no_wa') }}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control" id="email"
-                                        value="{{ old('email') }}">
-                                </div>
-
-                                {{-- Asal Sekolah --}}
-                                <div class="mb-3">
-                                    <label for="asal_sekolah" class="form-label">Asal Sekolah</label>
-                                    <input type="text" name="asal_sekolah" class="form-control" id="asal_sekolah"
-                                        value="{{ old('asal_sekolah') }}">
-                                </div>
-
-                                {{-- Administrasi --}}
-                                <div class="mb-3 d-none" id="bukti_pembayaran_group">
-                                    <label for="bukti_pembayaran" class="form-label">Upload Bukti Pembayaran</label>
-                                    <input type="file" name="bukti_pembayaran" class="form-control"
-                                        id="bukti_pembayaran" accept="image/*,application/pdf">
-                                </div>
-
-
-                                {{-- Riwayat Penyakit --}}
-                                <div class="mb-3">
-                                    <label class="form-label">Riwayat Penyakit</label><br>
-                                    @foreach ($riwayatPenyakitList as $penyakit)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="riwayat_penyakit[]"
-                                                value="{{ $penyakit->id }}" id="penyakit{{ $penyakit->id }}">
-                                            <label class="form-check-label" for="penyakit{{ $penyakit->id }}">
-                                                {{ $penyakit->nama }}
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-
-                                {{-- Riwayat Saudara --}}
-                                <div class="mb-3">
-                                    <label for="riwayat_saudara" class="form-label">Saudara</label>
-                                    <select name="riwayat_saudara" class="form-control" id="riwayat_saudara">
-                                        <option selected>Pilih</option>
-                                        @foreach ($saudara as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                {{-- Penanggung Jawab --}}
-                                <div class="mb-3">
-                                    <label for="penanggung_jawab" class="form-label">Penanggung Jawab</label>
-                                    <input type="text" name="penanggung_jawab" class="form-control"
-                                        id="penanggung_jawab" value="{{ old('penanggung_jawab') }}">
-                                </div>
-
-                                {{-- Submit --}}
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
+                        <button type="button" id="remove-file" class="btn btn-sm btn-error">Hapus</button>
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="label">Riwayat Penyakit</label>
+                <div class="flex flex-col gap-2">
+                    @foreach ($riwayatPenyakitList as $penyakit)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="riwayat_penyakit[]"
+                                value="{{ $penyakit->id }}" id="penyakit{{ $penyakit->id }}">
+                            <label class="form-check-label" for="penyakit{{ $penyakit->id }}">
+                                {{ $penyakit->nama }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="riwayat_saudara" class="label">Saudara</label>
+                <select id="riwayat_saudara" name="riwayat_saudara" class="select select-bordered w-full">
+                    <option selected>Pilih</option>
+                    @foreach ($saudara as $item)
+                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="penanggung_jawab" class="label required">Penanggung Jawab</label>
+                <input value="{{ old('penanggung_jawab') }}" type="text" id="penanggung_jawab"
+                    name="penanggung_jawab" class="input input-bordered w-full" required>
+            </div>
         </div>
+
+        <!-- Submit Button -->
+        <div class="form-group mt-8 text-center">
+            <button type="submit" class="btn btn-primary btn-wide">Daftar</button>
+        </div>
+    </form>
     </div>
 @endsection

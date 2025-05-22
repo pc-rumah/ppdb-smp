@@ -1,11 +1,11 @@
 <section id="events" class="py-20 bg-secondary">
     <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center mb-16">Events & Announcements</h2>
+        <h2 class="text-4xl font-bold text-center mb-16">Acara & Pengumuman</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Announcements Column -->
             <div>
-                <h3 class="text-2xl font-bold mb-6 text-center">Latest Announcements</h3>
+                <h3 class="text-2xl font-bold mb-6 text-center">Pengumuman Terbaru</h3>
 
                 <div class="space-y-6">
                     <!-- Announcement 1 -->

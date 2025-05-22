@@ -9,20 +9,8 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 
-class PendaftarController extends Controller
+class PPDBController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $pendaftar = Pendaftar::paginate(5);
-        return view('pendaftar.index', compact('pendaftar'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $riwayatPenyakitList = Sakit::all();
@@ -30,20 +18,6 @@ class PendaftarController extends Controller
 
         return view('pendaftar.create', compact('riwayatPenyakitList', 'saudara'));
     }
-
-    public function updateStatus(Request $request, Pendaftar $pendaftar)
-    {
-        $request->validate([
-            'administrasi_lunas' => 'required|in:0,1',
-        ]);
-
-        $pendaftar->update([
-            'administrasi_lunas' => $request->administrasi_lunas,
-        ]);
-
-        return back()->with('success', 'Status administrasi berhasil diperbarui.');
-    }
-
 
     public function store(Request $request)
     {
@@ -119,6 +93,12 @@ class PendaftarController extends Controller
             $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);
         }
 
+        return redirect()->route('pendaftar.success', $pendaftar->id);
+    }
+
+    public function success($id)
+    {
+        $pendaftar = Pendaftar::findOrFail($id);
         return view('pendaftar.success', compact('pendaftar'));
     }
 
@@ -131,35 +111,5 @@ class PendaftarController extends Controller
         }
 
         return redirect()->route('pendaftar.index')->with('error', 'Bukti pendaftaran tidak ditemukan.');
-    }
-
-    public function show(string $id)
-    {
-        $pendaftar = Pendaftar::findOrFail($id);
-        return view('pendaftar.show', compact('pendaftar'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

@@ -1,6 +1,6 @@
 <section id="staff" class="py-20 bg-accent">
     <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center mb-16">Our Staff & Teachers</h2>
+        <h2 class="text-4xl font-bold text-center mb-16">Staff & Guru Kami</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach ($staf as $item)
@@ -19,7 +19,7 @@
 
         <!-- Tombol ini dipindah keluar dari grid -->
         <div class="text-center mt-12">
-            <a href="/staffpage" class="btn bg-secondary hover:bg-secondary/80">View All Teachers & Staff</a>
+            <a href="/staffpage" class="btn bg-secondary hover:bg-secondary/80">Lihat Semua Staff & Guru</a>
         </div>
 
 </section>
