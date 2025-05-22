@@ -26,18 +26,6 @@ return new class extends Migration
             $table->string('title3');
             $table->text('description3');
             $table->string('image3');
-
-            //about
-            $table->string('about_description');
-            $table->string('about_image');
-
-            //contact
-            $table->string('address');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('facebook')->default('#');
-            $table->string('instagram')->default('#');
-            $table->string('youtube')->default('#');
         });
     }
 

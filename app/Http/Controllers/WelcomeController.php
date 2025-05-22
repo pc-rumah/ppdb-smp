@@ -90,13 +90,6 @@ class WelcomeController extends Controller
             'image3' => 'image|mimes:jpg,jpeg,png|max:2048',
             'description3' => 'string|max:255',
             'title3' => 'string|max:255',
-
-            'about_description' => 'string',
-            'about_image' => 'image|mimes:jpg,jpeg,png|max:2048',
-
-            'address' => 'string|max:255',
-            'phone' => 'string|max:255',
-            'email' => 'email|max:255',
         ]);
 
         $welcome = Welcome::first();
@@ -109,13 +102,6 @@ class WelcomeController extends Controller
             'description2' => $request->description2,
             'title3' => $request->title3,
             'description3' => $request->description3,
-            'about_description' => $request->about_description,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'facebook' => $request->facebook,
-            'instagram' => $request->instagram,
-            'youtube' => $request->youtube,
         ];
 
         // Handle file upload (hanya jika diisi)
@@ -127,9 +113,6 @@ class WelcomeController extends Controller
         }
         if ($request->hasFile('image3')) {
             $data['image3'] = $request->file('image3')->store('images', 'public');
-        }
-        if ($request->hasFile('about_image')) {
-            $data['about_image'] = $request->file('about_image')->store('images', 'public');
         }
 
         // Jika belum ada data: create

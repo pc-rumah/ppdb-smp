@@ -17,7 +17,8 @@ class PendaftarController extends Controller
     public function index()
     {
         $pendaftar = Pendaftar::paginate(5);
-        return view('pendaftar.index', compact('pendaftar'));
+        $saudara = Saudara::all();
+        return view('pendaftar.index', compact('pendaftar', 'saudara'));
     }
 
     /**
@@ -28,7 +29,7 @@ class PendaftarController extends Controller
         $riwayatPenyakitList = Sakit::all();
         $saudara = Saudara::all();
 
-        return view('pendaftar.create', compact('riwayatPenyakitList', 'saudara'));
+        return view('pendaftar.createadmin', compact('riwayatPenyakitList', 'saudara'));
     }
 
     public function updateStatus(Request $request, Pendaftar $pendaftar)
@@ -68,7 +69,8 @@ class PendaftarController extends Controller
             'riwayat_penyakit' => 'required|array',
             'riwayat_saudara' => 'required',
             'penanggung_jawab' => 'required|string|max:255',
-            'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:4096',
+            'piagam' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
         ]);
 
         $lastPendaftar = Pendaftar::latest()->first();
@@ -78,6 +80,11 @@ class PendaftarController extends Controller
         $buktiPembayaranPath = null;
         if ($request->hasFile('bukti_pembayaran')) {
             $buktiPembayaranPath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+        }
+
+        $piagamPath = null;
+        if ($request->hasFile('piagam')) {
+            $piagamPath = $request->file('piagam')->store('piagam', 'public');
         }
 
         $pendaftar = Pendaftar::create([
@@ -102,6 +109,7 @@ class PendaftarController extends Controller
             'saudaras_id' => $request->riwayat_saudara,
             'penanggung_jawab' => $request->penanggung_jawab,
             'bukti_pembayaran' => $buktiPembayaranPath,
+            'piagam_penghargaan' => $piagamPath,
         ]);
 
         // Generate Bukti Pendaftaran PDF (Optional jika kamu ingin tetap buat PDF juga)

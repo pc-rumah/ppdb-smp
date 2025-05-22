@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pendaftar extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
     public function riwayatPenyakit()
     {
         return $this->belongsToMany(Sakit::class, 'pendaftar_riwayat_penyakit');
@@ -14,6 +14,12 @@ class Pendaftar extends Model
 
     public function riwayatSaudara()
     {
-        return $this->belongsTo(Saudara::class);
+        return $this->belongsTo(Saudara::class, 'saudaras_id');
+    }
+
+    // Di model Anda (misalnya ModelA)
+    public function saudaras()
+    {
+        return $this->belongsTo(Saudara::class, 'saudaras_id');
     }
 }

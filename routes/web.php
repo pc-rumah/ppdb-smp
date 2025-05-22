@@ -1,20 +1,22 @@
 <?php
 
-use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\FasilitasController;
-use App\Http\Controllers\GaleriController;
-use App\Http\Controllers\KeunggulanController;
-use App\Http\Controllers\KontakController;
-use App\Http\Controllers\PendaftarController;
+use App\Exports\PendaftarExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PPDBController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RsaudaraController;
-use App\Http\Controllers\SakitController;
 use App\Http\Controllers\StafController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\SakitController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RsaudaraController;
+use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\PendaftarController;
+use App\Http\Controllers\KeunggulanController;
+use App\Http\Controllers\AnnouncementController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
@@ -43,6 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('sakit', SakitController::class);
     Route::resource('saudara', RsaudaraController::class);
     Route::resource('/staff', StafController::class);
+
+    //export excel
+    Route::get('/export-pendaftar', function () {
+        return Excel::download(new PendaftarExport, 'pendaftar.xlsx');
+    });
 
     Route::resource('pendaftar', PendaftarController::class);
     Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');
