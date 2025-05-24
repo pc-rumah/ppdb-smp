@@ -135,6 +135,13 @@
                     class="input input-bordered w-full" required>
             </div>
 
+            <div class="form-group" id="form-piagam">
+                <label for="piagam" class="label required">Upload Piagam (Bila Ada)</label>
+                <input type="file" id="piagam" name="piagam" class="file-input file-input-bordered w-full"
+                    accept="image/*,application/pdf">
+                <p class="text-xs mt-1">Format: JPG, PNG, atau PDF. Maksimal 2MB.</p>
+            </div>
+
             <div class="form-group hidden" id="form-grouppembayaran">
                 <label for="bukti_pembayaran" class="label required">Bukti Pembayaran</label>
                 <input type="file" id="bukti_pembayaran" name="bukti_pembayaran"

@@ -43,6 +43,7 @@ class PPDBController extends Controller
             'riwayat_saudara' => 'required',
             'penanggung_jawab' => 'required|string|max:255',
             'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'piagam' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
         ]);
 
         $lastPendaftar = Pendaftar::latest()->first();
@@ -52,6 +53,11 @@ class PPDBController extends Controller
         $buktiPembayaranPath = null;
         if ($request->hasFile('bukti_pembayaran')) {
             $buktiPembayaranPath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+        }
+
+        $piagamPath = null;
+        if ($request->hasFile('piagam')) {
+            $piagamPath = $request->file('piagam')->store('piagam', 'public');
         }
 
         $pendaftar = Pendaftar::create([
@@ -76,6 +82,7 @@ class PPDBController extends Controller
             'saudaras_id' => $request->riwayat_saudara,
             'penanggung_jawab' => $request->penanggung_jawab,
             'bukti_pembayaran' => $buktiPembayaranPath,
+            'piagam_penghargaan' => $piagamPath,
         ]);
 
         // Generate Bukti Pendaftaran PDF (Optional jika kamu ingin tetap buat PDF juga)
