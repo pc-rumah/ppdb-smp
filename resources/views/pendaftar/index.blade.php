@@ -80,10 +80,13 @@
                                                     <td>{{ ucfirst($item->jenis_pendaftaran) }}</td>
                                                     <td>{{ $item->asal_sekolah }}</td>
                                                     <td>
-                                                        <span
-                                                            class="badge {{ $item->administrasi_lunas ? 'bg-success' : 'bg-danger' }}">
-                                                            {{ $item->administrasi_lunas ? 'Lunas' : 'Belum' }}
-                                                        </span>
+                                                        @if ($item->administrasi_lunas == 'menunggu')
+                                                            Menunggu Verifikasi
+                                                        @elseif ($item->administrasi_lunas == 'lunas')
+                                                            Lunas
+                                                        @else
+                                                            Belum Lunas
+                                                        @endif
                                                     </td>
                                                     <td>{{ $item->no_wa }}</td>
                                                     <td class="d-flex gap-2">

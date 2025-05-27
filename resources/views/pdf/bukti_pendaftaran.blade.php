@@ -251,7 +251,12 @@
                     <tr>
                         <td colspan="2" class="indent">1. Biaya Pendaftaran</td>
                         <td>:</td>
-                        <td>{{ $pendaftar->administrasi_lunas }}</td>
+                        <td>
+                            {{-- {{ dd($pendaftar->administrasi_lunas) }} --}}
+
+                            {{ $pendaftar->administrasi_lunas == 1 ? 'Lunas' : 'Menunggu Verifikasi' }}
+                        </td>
+
                     </tr>
                     <tr>
                         <td colspan="2" class="indent">2. FC. Kartu Keluarga (2)</td>

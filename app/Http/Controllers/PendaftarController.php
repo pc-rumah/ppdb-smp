@@ -106,6 +106,7 @@ class PendaftarController extends Controller
             'no_wa' => $request->no_wa,
             'email' => $request->email,
             'asal_sekolah' => $request->asal_sekolah,
+            'administrasi_lunas' => false,
             'saudaras_id' => $request->riwayat_saudara,
             'penanggung_jawab' => $request->penanggung_jawab,
             'bukti_pembayaran' => $buktiPembayaranPath,
@@ -115,7 +116,7 @@ class PendaftarController extends Controller
         // Generate Bukti Pendaftaran PDF (Optional jika kamu ingin tetap buat PDF juga)
         if ($request->jenis_pendaftaran === 'online') {
             $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
-            $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '.pdf';
+            $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '-' . now()->timestamp . '.pdf';
             Storage::disk('public')->put($pdfPath, $pdf->output());
 
             $pendaftar->update([

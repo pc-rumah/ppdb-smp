@@ -17,6 +17,9 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\KeunggulanController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\MadrasahController;
+use App\Http\Controllers\PondokController;
+use App\Http\Controllers\SekolahController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
@@ -28,6 +31,15 @@ Route::get('/formppdb', [PPDBController::class, 'create'])->name('ppdb.create');
 Route::post('/formppdb', [PPDBController::class, 'store'])->name('ppdb.store');
 Route::get('/pendaftaran/sukses/{id}', [PPDBController::class, 'success'])->name('pendaftar.success');
 Route::get('formppdb/{pendaftar}/download', [PPDBController::class, 'download'])->name('ppdb.download');
+
+//3-landing
+Route::get('/landing/madrasah', [MadrasahController::class, 'home'])->name('madrasah.home');
+Route::get('/landing/sekolah', [SekolahController::class, 'home'])->name('sekolah.home');
+Route::get('/landing/pondok', [PondokController::class, 'home'])->name('pondok.home');
+
+Route::resource('madrasah', MadrasahController::class);
+Route::resource('sekolah', SekolahController::class);
+Route::resource('pondok', PondokController::class);
 
 
 Route::redirect('/admin', 'dashboard');

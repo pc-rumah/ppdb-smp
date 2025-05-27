@@ -9,6 +9,9 @@ use App\Models\Galeri;
 use App\Models\Welcome;
 use App\Models\Announcement;
 use App\Models\Kontak;
+use App\Models\Madrasah;
+use App\Models\Pondok;
+use App\Models\Sekolah;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -17,13 +20,18 @@ class WelcomeController extends Controller
     {
         $welcome = Welcome::first();
         $kontak = Kontak::first();
+
+        // $madrasah = Madrasah::first();
+        // $smp = Sekolah::first();
+        // $pondok = Pondok::first();
+
         $unit = Unit::latest()->take(3)->with(['fasilitas', 'keunggulan'])->get();
         $staf = Staff::latest()->take(4)->get();
         $event = Event::latest()->take(3)->get();
         $pengumuman = Announcement::latest()->take(3)->get();
         $galeri = Galeri::latest()->take(6)->get();
         if (!$welcome) {
-            // Buat dummy object agar tidak null
+
             $welcome = (object)[
                 'title1' => 'Selamat Datang di Sekolah Kami',
                 'description1' => 'Ini adalah deskripsi dummy slide pertama.',
@@ -34,11 +42,9 @@ class WelcomeController extends Controller
                 'title3' => 'Lingkungan Nyaman untuk Belajar',
                 'description3' => 'Ini adalah deskripsi dummy slide ketiga.',
                 'image3' => '',
-                // Kamu juga bisa tambahkan property dummy lain kalau perlu (about, contact, dll)
             ];
         }
 
-        // Buat array slide dari title1-title3, image1-image3, dll
         $slides = [
             [
                 'title' => $welcome->title1,
@@ -65,7 +71,10 @@ class WelcomeController extends Controller
             'slides' => $slides,
             'unit' => $unit,
             'kontak' => $kontak,
-            'welcome' => $welcome // Untuk bagian about, contact, dll
+            // 'madrasah' => $madrasah,
+            // 'sekolah' => $smp,
+            // 'pondok' => $pondok,
+            'welcome' => $welcome
         ]);
     }
 
@@ -94,7 +103,6 @@ class WelcomeController extends Controller
 
         $welcome = Welcome::first();
 
-        // Simpan data teks ke dalam array
         $data = [
             'title1' => $request->title1,
             'description1' => $request->description1,
@@ -104,7 +112,6 @@ class WelcomeController extends Controller
             'description3' => $request->description3,
         ];
 
-        // Handle file upload (hanya jika diisi)
         if ($request->hasFile('image1')) {
             $data['image1'] = $request->file('image1')->store('images', 'public');
         }
@@ -115,13 +122,11 @@ class WelcomeController extends Controller
             $data['image3'] = $request->file('image3')->store('images', 'public');
         }
 
-        // Jika belum ada data: create
         if (!$welcome) {
             Welcome::create($data);
             return redirect()->back()->with('success', 'Data berhasil ditambahkan.');
         }
 
-        // Jika sudah ada data: update
         $welcome->update($data);
         return redirect()->back()->with('success', 'Data berhasil diperbarui.');
     }
