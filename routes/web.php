@@ -37,6 +37,11 @@ Route::get('/landing/madrasah', [MadrasahController::class, 'home'])->name('madr
 Route::get('/landing/sekolah', [SekolahController::class, 'home'])->name('sekolah.home');
 Route::get('/landing/pondok', [PondokController::class, 'home'])->name('pondok.home');
 
+//manage 3-landing
+Route::get('/landing/madrasah/program', [MadrasahController::class, 'createprogram'])->name('bagan.program');
+Route::get('/landing/madrasah/prestasi', [MadrasahController::class, 'createprestasi'])->name('bagan.prestasi');
+
+
 Route::resource('madrasah', MadrasahController::class);
 Route::resource('sekolah', SekolahController::class);
 Route::resource('pondok', PondokController::class);

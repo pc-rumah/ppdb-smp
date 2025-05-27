@@ -148,6 +148,69 @@
                         <span class="hide-menu">Keunggulan</span>
                     </a>
                 </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Manage Unit Madrasah</span>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('madrasah*') ? 'active' : '' }}"
+                        href="{{ route('madrasah.create') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Bagan Cover</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('landing/madrasah/program') ? 'active' : '' }}"
+                        href="{{ route('bagan.program') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Bagan Program</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('landing/madrasah/prestasi') ? 'active' : '' }}"
+                        href="{{ route('bagan.prestasi') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Bagan Prestasi</span>
+                    </a>
+                </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Manage Unit Sekolah</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('sekolah*') ? 'active' : '' }}"
+                        href="{{ route('sekolah.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Sekolah</span>
+                    </a>
+                </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Manage Unit Pondok</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('pondok*') ? 'active' : '' }}"
+                        href="{{ route('pondok.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-article"></i>
+                        </span>
+                        <span class="hide-menu">Pondok</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

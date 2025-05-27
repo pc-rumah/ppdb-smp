@@ -1,69 +1,60 @@
 <section id="about" class="py-20 bg-neutral">
     <div class="container mx-auto px-4">
         <h2 class="text-4xl font-bold text-center mb-16">Unit Sekolah Kami</h2>
-        <!-- Primary School Modal -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @forelse ($unit as $item)
-                <div class="card bg-base-100 shadow-xl h-full flex flex-col">
-                    <figure class="h-64 overflow-hidden flex items-center justify-center">
-                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}"
-                            class="object-cover w-full h-full" />
-                    </figure>
-                    <div class="card-body flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3 class="card-title">{{ $item->judul }}</h3>
-                            <p>{{ $item->deskripsi }}</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            @php
+                $unitList = [
+                    [
+                        'judul' => 'Sekolah',
+                        'deskripsi' => 'Halaman Sekolah',
+                        'warna' => 'bg-blue-500',
+                        'url' => '/landing/sekolah',
+                        'icon' =>
+                            '<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5a12.083 12.083 0 01-6.16-10.922L12 14z" /></svg>',
+                    ],
+                    [
+                        'judul' => 'Madrasah',
+                        'deskripsi' => 'Halaman Madrasah',
+                        'warna' => 'bg-green-500',
+                        'url' => '/landing/madrasah',
+                        'icon' =>
+                            '<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>',
+                    ],
+                    [
+                        'judul' => 'Ponpes',
+                        'deskripsi' => 'Halaman Ponpes',
+                        'warna' => 'bg-purple-500',
+                        'url' => '/landing/pondok',
+                        'icon' =>
+                            '<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h4v11H3zM17 10h4v11h-4zM10 3h4v18h-4z" /></svg>',
+                    ],
+                    [
+                        'judul' => 'PPDB',
+                        'deskripsi' => 'Penerimaan Peserta Didik Baru online',
+                        'warna' => 'bg-orange-500',
+                        'url' => '/',
+                        'icon' =>
+                            '<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A11.952 11.952 0 0012 20c2.04 0 3.953-.51 5.633-1.404M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>',
+                    ],
+                ];
+            @endphp
+
+            @foreach ($unitList as $unit)
+                <div class="card bg-base-100 shadow-md border hover:shadow-lg transition duration-300">
+                    <div class="flex flex-col items-center text-center p-6">
+                        <div class="rounded-full p-4 mb-4 text-white {{ $unit['warna'] }}">
+                            {!! $unit['icon'] !!}
                         </div>
-                        <div class="card-actions justify-end mt-4">
-                            <button class="btn bg-primary hover:bg-primary/80"
-                                onclick="document.getElementById('modal-{{ $item->id }}').showModal()">
-                                Details
-                            </button>
-                        </div>
+                        <h3 class="text-xl font-bold mb-2">{{ $unit['judul'] }}</h3>
+                        <p class="text-sm text-gray-500 mb-4">{{ $unit['deskripsi'] }}</p>
+                        <a href="{{ $unit['url'] }}"
+                            class="btn w-full text-white {{ $unit['warna'] }} hover:opacity-90">
+                            Akses {{ $unit['judul'] }}
+                        </a>
                     </div>
                 </div>
-
-                <!-- Modal for this item -->
-                <dialog id="modal-{{ $item->id }}" class="modal">
-                    <div class="modal-box max-w-4xl">
-                        <form method="dialog">
-                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                        </form>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}"
-                                    class="rounded-lg w-full">
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-bold mb-4">{{ $item->judul }}</h3>
-                                <p class="mb-4">{{ $item->deskripsi }}</p>
-
-                                <h4 class="text-xl font-semibold mb-2">Fasilitas:</h4>
-                                <ul class="list-disc pl-5">
-                                    @forelse ($item->fasilitas as $fasilitas)
-                                        <li>{{ $fasilitas->name }}</li>
-                                    @empty
-                                        <li>Tidak ada Data</li>
-                                    @endforelse
-                                </ul>
-
-                                <h4 class="text-xl font-semibold mb-2">Keunggulan:</h4>
-                                <ul class="list-disc pl-5">
-                                    @forelse ($item->keunggulan as $keunggulan)
-                                        <li>{{ $keunggulan->name }}</li>
-                                    @empty
-                                        <li>Tidak ada Data</li>
-                                    @endforelse
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </dialog>
-            @empty
-                <div class="flex justify-center items-center">
-                    <h5 class="text-center">Tidak ada data</h5>
-                </div>
-            @endforelse
+            @endforeach
         </div>
     </div>
 </section>
