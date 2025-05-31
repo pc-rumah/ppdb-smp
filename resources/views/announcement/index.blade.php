@@ -35,6 +35,7 @@
                                                 <th scope="col">Judul</th>
                                                 <th scope="col">Tanggal</th>
                                                 <th scope="col">Deskripsi</th>
+                                                <th scope="col">Gambar</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -45,6 +46,15 @@
                                                     <td>{{ $item->judul }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
                                                     <td>{{ $item->deskripsi }}</td>
+                                                    <td>
+                                                        @if ($item->gambar)
+                                                            <div class="mt-2">
+                                                                <img src="{{ asset('storage/' . $item->gambar) }}"
+                                                                    alt="Gambar"
+                                                                    style="width: 100px; height: auto; border-radius: 4px;">
+                                                            </div>
+                                                        @endif
+                                                    </td>
                                                     <td class="d-flex gap-2">
                                                         <a href="{{ route('pengumuman.edit', $item) }}"
                                                             class="btn btn-primary">Edit</a>

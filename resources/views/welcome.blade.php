@@ -49,12 +49,6 @@
     <!-- About Section -->
     @include('layouts.welcomebagan.about')
 
-    <!-- Staff & Teachers Section (Preview) -->
-    {{-- @include('layouts.welcomebagan.staff')
-
-    <!-- Gallery Section -->
-    @include('layouts.welcomebagan.gallery') --}}
-
     <!-- Registration Process -->
     @include('layouts.welcomebagan.registration')
 

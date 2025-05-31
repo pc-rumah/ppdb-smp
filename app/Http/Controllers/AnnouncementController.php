@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnnouncementController extends Controller
 {
@@ -20,16 +21,22 @@ class AnnouncementController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|date',
             'deskripsi' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        Announcement::create($validatedData);
+        $data = $request->only(['judul', 'tanggal', 'deskripsi']);
 
-        return redirect()->route('pengumuman.index')
-            ->with('success', 'Pengumuman berhasil dibuat.');
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+        }
+
+        Announcement::create($data);
+
+        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan.');
     }
 
     public function edit(Announcement $pengumuman)
@@ -43,7 +50,16 @@ class AnnouncementController extends Controller
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|date',
             'deskripsi' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        if ($request->hasFile('gambar')) {
+            if ($pengumuman->gambar && Storage::disk('public')->exists($pengumuman->gambar)) {
+                Storage::disk('public')->delete($pengumuman->gambar);
+            }
+
+            $validatedData['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+        }
 
         $pengumuman->update($validatedData);
 
@@ -53,6 +69,10 @@ class AnnouncementController extends Controller
 
     public function destroy(Announcement $pengumuman)
     {
+        if ($pengumuman->gambar && Storage::disk('public')->exists($pengumuman->gambar)) {
+            Storage::disk('public')->delete($pengumuman->gambar);
+        }
+
         $pengumuman->delete();
 
         return redirect()->route('pengumuman.index')

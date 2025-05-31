@@ -3,19 +3,26 @@
         <h2 class="text-4xl font-bold text-center mb-16">Acara & Pengumuman</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <!-- Announcements Column -->
             <div>
                 <h3 class="text-2xl font-bold mb-6 text-center">Pengumuman Terbaru</h3>
 
                 <div class="space-y-6">
-                    <!-- Announcement 1 -->
                     @foreach ($pengumuman as $item)
                         <div class="card bg-base-100 shadow-xl">
-                            <div class="card-body">
-                                <h4 class="card-title">{{ $item->judul }}</h4>
-                                <p class="text-sm text-gray-500">
-                                    {{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</p>
-                                <p>{{ $item->deskripsi }}</p>
+                            <div class="card-body flex flex-row items-center">
+                                <div class="flex-1">
+                                    <h4 class="card-title">{{ $item->judul }}</h4><br>
+                                    <p class="text-sm text-gray-500">
+                                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}
+                                    </p>
+                                    <p>{{ $item->deskripsi }}</p>
+                                </div>
+                                @if ($item->gambar)
+                                    <div class="w-32 h-32 ml-4">
+                                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="Gambar"
+                                            class="object-cover w-full h-full rounded">
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     @endforeach
