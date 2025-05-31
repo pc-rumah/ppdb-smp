@@ -29,7 +29,4 @@
             <li><a href="#kontak" class="hover:text-primary">Kontak</a></li>
         </ul>
     </div>
-    <div class="navbar-end">
-        <a class="btn btn-primary">Daftar Santri</a>
-    </div>
 </header>

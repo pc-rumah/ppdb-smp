@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cover;
+use App\Models\KategoriProgramPondok;
+use App\Models\Kegiatan;
+use App\Models\Pengasuh;
+use App\Models\ProgramPondok;
+use App\Models\SosmedPondok;
 use Illuminate\Http\Request;
 
 class PondokController extends Controller
@@ -9,59 +15,39 @@ class PondokController extends Controller
 
     public function home()
     {
-        return view('pondok');
+        $cover = Cover::first();
+        $pengasuh = Pengasuh::all();
+        $sosmed = SosmedPondok::first();
+        $program = ProgramPondok::with('kategori')->get();
+        $kegiatan = Kegiatan::all();
+        return view('pondok', compact('cover', 'pengasuh', 'sosmed', 'program', 'kegiatan'));
     }
 
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $cover = Cover::first();
+        return view('manage3landing.pondok.cover', compact('cover'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'judul_pondok' => 'nullable|string|max:255',
+            'deskripsi_pondok' => 'nullable|string',
+            'cover_pondok' => 'nullable|image|max:2048',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $cover = Cover::first() ?? new Cover();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        if ($request->hasFile('cover_pondok')) {
+            $cover->cover_pondok = $request->file('cover_pondok')->store('landing_covers', 'public');
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $cover->judul_pondok = $request->judul_pondok;
+        $cover->deskripsi_pondok = $request->deskripsi_pondok;
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $cover->save();
+
+        return redirect()->back()->with('success', 'Data berhasil disimpan atau diperbarui.');
     }
 }

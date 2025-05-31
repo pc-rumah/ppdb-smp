@@ -12,12 +12,11 @@
                 <li><a href="#staf">Staf & Guru</a></li>
                 <li><a href="#ekstrakurikuler">Ekstrakurikuler</a></li>
                 <li><a href="#prestasi">Prestasi</a></li>
-                <li><a href="#kontak">Kontak</a></li>
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
             <i class="fas fa-school text-primary"></i>
-            SMP Negeri 1 Harapan
+            {{ $cover->judul_smp }}
         </a>
     </div>
     <div class="navbar-center hidden lg:flex">
@@ -26,10 +25,6 @@
             <li><a href="#staf" class="hover:text-primary transition-colors">Staf & Guru</a></li>
             <li><a href="#ekstrakurikuler" class="hover:text-primary transition-colors">Ekstrakurikuler</a></li>
             <li><a href="#prestasi" class="hover:text-primary transition-colors">Prestasi</a></li>
-            <li><a href="#kontak" class="hover:text-primary transition-colors">Kontak</a></li>
         </ul>
-    </div>
-    <div class="navbar-end">
-        <a class="btn btn-primary">PPDB 2024</a>
     </div>
 </header>

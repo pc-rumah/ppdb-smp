@@ -10,7 +10,7 @@
                     <li class="breadcrumb-item active">Data Penyakit</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
         <div class="row">
             <div class="col-xl-12">
                 <div class="card  bg-info bg-gradient">
@@ -39,7 +39,7 @@
                                         <tbody>
                                             @forelse ($sakit as $item)
                                                 <tr>
-                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <th scope="row">{{ $sakit->firstItem() + $loop->index }}</th>
                                                     <td>{{ $item->nama }}</td>
                                                     <td class="d-flex gap-2">
                                                         <a href="{{ route('sakit.edit', $item) }}"
@@ -92,6 +92,7 @@
                                                     <td colspan="6" class="text-center">Tidak ada data</td>
                                                 </tr>
                                             @endforelse
+                                            {{ $sakit->links() }}
                                         </tbody>
                                     </table>
                                 </div>

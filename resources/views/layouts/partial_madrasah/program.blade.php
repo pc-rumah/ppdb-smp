@@ -7,33 +7,19 @@
             </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="card bg-base-200 shadow-xl card-hover">
-                <div class="card-body">
-                    <div class="text-primary text-4xl mb-4">
-                        <i class="fas fa-quran"></i>
+            @forelse ($program as $item)
+                <div class="card bg-base-200 shadow-xl card-hover">
+                    <div class="card-body">
+                        <div class="text-primary text-4xl mb-4">
+                            <i class="{{ $item->icon }}"></i>
+                        </div>
+                        <h3 class="card-title text-xl">{{ $item->title }}</h3>
+                        <p>{{ $item->description }}</p>
                     </div>
-                    <h3 class="card-title text-xl">Tahfidz Al-Quran</h3>
-                    <p>Program menghafal Al-Quran dengan metode yang mudah dan menyenangkan</p>
                 </div>
-            </div>
-            <div class="card bg-base-200 shadow-xl card-hover">
-                <div class="card-body">
-                    <div class="text-secondary text-4xl mb-4">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="card-title text-xl">Pendidikan Umum</h3>
-                    <p>Kurikulum nasional yang terintegrasi dengan nilai-nilai Islam</p>
-                </div>
-            </div>
-            <div class="card bg-base-200 shadow-xl card-hover">
-                <div class="card-body">
-                    <div class="text-accent text-4xl mb-4">
-                        <i class="fas fa-language"></i>
-                    </div>
-                    <h3 class="card-title text-xl">Bahasa Arab & Inggris</h3>
-                    <p>Program dwi bahasa untuk mempersiapkan siswa menghadapi era global</p>
-                </div>
-            </div>
+            @empty
+                <h2>tidak ada data</h2>
+            @endforelse
         </div>
     </div>
 </section>

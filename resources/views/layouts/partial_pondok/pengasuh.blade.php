@@ -7,48 +7,24 @@
             </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="card pengasuh-card shadow-xl card-traditional">
-                <figure class="px-6 pt-6">
-                    <div class="avatar">
-                        <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                            <img src="https://placehold.co/150x150" alt="KH. Ahmad Dahlan" />
+            @forelse ($pengasuh as $item)
+                <div class="card pengasuh-card shadow-xl card-traditional">
+                    <figure class="px-6 pt-6">
+                        <div class="avatar">
+                            <div class="w-32 rounded-full">
+                                <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama }}" />
+                            </div>
                         </div>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h3 class="card-title text-xl">{{ $item->nama }}</h3>
+                        <p class="text-sm text-base-content/70">{{ $item->jabatan }}</p>
+                        <p class="text-center">{{ $item->deskripsi }}</p>
                     </div>
-                </figure>
-                <div class="card-body items-center text-center">
-                    <h3 class="card-title text-xl">KH. Ahmad Dahlan</h3>
-                    <p class="text-sm text-base-content/70">Pengasuh Utama</p>
-                    <p class="text-center">Lulusan Al-Azhar Kairo, ahli dalam bidang Fiqh dan Tafsir</p>
                 </div>
-            </div>
-            <div class="card pengasuh-card shadow-xl card-traditional">
-                <figure class="px-6 pt-6">
-                    <div class="avatar">
-                        <div class="w-32 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
-                            <img src="https://placehold.co/150x150" alt="KH. Muhammad Yusuf" />
-                        </div>
-                    </div>
-                </figure>
-                <div class="card-body items-center text-center">
-                    <h3 class="card-title text-xl">KH. Muhammad Yusuf</h3>
-                    <p class="text-sm text-base-content/70">Pengasuh Senior</p>
-                    <p class="text-center">Pakar Hadits dan Ulum Al-Hadits, pengajar kitab Shahih Bukhari</p>
-                </div>
-            </div>
-            <div class="card pengasuh-card shadow-xl card-traditional">
-                <figure class="px-6 pt-6">
-                    <div class="avatar">
-                        <div class="w-32 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2">
-                            <img src="https://placehold.co/150x150" alt="Ustadz Abdullah" />
-                        </div>
-                    </div>
-                </figure>
-                <div class="card-body items-center text-center">
-                    <h3 class="card-title text-xl">Ustadz Abdullah</h3>
-                    <p class="text-sm text-base-content/70">Pengajar Nahwu Sharaf</p>
-                    <p class="text-center">Spesialis tata bahasa Arab dan metodologi pembelajaran kitab</p>
-                </div>
-            </div>
+            @empty
+                <h2>tidak ada data</h2>
+            @endforelse
         </div>
     </div>
 </section>

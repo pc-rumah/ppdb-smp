@@ -39,7 +39,7 @@
                                         <tbody>
                                             @forelse ($saudara as $item)
                                                 <tr>
-                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <th scope="row">{{ $saudara->firstItem() + $loop->index }}</th>
                                                     <td>{{ $item->nama }}</td>
                                                     <td class="d-flex gap-2">
                                                         <a href="{{ route('saudara.edit', $item) }}"
@@ -93,6 +93,7 @@
                                                 </tr>
                                             @endforelse
                                         </tbody>
+                                        {{ $saudara->links() }}
                                     </table>
                                 </div>
                                 <!-- End Default Table Example -->

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pendaftars', function (Blueprint $table) {
             $table->id();
-            $table->string('no_pendaftaran')->unique(); // bisa di-generate otomatis
+            $table->string('no_pendaftaran')->unique();
             $table->enum('jenis_pendaftaran', ['online', 'offline']);
             $table->string('nama_lengkap');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
@@ -29,6 +29,12 @@ return new class extends Migration
             $table->string('kabupaten_kota');
             $table->string('provinsi');
 
+            //berkas
+            $table->boolean('kk')->default(false);
+            $table->boolean('akte')->default(false);
+            $table->boolean('ktp')->default(false);
+            $table->boolean('rapot')->default(false);
+
             //data
             $table->string('nama_ayah');
             $table->string('nama_ibu');
@@ -37,8 +43,8 @@ return new class extends Migration
             $table->string('asal_sekolah');
             $table->boolean('administrasi_lunas')->default(false);
             $table->string('bukti_pembayaran')->nullable();
-            $table->string('bukti_pendaftaran')->nullable(); // hanya untuk online
-            $table->text('piagam_penghargaan')->nullable(); // bisa upload atau deskripsi
+            $table->string('bukti_pendaftaran')->nullable();
+            $table->text('piagam_penghargaan')->nullable();
             $table->foreignId('saudaras_id')->constrained();
             $table->string('penanggung_jawab');
             $table->timestamps();

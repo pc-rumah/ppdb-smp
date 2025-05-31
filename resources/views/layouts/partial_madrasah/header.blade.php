@@ -17,7 +17,7 @@
         </div>
         <a class="btn btn-ghost text-xl font-bold">
             <i class="fas fa-mosque text-primary"></i>
-            Madrasah Al-Hikmah
+            {{ $cover->judul_madrasah }}
         </a>
     </div>
     <div class="navbar-center hidden lg:flex">
@@ -28,8 +28,5 @@
             <li><a href="#prestasi" class="hover:text-primary">Prestasi</a></li>
             <li><a href="#kontak" class="hover:text-primary">Kontak</a></li>
         </ul>
-    </div>
-    <div class="navbar-end">
-        <a class="btn btn-primary">Daftar Sekarang</a>
     </div>
 </header>

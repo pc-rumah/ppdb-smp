@@ -41,6 +41,8 @@ class PPDBController extends Controller
             'asal_sekolah' => 'required|string|max:100',
             'riwayat_penyakit' => 'required|array',
             'riwayat_saudara' => 'required',
+            'berkas' => 'required|array|min:1',
+            'berkas.*' => 'in:KK,Akte,KTP,Rapot',
             'penanggung_jawab' => 'required|string|max:255',
             'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'piagam' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
@@ -80,22 +82,23 @@ class PPDBController extends Controller
             'email' => $request->email,
             'asal_sekolah' => $request->asal_sekolah,
             'administrasi_lunas' => false,
+            'kk' => in_array('KK', $request->berkas ?? []),
+            'akte' => in_array('Akte', $request->berkas ?? []),
+            'ktp' => in_array('KTP', $request->berkas ?? []),
+            'rapot' => in_array('Rapot', $request->berkas ?? []),
             'saudaras_id' => $request->riwayat_saudara,
             'penanggung_jawab' => $request->penanggung_jawab,
             'bukti_pembayaran' => $buktiPembayaranPath,
             'piagam_penghargaan' => $piagamPath,
         ]);
 
-        // Generate Bukti Pendaftaran PDF (Optional jika kamu ingin tetap buat PDF juga)
-        if ($request->jenis_pendaftaran === 'online') {
-            $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
-            $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '-' . now()->timestamp . '.pdf';
-            Storage::disk('public')->put($pdfPath, $pdf->output());
+        $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
+        $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '-' . now()->timestamp . '.pdf';
+        Storage::disk('public')->put($pdfPath, $pdf->output());
 
-            $pendaftar->update([
-                'bukti_pendaftaran' => $pdfPath,
-            ]);
-        }
+        $pendaftar->update([
+            'bukti_pendaftaran' => $pdfPath,
+        ]);
 
         if ($request->has('riwayat_penyakit')) {
             $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);

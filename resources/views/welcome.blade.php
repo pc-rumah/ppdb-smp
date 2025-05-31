@@ -50,10 +50,10 @@
     @include('layouts.welcomebagan.about')
 
     <!-- Staff & Teachers Section (Preview) -->
-    @include('layouts.welcomebagan.staff')
+    {{-- @include('layouts.welcomebagan.staff')
 
     <!-- Gallery Section -->
-    @include('layouts.welcomebagan.gallery')
+    @include('layouts.welcomebagan.gallery') --}}
 
     <!-- Registration Process -->
     @include('layouts.welcomebagan.registration')

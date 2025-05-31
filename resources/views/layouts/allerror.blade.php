@@ -2,6 +2,11 @@
     @if (Session::has('success'))
         <div class="alert alert-success">{{ Session::get('success') }}</div>
     @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 </div>
 <div class="col-lg-4">
     @if ($errors->any())

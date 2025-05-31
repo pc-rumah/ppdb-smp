@@ -20,13 +20,6 @@ class WelcomeController extends Controller
     {
         $welcome = Welcome::first();
         $kontak = Kontak::first();
-
-        // $madrasah = Madrasah::first();
-        // $smp = Sekolah::first();
-        // $pondok = Pondok::first();
-
-        $unit = Unit::latest()->take(3)->with(['fasilitas', 'keunggulan'])->get();
-        $staf = Staff::latest()->take(4)->get();
         $event = Event::latest()->take(3)->get();
         $pengumuman = Announcement::latest()->take(3)->get();
         $galeri = Galeri::latest()->take(6)->get();
@@ -64,16 +57,11 @@ class WelcomeController extends Controller
         ];
 
         return view('welcome', [
-            'staf' => $staf,
             'galeri' => $galeri,
             'event' => $event,
             'pengumuman' => $pengumuman,
             'slides' => $slides,
-            'unit' => $unit,
             'kontak' => $kontak,
-            // 'madrasah' => $madrasah,
-            // 'sekolah' => $smp,
-            // 'pondok' => $pondok,
             'welcome' => $welcome
         ]);
     }

@@ -7,9 +7,16 @@
     </aside>
     <nav>
         <div class="grid grid-flow-col gap-4">
-            <a class="text-2xl hover:text-primary"><i class="fab fa-facebook"></i></a>
-            <a class="text-2xl hover:text-primary"><i class="fab fa-instagram"></i></a>
-            <a class="text-2xl hover:text-primary"><i class="fab fa-youtube"></i></a>
+            <a href="{{ $sosmed->facebook_pondok }}" class="text-2xl hover:text-primary transition-colors"><i
+                    class="fab fa-facebook"></i></a>
+            <a href="{{ $sosmed->insta_pondok }}" class="text-2xl hover:text-primary transition-colors"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="{{ $sosmed->youtube_pondok }}" class="text-2xl hover:text-primary transition-colors"><i
+                    class="fab fa-youtube"></i></a>
+            <a href="{{ $sosmed->twitter_pondok }}" class="text-2xl hover:text-primary transition-colors"><i
+                    class="fab fa-twitter"></i></a>
+            <a href="{{ $sosmed->tiktok_pondok }}" class="text-2xl hover:text-primary transition-colors"><i
+                    class="fab fa-tiktok"></i></a>
         </div>
     </nav>
 </footer>

@@ -8,18 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class StafController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $data = Staff::orderBy('created_at', 'desc')->paginate(5);
         return view('managestaff.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('managestaff.create');
@@ -27,7 +21,6 @@ class StafController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:255',
@@ -35,29 +28,20 @@ class StafController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        // Handle upload file jika ada
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('staff', 'public');
         }
 
-        // Simpan ke database
         Staff::create($validated);
 
-        // Redirect dengan pesan sukses
         return redirect()->route('staff.index')->with('success', 'Data staff berhasil disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $data = Staff::find($id);
@@ -76,12 +60,10 @@ class StafController extends Controller
         $data = $request->only(['name', 'position', 'description']);
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
             if ($staff->image && Storage::disk('public')->exists($staff->image)) {
                 Storage::disk('public')->delete($staff->image);
             }
 
-            // Upload gambar baru
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('staff', $filename, 'public');
@@ -94,10 +76,6 @@ class StafController extends Controller
         return redirect()->route('staff.index')->with('success', 'Data staff berhasil diperbarui.');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $data = Staff::find($id);

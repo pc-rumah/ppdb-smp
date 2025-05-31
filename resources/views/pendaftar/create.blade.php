@@ -136,7 +136,7 @@
             </div>
 
             <div class="form-group" id="form-piagam">
-                <label for="piagam" class="label required">Upload Piagam (Bila Ada)</label>
+                <label for="piagam" class="label">Upload Piagam (Bila Ada)</label>
                 <input type="file" id="piagam" name="piagam" class="file-input file-input-bordered w-full"
                     accept="image/*,application/pdf">
                 <p class="text-xs mt-1">Format: JPG, PNG, atau PDF. Maksimal 2MB.</p>
@@ -158,6 +158,32 @@
                         </div>
                         <button type="button" id="remove-file" class="btn btn-sm btn-error">Hapus</button>
                     </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="label required">Berkas yang dilampirkan (checklist yang sudah ada)</label>
+                <div class="flex flex-col gap-2">
+                    <label class="label cursor-pointer">
+                        <input type="checkbox" name="berkas[]" value="KK" class="checkbox checkbox-primary"
+                            required>
+                        <span class="label-text ml-2">Kartu Keluarga (KK)</span>
+                    </label>
+                    <label class="label cursor-pointer">
+                        <input type="checkbox" name="berkas[]" value="Akte" class="checkbox checkbox-primary"
+                            required>
+                        <span class="label-text ml-2">Akte Kelahiran</span>
+                    </label>
+                    <label class="label cursor-pointer">
+                        <input type="checkbox" name="berkas[]" value="KTP" class="checkbox checkbox-primary"
+                            required>
+                        <span class="label-text ml-2">KTP Orang Tua</span>
+                    </label>
+                    <label class="label cursor-pointer">
+                        <input type="checkbox" name="berkas[]" value="Rapot" class="checkbox checkbox-primary"
+                            required>
+                        <span class="label-text ml-2">Rapot Kelas 6 Semester 2</span>
+                    </label>
                 </div>
             </div>
 
