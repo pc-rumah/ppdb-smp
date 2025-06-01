@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class PendaftarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $pendaftar = Pendaftar::paginate(5);
@@ -21,9 +18,6 @@ class PendaftarController extends Controller
         return view('pendaftar.index', compact('pendaftar', 'saudara'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $riwayatPenyakitList = Sakit::all();
@@ -44,7 +38,6 @@ class PendaftarController extends Controller
 
         return back()->with('success', 'Status administrasi berhasil diperbarui.');
     }
-
 
     public function store(Request $request)
     {
@@ -68,10 +61,14 @@ class PendaftarController extends Controller
             'asal_sekolah' => 'required|string|max:100',
             'riwayat_penyakit' => 'required|array',
             'riwayat_saudara' => 'required',
+            'dokumen_tambahan' => 'nullable|array',
+            'dokumen_tambahan.*' => 'in:kk,akte,ktp,rapot',
             'penanggung_jawab' => 'required|string|max:255',
             'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:4096',
             'piagam' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
         ]);
+
+        // dd($request->riwayat_penyakit);
 
         $lastPendaftar = Pendaftar::latest()->first();
         $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
@@ -107,28 +104,30 @@ class PendaftarController extends Controller
             'email' => $request->email,
             'asal_sekolah' => $request->asal_sekolah,
             'administrasi_lunas' => false,
+            'kk'    => in_array('kk', $request->dokumen_tambahan ?? []),
+            'akte'  => in_array('akte', $request->dokumen_tambahan ?? []),
+            'ktp'   => in_array('ktp', $request->dokumen_tambahan ?? []),
+            'rapot' => in_array('rapot', $request->dokumen_tambahan ?? []),
             'saudaras_id' => $request->riwayat_saudara,
             'penanggung_jawab' => $request->penanggung_jawab,
             'bukti_pembayaran' => $buktiPembayaranPath,
             'piagam_penghargaan' => $piagamPath,
         ]);
 
-        // Generate Bukti Pendaftaran PDF (Optional jika kamu ingin tetap buat PDF juga)
-        if ($request->jenis_pendaftaran === 'online') {
-            $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
-            $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '-' . now()->timestamp . '.pdf';
-            Storage::disk('public')->put($pdfPath, $pdf->output());
+        $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
+        $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '-' . now()->timestamp . '.pdf';
+        Storage::disk('public')->put($pdfPath, $pdf->output());
 
-            $pendaftar->update([
-                'bukti_pendaftaran' => $pdfPath,
-            ]);
-        }
+        $pendaftar->update([
+            'bukti_pendaftaran' => $pdfPath,
+        ]);
 
         if ($request->has('riwayat_penyakit')) {
             $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);
         }
 
-        return view('pendaftar.success', compact('pendaftar'));
+        return redirect()->route('pendaftar.index')->with('success', 'Data Berhasil disimpan.');
+        // return view('pendaftar.success', compact('pendaftar'));
     }
 
     public function download(Pendaftar $pendaftar)
@@ -148,25 +147,16 @@ class PendaftarController extends Controller
         return view('pendaftar.show', compact('pendaftar'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

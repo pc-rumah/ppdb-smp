@@ -17,7 +17,7 @@
         </div>
         <a class="btn btn-ghost text-xl font-bold">
             <i class="fas fa-mosque text-primary"></i>
-            {{ $cover->judul_madrasah }}
+            {{ $cover->judul_madrasah ?? 'ini judul' }}
         </a>
     </div>
     <div class="navbar-center hidden lg:flex">

@@ -20,24 +20,31 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'judul' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
             'tanggal' => 'required|date',
             'waktu_mulai' => 'required|date_format:H:i',
-            'waktu_selesai' => [
-                'nullable',
-                'regex:/^([01]\d|2[0-3]):[0-5]\d$|^selesai$/'
-            ],
+            'waktu_type' => 'required|in:waktu,selesai',
+            'waktu_selesai_time' => 'required_if:waktu_type,waktu|nullable|date_format:H:i',
+            'waktu_selesai_text' => 'required_if:waktu_type,selesai|nullable|in:selesai',
             'deskripsi' => 'nullable|string',
-        ], [
-            'waktu_selesai.regex' => 'Format waktu selesai harus jam (HH:mm) atau "selesai".',
         ]);
 
-        Event::create($validated);
+        $waktu_selesai = $request->waktu_type === 'waktu'
+            ? $request->waktu_selesai_time
+            : 'selesai';
 
-        return redirect()->route('event.index')
-            ->with('success', 'Event created successfully.');
+        Event::create([
+            'judul' => $request->judul,
+            'lokasi' => $request->lokasi,
+            'tanggal' => $request->tanggal,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_selesai' => $waktu_selesai,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return redirect()->route('event.index')->with('success', 'Event created successfully.');
     }
 
     public function edit(Event $event)
@@ -47,24 +54,31 @@ class EventController extends Controller
 
     public function update(Request $request, Event $event)
     {
-        $validated = $request->validate([
+        $request->validate([
             'judul' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
             'tanggal' => 'required|date',
             'waktu_mulai' => 'required|date_format:H:i',
-            'waktu_selesai' => [
-                'nullable',
-                'regex:/^([01]\d|2[0-3]):[0-5]\d$|^selesai$/'
-            ],
+            'waktu_type' => 'required|in:waktu,selesai',
+            'waktu_selesai_time' => 'required_if:waktu_type,waktu|nullable|date_format:H:i',
+            'waktu_selesai_text' => 'required_if:waktu_type,selesai|nullable|in:selesai',
             'deskripsi' => 'nullable|string',
-        ], [
-            'waktu_selesai.regex' => 'Format waktu selesai harus jam (HH:mm) atau "selesai".',
         ]);
 
-        $event->update($validated);
+        $waktu_selesai = $request->waktu_type === 'waktu'
+            ? $request->waktu_selesai_time
+            : 'selesai';
 
-        return redirect()->route('event.index')
-            ->with('success', 'Event updated successfully.');
+        $event->update([
+            'judul' => $request->judul,
+            'lokasi' => $request->lokasi,
+            'tanggal' => $request->tanggal,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_selesai' => $waktu_selesai,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return redirect()->route('event.index')->with('success', 'Event updated successfully.');
     }
 
     public function destroy(Event $event)

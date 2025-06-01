@@ -8,6 +8,8 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('dash/assets/images/logos/favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('dash/assets/css/styles.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,27 +36,36 @@
     <script src="{{ asset('dash/assets/js/app.min.js') }}"></script>
     <script src="{{ asset('dash/assets/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="{{ asset('dash/assets/js/dashboard.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 
     <script>
-        // Tunggu sampai halaman selesai dimuat
         document.addEventListener('DOMContentLoaded', function() {
-            // Pilih semua alert
+            setTimeout(function() {
+                document.querySelectorAll('.alert').forEach(function(el) {
+                    // Tambahkan efek fade out
+                    el.classList.remove('show');
+                    el.classList.add('fade');
+                    // Hapus elemen dari DOM setelah 500ms
+                    setTimeout(() => el.remove(), 500);
+                });
+            }, 5000); // 5 detik
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
             const alerts = document.querySelectorAll('.alert');
 
             alerts.forEach(function(alert) {
-                // Setelah 5 detik, hilangkan alert dengan animasi fade out
                 setTimeout(function() {
                     alert.classList.add('fade');
                     alert.classList.add('show');
 
-                    // Setelah fade, sembunyikan total
                     alert.style.transition = 'opacity 0.5s ease';
                     alert.style.opacity = '0';
 
                     setTimeout(function() {
                         alert.remove();
-                    }, 500); // setelah animasi selesai (0.5 detik)
-                }, 5000); // tunggu 5 detik
+                    }, 500);
+                }, 5000);
             });
         });
 
@@ -75,8 +86,22 @@
 
             jenisPendaftaran.addEventListener('change', toggleBuktiPembayaran);
 
-            // Trigger saat load pertama kali (jika user reload)
             toggleBuktiPembayaran();
+        });
+
+        new TomSelect("#penyakit", {
+            plugins: ['remove_button'],
+            create: false,
+            maxItems: null,
+            placeholder: "Pilih penyakit...",
+            render: {
+                option: function(data, escape) {
+                    return '<div>' + escape(data.text) + '</div>';
+                },
+                item: function(data, escape) {
+                    return '<div>' + escape(data.text) + '</div>';
+                }
+            }
         });
 
         let currentPage = 1;
@@ -141,6 +166,24 @@
                 loadIcons();
             });
         });
+
+        const waktuRadio = document.getElementById('waktuRadio');
+        const selesaiRadio = document.getElementById('selesaiRadio');
+        const inputWaktu = document.getElementById('inputWaktu');
+        const inputSelesai = document.getElementById('inputSelesai');
+
+        function toggleInput() {
+            if (waktuRadio.checked) {
+                inputWaktu.classList.remove('d-none');
+                inputSelesai.classList.add('d-none');
+            } else {
+                inputWaktu.classList.add('d-none');
+                inputSelesai.classList.remove('d-none');
+            }
+        }
+
+        waktuRadio.addEventListener('change', toggleInput);
+        selesaiRadio.addEventListener('change', toggleInput);
     </script>
 </body>
 

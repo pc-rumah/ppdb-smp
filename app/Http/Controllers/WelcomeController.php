@@ -18,27 +18,45 @@ class WelcomeController extends Controller
 {
     public function welcome()
     {
-        $welcome = Welcome::first();
+        $welcome = Welcome::firstOrNew([]);
         $kontak = Kontak::first();
         $event = Event::latest()->take(3)->get();
         $pengumuman = Announcement::latest()->take(3)->get();
         $galeri = Galeri::latest()->take(6)->get();
-        if (!$welcome) {
 
-            $welcome = (object)[
-                'title1' => 'Selamat Datang di Sekolah Kami',
-                'description1' => 'Ini adalah deskripsi dummy slide pertama.',
-                'image1' => '',
-                'title2' => 'Fasilitas Lengkap dan Modern',
-                'description2' => 'Ini adalah deskripsi dummy slide kedua.',
-                'image2' => '',
-                'title3' => 'Lingkungan Nyaman untuk Belajar',
-                'description3' => 'Ini adalah deskripsi dummy slide ketiga.',
-                'image3' => '',
-            ];
+        $defaultWelcome = [
+            'title1' => 'Selamat Datang di Sekolah Kami',
+            'description1' => 'Ini adalah deskripsi dummy slide pertama.',
+            'image1' => '',
+            'title2' => 'Fasilitas Lengkap dan Modern',
+            'description2' => 'Ini adalah deskripsi dummy slide kedua.',
+            'image2' => '',
+            'title3' => 'Lingkungan Nyaman untuk Belajar',
+            'description3' => 'Ini adalah deskripsi dummy slide ketiga.',
+            'image3' => '',
+        ];
+
+        foreach ($defaultWelcome as $key => $value) {
+            if (empty($welcome->$key)) {
+                $welcome->$key = $value;
+            }
         }
 
-        $slides = [
+        $slides = $this->prepareSlides($welcome);
+
+        return view('welcome', compact(
+            'galeri',
+            'event',
+            'pengumuman',
+            'slides',
+            'kontak',
+            'welcome'
+        ));
+    }
+
+    protected function prepareSlides($welcome)
+    {
+        return [
             [
                 'title' => $welcome->title1,
                 'description' => $welcome->description1,
@@ -55,17 +73,7 @@ class WelcomeController extends Controller
                 'image' => $welcome->image3,
             ],
         ];
-
-        return view('welcome', [
-            'galeri' => $galeri,
-            'event' => $event,
-            'pengumuman' => $pengumuman,
-            'slides' => $slides,
-            'kontak' => $kontak,
-            'welcome' => $welcome
-        ]);
     }
-
 
     public function create()
     {
@@ -75,47 +83,44 @@ class WelcomeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'image1' => 'image|mimes:jpg,jpeg,png|max:2048',
-            'description1' => 'string|max:255',
-            'title1' => 'string|max:255',
+        $this->validateWelcomeData($request);
 
-            'image2' => 'image|mimes:jpg,jpeg,png|max:2048',
-            'description2' => 'string|max:255',
-            'title2' => 'string|max:255',
+        $data = $this->prepareWelcomeData($request);
 
-            'image3' => 'image|mimes:jpg,jpeg,png|max:2048',
-            'description3' => 'string|max:255',
-            'title3' => 'string|max:255',
-        ]);
+        $welcome = Welcome::firstOrNew([]);
+        $action = $welcome->exists ? 'diperbarui' : 'ditambahkan';
 
-        $welcome = Welcome::first();
+        $welcome->fill($data)->save();
 
-        $data = [
-            'title1' => $request->title1,
-            'description1' => $request->description1,
-            'title2' => $request->title2,
-            'description2' => $request->description2,
-            'title3' => $request->title3,
-            'description3' => $request->description3,
-        ];
+        return redirect()->back()->with('success', "Data berhasil $action.");
+    }
 
-        if ($request->hasFile('image1')) {
-            $data['image1'] = $request->file('image1')->store('images', 'public');
-        }
-        if ($request->hasFile('image2')) {
-            $data['image2'] = $request->file('image2')->store('images', 'public');
-        }
-        if ($request->hasFile('image3')) {
-            $data['image3'] = $request->file('image3')->store('images', 'public');
+    protected function validateWelcomeData(Request $request)
+    {
+        $rules = [];
+
+        for ($i = 1; $i <= 3; $i++) {
+            $rules["title$i"] = 'string|max:255';
+            $rules["description$i"] = 'string|max:255';
+            $rules["image$i"] = 'image|mimes:jpg,jpeg,png|max:2048';
         }
 
-        if (!$welcome) {
-            Welcome::create($data);
-            return redirect()->back()->with('success', 'Data berhasil ditambahkan.');
+        $request->validate($rules);
+    }
+
+    protected function prepareWelcomeData(Request $request)
+    {
+        $data = [];
+
+        for ($i = 1; $i <= 3; $i++) {
+            $data["title$i"] = $request->input("title$i");
+            $data["description$i"] = $request->input("description$i");
+
+            if ($request->hasFile("image$i")) {
+                $data["image$i"] = $request->file("image$i")->store('images', 'public');
+            }
         }
 
-        $welcome->update($data);
-        return redirect()->back()->with('success', 'Data berhasil diperbarui.');
+        return $data;
     }
 }

@@ -16,7 +16,7 @@
         </div>
         <a class="btn btn-ghost text-xl font-bold">
             <i class="fas fa-school text-primary"></i>
-            {{ $cover->judul_smp }}
+            {{ $cover->judul_smp ?? 'ini judul' }}
         </a>
     </div>
     <div class="navbar-center hidden lg:flex">

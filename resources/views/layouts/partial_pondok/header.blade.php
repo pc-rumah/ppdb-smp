@@ -12,12 +12,11 @@
                 <li><a href="#pengasuh">Pengasuh</a></li>
                 <li><a href="#program">Program</a></li>
                 <li><a href="#kegiatan">Kegiatan</a></li>
-                <li><a href="#kontak">Kontak</a></li>
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
             <i class="fas fa-moon text-primary"></i>
-            Pondok Darul Ulum
+            {{ $cover->judul_pondok ?? 'ini judul' }}
         </a>
     </div>
     <div class="navbar-center hidden lg:flex">
@@ -26,7 +25,6 @@
             <li><a href="#pengasuh" class="hover:text-primary">Pengasuh</a></li>
             <li><a href="#program" class="hover:text-primary">Program</a></li>
             <li><a href="#kegiatan" class="hover:text-primary">Kegiatan</a></li>
-            <li><a href="#kontak" class="hover:text-primary">Kontak</a></li>
         </ul>
     </div>
 </header>

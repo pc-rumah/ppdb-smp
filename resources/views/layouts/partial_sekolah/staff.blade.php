@@ -9,17 +9,19 @@
         <!-- Kepala Sekolah -->
         <div class="mb-16">
             <div class="card lg:card-side bg-base-200 shadow-xl max-w-4xl mx-auto">
-                <figure class="lg:w-1/3">
-                    <img src="{{ asset('storage/' . $kepsek->image_kepsek) }}" alt="Kepala Sekolah"
-                        class="w-full h-64 lg:h-full object-cover" />
-                </figure>
-                <div class="card-body lg:w-2/3">
-                    <h3 class="card-title text-2xl">{{ $kepsek->nama_kepsek }}</h3>
-                    <p class="text-lg text-primary font-semibold">Kepala Sekolah</p>
-                    <p class="text-base-content/80 leading-relaxed">
-                        {{ $kepsek->description_kepsek }}
-                    </p>
-                </div>
+                @isset($kepsek)
+                    <figure class="lg:w-1/3">
+                        <img src="{{ asset('storage/' . $kepsek->image_kepsek) }}" alt="Kepala Sekolah"
+                            class="w-full h-64 lg:h-full object-cover" />
+                    </figure>
+                    <div class="card-body lg:w-2/3">
+                        <h3 class="card-title text-2xl">{{ $kepsek->nama_kepsek }}</h3>
+                        <p class="text-lg text-primary font-semibold">Kepala Sekolah</p>
+                        <p class="text-base-content/80 leading-relaxed">
+                            {{ $kepsek->description_kepsek }}
+                        </p>
+                    </div>
+                @endisset
             </div>
         </div>
 

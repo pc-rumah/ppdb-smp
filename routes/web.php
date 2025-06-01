@@ -6,11 +6,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PPDBController;
 use App\Http\Controllers\StafController;
-use App\Http\Controllers\UnitController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SakitController;
 use App\Http\Controllers\EkstraController;
-use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KepsekController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PondokController;
@@ -22,12 +20,9 @@ use App\Http\Controllers\MadrasahController;
 use App\Http\Controllers\PengasuhController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\RsaudaraController;
-use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\SosmedSmpController;
-use App\Http\Controllers\KeunggulanController;
 use App\Http\Controllers\ItemProgramController;
-use App\Http\Controllers\KategoriProgramPondok;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\PrestasiMadrasahController;
 use App\Http\Controllers\SosmedPondokController;
@@ -115,7 +110,7 @@ Route::middleware('auth')->group(function () {
 
     //staff aka smp
     Route::middleware('role:staff')->group(function () {
-        Route::resource('/staff', StafController::class);
+        Route::resource('staff', StafController::class);
         Route::resource('sekolah', SekolahController::class);
         Route::resource('ekstra', EkstraController::class);
         Route::resource('prestasi', PrestasiController::class);
@@ -149,9 +144,9 @@ Route::middleware('auth')->group(function () {
         });
         Route::resource('sakit', SakitController::class);
         Route::resource('saudara', RsaudaraController::class);
+        Route::resource('pendaftar', PendaftarController::class);
     });
 
-    Route::resource('pendaftar', PendaftarController::class);
     Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');
     Route::get('pendaftar/{pendaftar}/download', [PendaftarController::class, 'download'])->name('pendaftar.download');
 });

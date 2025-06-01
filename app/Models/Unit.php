@@ -10,8 +10,6 @@ class Unit extends Model
 {
     protected $guarded = ['id'];
 
-
-
     public function fasilitas()
     {
         return $this->hasMany(Fasilitas::class, 'unit_id');

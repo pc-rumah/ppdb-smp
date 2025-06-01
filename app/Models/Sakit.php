@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sakit extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function pendaftar()
     {

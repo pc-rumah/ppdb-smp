@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Sakit;
+use App\Models\Saudara;
 use Illuminate\Database\Eloquent\Model;
 
 class Pendaftar extends Model
@@ -17,7 +19,6 @@ class Pendaftar extends Model
         return $this->belongsTo(Saudara::class, 'saudaras_id');
     }
 
-    // Di model Anda (misalnya ModelA)
     public function saudaras()
     {
         return $this->belongsTo(Saudara::class, 'saudaras_id');
