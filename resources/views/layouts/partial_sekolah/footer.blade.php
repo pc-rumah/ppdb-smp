@@ -3,7 +3,6 @@
         <i class="fas fa-school text-4xl text-primary"></i>
         <p class="font-bold text-xl">{{ $cover->judul_smp ?? 'ini footer' }}</p>
         <p>Sekolah Unggul Berkarakter</p>
-        <p>Blater Kab Semarang</p>
         <p>Copyright © {{ date('Y') }} - All rights reserved</p>
     </aside>
     <nav>

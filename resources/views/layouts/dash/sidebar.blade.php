@@ -31,6 +31,15 @@
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">MENU</span>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kelolausers*') ? 'active' : '' }}"
+                            href="{{ route('kelolausers.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kelola User</span>
+                        </a>
+                    </li>
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Konten Web</span>

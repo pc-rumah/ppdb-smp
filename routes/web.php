@@ -22,13 +22,14 @@ use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\RsaudaraController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\SosmedSmpController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ItemProgramController;
 use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\PrestasiMadrasahController;
 use App\Http\Controllers\SosmedPondokController;
 use App\Http\Controllers\ProgramPondokController;
 use App\Http\Controllers\SosmedMadrasahController;
 use App\Http\Controllers\ProgramMadrasahController;
+use App\Http\Controllers\PrestasiMadrasahController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
@@ -76,10 +77,6 @@ Route::get('/landing/madrasah', [MadrasahController::class, 'home'])->name('madr
 Route::get('/landing/sekolah', [SekolahController::class, 'home'])->name('sekolah.home');
 Route::get('/landing/pondok', [PondokController::class, 'home'])->name('pondok.home');
 
-// //done
-// Route::get('sekolah/program', [SekolahController::class, 'createprogram'])->name('program.sekolah');
-// Route::get('sekolah/prestasi', [SekolahController::class, 'createprestasi'])->name('prestasi.sekolah');
-
 Route::redirect('/admin', 'dashboard');
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -99,6 +96,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('saudara', RsaudaraController::class);
         Route::resource('/event', EventController::class);
         Route::resource('/pengumuman', AnnouncementController::class);
+
+        Route::resource('kelolausers', UserController::class);
 
         Route::get('/manage', [WelcomeController::class, 'welcome'])->name('manage');
         Route::get('/manage/create', [WelcomeController::class, 'create'])->name('manage.create');
