@@ -44,7 +44,7 @@
                                                 <th scope="col">Jenis Kelamin</th>
                                                 <th scope="col">Jenis Pendaftaran</th>
                                                 <th scope="col">Asal Sekolah</th>
-                                                <th scope="col">Status Pendaftaran</th>
+                                                <th scope="col">Status Pembayaran</th>
                                                 <th scope="col">No. WA</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
@@ -61,9 +61,9 @@
                                                     <td>{{ ucfirst($item->jenis_pendaftaran) }}</td>
                                                     <td>{{ $item->asal_sekolah }}</td>
                                                     <td>
-                                                        @if ($item->administrasi_lunas == 'menunggu')
+                                                        @if ($item->administrasi_lunas == '0')
                                                             Menunggu Verifikasi
-                                                        @elseif ($item->administrasi_lunas == 'lunas')
+                                                        @elseif ($item->administrasi_lunas == '1')
                                                             Lunas
                                                         @else
                                                             Belum Lunas
@@ -74,18 +74,18 @@
                                                         <a href="{{ route('pendaftar.show', $item) }}"
                                                             class="btn btn-primary btn-sm">Show</a>
 
-                                                        <a href="{{ route('pendaftar.edit', $item) }}"
+                                                        {{-- <a href="{{ route('pendaftar.edit', $item) }}"
                                                             class="btn btn-primary btn-sm">Edit</a>
 
                                                         <button type="button" class="btn btn-danger btn-sm"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#alert-hapus-kategori{{ $item->id }}">
                                                             Delete
-                                                        </button>
+                                                        </button> --}}
 
                                                         {{-- Modal Konfirmasi Hapus --}}
-                                                        <div class="modal fade"
-                                                            id="alert-hapus-kategori{{ $item->id }}" tabindex="-1"
+                                                        <div class="modal fade" id="alert-hapus-kategori{{ $item->id }}"
+                                                            tabindex="-1"
                                                             aria-labelledby="confirmDeleteModal{{ $item->id }}Label"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog">

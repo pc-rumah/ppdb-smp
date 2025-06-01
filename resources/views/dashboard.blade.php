@@ -89,20 +89,24 @@
             toggleBuktiPembayaran();
         });
 
-        new TomSelect("#penyakit", {
-            plugins: ['remove_button'],
-            create: false,
-            maxItems: null,
-            placeholder: "Pilih penyakit...",
-            render: {
-                option: function(data, escape) {
-                    return '<div>' + escape(data.text) + '</div>';
-                },
-                item: function(data, escape) {
-                    return '<div>' + escape(data.text) + '</div>';
+        const penyakitSelect = document.getElementById('penyakit');
+        if (penyakitSelect) {
+            new TomSelect("#penyakit", {
+                plugins: ['remove_button'],
+                create: false,
+                maxItems: null,
+                placeholder: "Pilih penyakit...",
+                render: {
+                    option: function(data, escape) {
+                        return '<div>' + escape(data.text) + '</div>';
+                    },
+                    item: function(data, escape) {
+                        return '<div>' + escape(data.text) + '</div>';
+                    }
                 }
-            }
-        });
+            });
+        }
+
 
         let currentPage = 1;
         let isLoading = false;

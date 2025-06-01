@@ -17,11 +17,13 @@
                 <label class="label required">Jenis Kelamin</label>
                 <div class="flex gap-4">
                     <label class="label cursor-pointer">
-                        <input type="radio" name="jenis_kelamin" value="Laki-laki" class="radio radio-primary" required>
+                        <input type="radio" name="jenis_kelamin" value="Laki-laki" class="radio radio-primary" required
+                            {{ old('jenis_kelamin') == 'Laki-laki' ? 'checked' : '' }}>
                         <span class="label-text ml-2">Laki-laki</span>
                     </label>
                     <label class="label cursor-pointer">
-                        <input type="radio" name="jenis_kelamin" value="Perempuan" class="radio radio-primary" required>
+                        <input type="radio" name="jenis_kelamin" value="Perempuan" class="radio radio-primary" required
+                            {{ old('jenis_kelamin') == 'Perempuan' ? 'checked' : '' }}>
                         <span class="label-text ml-2">Perempuan</span>
                     </label>
                 </div>
@@ -30,11 +32,13 @@
             <div class="form-group">
                 <label for="jenis_pendaftaran" class="label required">Jenis Pendaftaran</label>
                 <select id="jenis_pendaftaran" name="jenis_pendaftaran" class="select select-bordered w-full" required>
-                    <option value="" disabled selected>Pilih jenis pendaftaran</option>
-                    <option value="online">Online</option>
-                    <option value="offline">Offline</option>
+                    <option value="" disabled {{ old('jenis_pendaftaran') ? '' : 'selected' }}>Pilih jenis pendaftaran
+                    </option>
+                    <option value="online" {{ old('jenis_pendaftaran') == 'online' ? 'selected' : '' }}>Online</option>
+                    <option value="offline" {{ old('jenis_pendaftaran') == 'offline' ? 'selected' : '' }}>Offline</option>
                 </select>
             </div>
+
 
             <div class="form-group">
                 <label for="tempat_lahir" class="label required">Tempat Lahir</label>
@@ -44,8 +48,10 @@
 
             <div class="form-group">
                 <label for="tanggal_lahir" class="label required">Tanggal Lahir</label>
-                <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="input input-bordered w-full" required>
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="input input-bordered w-full"
+                    value="{{ old('tanggal_lahir') }}" required>
             </div>
+
         </div>
 
         <!-- Alamat -->

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nomor Pendaftaran ~ Nama Lengkap ~ PSB PP & SMP 2025</title>
+    <title>Bukti Pendaftaran</title>
     <style>
         /* Base Styles */
         body {
@@ -259,19 +259,19 @@
 
                     </tr>
                     <tr>
-                        <td colspan="2" class="indent">2. FC. Kartu Keluarga (2)</td>
+                        <td colspan="2" class="indent">2. FC. Kartu Keluarga</td>
                         <td>:</td>
-                        <td>1</td>
+                        <td>{{ $pendaftar->kk }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="indent">3. FC. Akta Kelahiran (2)</td>
+                        <td colspan="2" class="indent">3. FC. Akta Kelahiran</td>
                         <td>:</td>
-                        <td>1</td>
+                        <td>{{ $pendaftar->akte }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="indent">4. FC. Raport kelas 6 smt. 1 (2)</td>
+                        <td colspan="2" class="indent">4. FC. Raport kelas 6 smt. 1</td>
                         <td>:</td>
-                        <td>1</td>
+                        <td>{{ $pendaftar->rapot }}</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="indent">5. FC. Piagam *<em>jika ada</em></td>

@@ -3,21 +3,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-
+            <div class="">
+                <div class="">
                     <main id="main" class="main">
-                        <!-- Page Title -->
-                        <div class="pagetitle">
-                            <h4>Detail Pendaftar</h4>
-                            <nav>
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                    <li class="breadcrumb-item active">PPDB</li>
-                                </ol>
-                            </nav>
-                        </div><!-- End Page Title -->
-
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card">
@@ -100,6 +88,10 @@
                                                 <button type="submit" class="btn btn-success btn-sm ms-2">Update
                                                     Status</button>
                                             </form>
+                                            <a href="{{ route('admin.download', $pendaftar->id) }}"
+                                                class="btn btn-info mt-2">
+                                                Download Bukti
+                                            </a>
 
                                         </div>
                                     </div>

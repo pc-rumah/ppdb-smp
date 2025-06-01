@@ -144,6 +144,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('sakit', SakitController::class);
         Route::resource('saudara', RsaudaraController::class);
         Route::resource('pendaftar', PendaftarController::class);
+
+        Route::get('admin/{pendaftar}/download', [PendaftarController::class, 'download'])->name('admin.download');
     });
 
     Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');
