@@ -33,9 +33,9 @@ use App\Http\Controllers\PrestasiMadrasahController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
-Route::get('/staffpage', function () {
-    return view('staffpage');
-})->name('staffpage');
+// Route::get('/staffpage', function () {
+//     return view('staffpage');
+// })->name('staffpage');
 
 Route::get('/icons', function () {
     $path = public_path('icons.json');
@@ -108,7 +108,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //staff aka smp
-    Route::middleware('role:staff')->group(function () {
+    Route::middleware('role:staff|admin,web')->group(function () {
         Route::resource('staff', StafController::class);
         Route::resource('sekolah', SekolahController::class);
         Route::resource('ekstra', EkstraController::class);
@@ -118,7 +118,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //madrasah
-    Route::middleware('role:madrasah')->group(function () {
+    Route::middleware('role:madrasah|admin,web')->group(function () {
         Route::resource('sosmedmadrasah', SosmedMadrasahController::class);
         Route::resource('madrasah', MadrasahController::class);
         Route::resource('programmadrasah', ProgramMadrasahController::class);
@@ -126,7 +126,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //pondok
-    Route::middleware('role:pondok')->group(function () {
+    Route::middleware('role:pondok|admin,web')->group(function () {
         Route::resource('sosmedpondok', SosmedPondokController::class);
         Route::resource('pondok', PondokController::class)->middleware('role:pondok');
         Route::resource('kegiatanpondok', KegiatanController::class);
@@ -137,7 +137,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //ppdb
-    Route::middleware('role:ppdb')->group(function () {
+    Route::middleware('role:ppdb|admin,web')->group(function () {
         Route::get('/export-pendaftar', function () {
             return Excel::download(new PendaftarExport, 'pendaftar.xlsx');
         });

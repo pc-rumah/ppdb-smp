@@ -13,18 +13,20 @@
 </head>
 
 <body>
-    <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
-        <!-- Sidebar Start -->
+
         @include('layouts.dash.sidebar')
-        <!--  Sidebar End -->
-        <!--  Main wrapper -->
+
         <div class="body-wrapper">
             <!--  Header Start -->
             @include('layouts.dash.header')
             <!--  Header End -->
             <div class="container-fluid">
+                @if (Request::is('dashboard'))
+                    <h2>Selamat Datang {{ auth()->user()->name }}</h2>
+                @endif
+
                 @yield('content')
             </div>
         </div>

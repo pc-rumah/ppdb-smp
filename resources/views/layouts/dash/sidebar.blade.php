@@ -62,15 +62,6 @@
                             <span class="hide-menu">Setting Kontak</span>
                         </a>
                     </li>
-                    {{-- <li class="sidebar-item">
-                        <a class="sidebar-link {{ Request::is('staff*') ? 'active' : '' }}"
-                            href="{{ route('staff.index') }}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-article"></i>
-                            </span>
-                            <span class="hide-menu">Staff</span>
-                        </a>
-                    </li> --}}
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('event*') ? 'active' : '' }}"
                             href="{{ route('event.index') }}" aria-expanded="false">
@@ -89,18 +80,9 @@
                             <span class="hide-menu">Pengumuman</span>
                         </a>
                     </li>
-                    {{-- <li class="sidebar-item">
-                        <a class="sidebar-link {{ Request::is('galeri*') ? 'active' : '' }}"
-                            href="{{ route('galeri.index') }}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-article"></i>
-                            </span>
-                            <span class="hide-menu">Galeri</span>
-                        </a>
-                    </li> --}}
                 @endif
 
-                @if (Auth::user()->hasRole('ppdb'))
+                @if (Auth::user()->hasAnyRole(['ppdb', 'admiin']))
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">PPDB</span>
@@ -134,7 +116,7 @@
                     </li>
                 @endif
 
-                @if (Auth::user()->hasRole('madrasah'))
+                @if (Auth::user()->hasAnyRole(['madrasah', 'admin']))
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Manage Unit Madrasah</span>
@@ -181,7 +163,7 @@
                     </li>
                 @endif
 
-                @if (Auth::user()->hasRole('staff'))
+                @if (Auth::user()->hasAnyRole(['staff', 'admin']))
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Manage Unit Sekolah</span>
@@ -245,7 +227,7 @@
                     </li>
                 @endif
 
-                @if (Auth::user()->hasRole('pondok'))
+                @if (Auth::user()->hasAnyRole(['pondok', 'admin']))
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Manage Unit Pondok</span>
