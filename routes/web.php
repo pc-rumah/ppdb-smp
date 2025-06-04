@@ -33,10 +33,6 @@ use App\Http\Controllers\PrestasiMadrasahController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
-// Route::get('/staffpage', function () {
-//     return view('staffpage');
-// })->name('staffpage');
-
 Route::get('/icons', function () {
     $path = public_path('icons.json');
 

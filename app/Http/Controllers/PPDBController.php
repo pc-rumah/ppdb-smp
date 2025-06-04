@@ -52,44 +52,42 @@ class PPDBController extends Controller
         $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
         $noPendaftaran = 'SMP' . date('Y') . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
-        $buktiPembayaranPath = null;
-        if ($request->hasFile('bukti_pembayaran')) {
-            $buktiPembayaranPath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
-        }
+        $buktiPembayaranPath = $request->hasFile('bukti_pembayaran')
+            ? $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public')
+            : null;
 
-        $piagamPath = null;
-        if ($request->hasFile('piagam')) {
-            $piagamPath = $request->file('piagam')->store('piagam', 'public');
-        }
+        $piagamPath = $request->hasFile('piagam')
+            ? $request->file('piagam')->store('piagam', 'public')
+            : null;
 
         $pendaftar = Pendaftar::create([
-            'no_pendaftaran' => $noPendaftaran,
-            'nama_lengkap' => $request->nama_lengkap,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'jenis_pendaftaran' => $request->jenis_pendaftaran,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'dusun' => $request->dusun,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'desa_kelurahan' => $request->desa,
-            'kecamatan' => $request->kecamatan,
-            'kabupaten_kota' => $request->kabupaten,
-            'provinsi' => $request->provinsi,
-            'nama_ayah' => $request->nama_ayah,
-            'nama_ibu' => $request->nama_ibu,
-            'no_wa' => $request->no_wa,
-            'email' => $request->email,
-            'asal_sekolah' => $request->asal_sekolah,
+            'no_pendaftaran'      => $noPendaftaran,
+            'nama_lengkap'        => $request->nama_lengkap,
+            'jenis_kelamin'       => $request->jenis_kelamin,
+            'jenis_pendaftaran'   => $request->jenis_pendaftaran,
+            'tempat_lahir'        => $request->tempat_lahir,
+            'tanggal_lahir'       => $request->tanggal_lahir,
+            'dusun'               => $request->dusun,
+            'rt'                  => $request->rt,
+            'rw'                  => $request->rw,
+            'desa_kelurahan'      => $request->desa,
+            'kecamatan'           => $request->kecamatan,
+            'kabupaten_kota'      => $request->kabupaten,
+            'provinsi'            => $request->provinsi,
+            'nama_ayah'           => $request->nama_ayah,
+            'nama_ibu'            => $request->nama_ibu,
+            'no_wa'               => $request->no_wa,
+            'email'               => $request->email,
+            'asal_sekolah'        => $request->asal_sekolah,
             'administrasi_lunas' => false,
-            'kk' => in_array('KK', $request->berkas ?? []),
-            'akte' => in_array('Akte', $request->berkas ?? []),
-            'ktp' => in_array('KTP', $request->berkas ?? []),
-            'rapot' => in_array('Rapot', $request->berkas ?? []),
-            'saudaras_id' => $request->riwayat_saudara,
-            'penanggung_jawab' => $request->penanggung_jawab,
-            'bukti_pembayaran' => $buktiPembayaranPath,
-            'piagam_penghargaan' => $piagamPath,
+            'kk'                  => in_array('KK', $request->berkas ?? []),
+            'akte'                => in_array('Akte', $request->berkas ?? []),
+            'ktp'                 => in_array('KTP', $request->berkas ?? []),
+            'rapot'               => in_array('Rapot', $request->berkas ?? []),
+            'saudaras_id'         => $request->riwayat_saudara,
+            'penanggung_jawab'    => $request->penanggung_jawab,
+            'bukti_pembayaran'    => $buktiPembayaranPath,
+            'piagam_penghargaan'  => $piagamPath,
         ]);
 
         $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
@@ -115,8 +113,6 @@ class PPDBController extends Controller
 
     public function download(Pendaftar $pendaftar)
     {
-        // dd($pendaftar->bukti_pendaftaran, Storage::disk('public')->exists($pendaftar->bukti_pendaftaran));
-
         if ($pendaftar->bukti_pendaftaran && Storage::disk('public')->exists($pendaftar->bukti_pendaftaran)) {
             return response()->download(storage_path('app/public/' . $pendaftar->bukti_pendaftaran));
         }

@@ -11,7 +11,7 @@
                 <div class="card text-white shadow-xl" style="background-color: {{ $item->background_color }}">
                     <div class="card-body items-center text-center">
                         <div class="mb-2">
-                            <img src="{{ asset('storage/' . $item->foto) }}" alt="Piala" class="w-44 h-44">
+                            <img src="{{ asset('storage/' . $item->foto) }}" alt="🏆" class="w-44 h-44">
                         </div>
                         <h3 class="card-title text-lg">{{ $item->juara }}</h3>
                         <p class="text-sm">{{ $item->title }}</p>

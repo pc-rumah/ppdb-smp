@@ -20,11 +20,6 @@ class MadrasahController extends Controller
         return view('madrasah', compact('cover', 'sosmed', 'program', 'prestasi'));
     }
 
-    public function index()
-    {
-        //
-    }
-
     public function create()
     {
         $cover = Cover::first();

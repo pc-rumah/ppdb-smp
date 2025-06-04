@@ -68,8 +68,6 @@ class PendaftarController extends Controller
             'piagam' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
         ]);
 
-        // dd($request->riwayat_penyakit);
-
         $lastPendaftar = Pendaftar::latest()->first();
         $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
         $noPendaftaran = 'SMP' . date('Y') . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
@@ -127,13 +125,10 @@ class PendaftarController extends Controller
         }
 
         return redirect()->route('pendaftar.index')->with('success', 'Data Berhasil disimpan.');
-        // return view('pendaftar.success', compact('pendaftar'));
     }
 
     public function download(Pendaftar $pendaftar)
     {
-        // dd($pendaftar->bukti_pendaftaran, Storage::disk('public')->exists($pendaftar->bukti_pendaftaran));
-
         if ($pendaftar->bukti_pendaftaran && Storage::disk('public')->exists($pendaftar->bukti_pendaftaran)) {
             return response()->download(storage_path('app/public/' . $pendaftar->bukti_pendaftaran));
         }

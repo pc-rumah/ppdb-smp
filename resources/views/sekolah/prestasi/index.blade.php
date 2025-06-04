@@ -45,7 +45,8 @@
                                                     <th scope="row">
                                                         {{ $data->firstItem() + $loop->index }}
                                                     </th>
-                                                    <td><img src="{{ asset('storage/' . $item->foto) }}" width="50">
+                                                    <td><img src="{{ asset('storage/' . $item->foto) }}"
+                                                            alt="Tidak Ada Gambar" width="50">
                                                     </td>
                                                     <td>{{ $item->juara }}</td>
                                                     <td>{{ $item->title }}</td>

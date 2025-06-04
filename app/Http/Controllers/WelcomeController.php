@@ -6,23 +6,24 @@ use App\Models\Unit;
 use App\Models\Event;
 use App\Models\Staff;
 use App\Models\Galeri;
-use App\Models\Welcome;
-use App\Models\Announcement;
 use App\Models\Kontak;
-use App\Models\Madrasah;
 use App\Models\Pondok;
 use App\Models\Sekolah;
+use App\Models\Welcome;
+use App\Models\Madrasah;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class WelcomeController extends Controller
 {
     public function welcome()
     {
         $welcome = Welcome::firstOrNew([]);
-        $kontak = Kontak::first();
-        $event = Event::latest()->take(3)->get();
-        $pengumuman = Announcement::latest()->take(3)->get();
-        $galeri = Galeri::latest()->take(6)->get();
+        $kontak = Cache::remember('kontak_home', 300, fn() => Kontak::first());
+        $event = Cache::remember('event_home', 300, fn() => Event::latest()->take(3)->get());
+        $pengumuman = Cache::remember('pengumuman_home', 300, fn() => Announcement::latest()->take(3)->get());
+        $galeri = Cache::remember('galeri_home', 300, fn() => Galeri::latest()->take(6)->get());
 
         $defaultWelcome = [
             'title1' => 'Selamat Datang di Sekolah Kami',
@@ -44,14 +45,7 @@ class WelcomeController extends Controller
 
         $slides = $this->prepareSlides($welcome);
 
-        return view('welcome', compact(
-            'galeri',
-            'event',
-            'pengumuman',
-            'slides',
-            'kontak',
-            'welcome'
-        ));
+        return view('welcome', compact('galeri', 'event', 'pengumuman', 'slides', 'kontak', 'welcome'));
     }
 
     protected function prepareSlides($welcome)
