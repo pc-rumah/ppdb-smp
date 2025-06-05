@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="{{ asset('dash/assets/css/styles.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
+    <style>
+        .gambarPreview {
+            max-width: 200px;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 </head>
 

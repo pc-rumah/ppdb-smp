@@ -20,10 +20,10 @@ class WelcomeController extends Controller
     public function welcome()
     {
         $welcome = Welcome::firstOrNew([]);
-        $kontak = Cache::remember('kontak_home', 300, fn() => Kontak::first());
-        $event = Cache::remember('event_home', 300, fn() => Event::latest()->take(3)->get());
-        $pengumuman = Cache::remember('pengumuman_home', 300, fn() => Announcement::latest()->take(3)->get());
-        $galeri = Cache::remember('galeri_home', 300, fn() => Galeri::latest()->take(6)->get());
+        $kontak = Kontak::first();
+        $event = Event::latest()->take(3)->get();
+        $pengumuman = Announcement::latest()->take(3)->get();
+        $galeri = Galeri::latest()->take(6)->get();
 
         $defaultWelcome = [
             'title1' => 'Selamat Datang di Sekolah Kami',
@@ -47,6 +47,7 @@ class WelcomeController extends Controller
 
         return view('welcome', compact('galeri', 'event', 'pengumuman', 'slides', 'kontak', 'welcome'));
     }
+
 
     protected function prepareSlides($welcome)
     {

@@ -114,6 +114,16 @@
                             <span class="hide-menu">Saudara</span>
                         </a>
                     </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('assetbukti*') ? 'active' : '' }}"
+                            href="{{ route('assetbukti.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-alert-circle"></i>
+                            </span>
+                            <span class="hide-menu">Asset Bukti</span>
+                        </a>
+                    </li>
                 @endif
 
                 @if (Auth::user()->hasAnyRole(['madrasah', 'admin']))

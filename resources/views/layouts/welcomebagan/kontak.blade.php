@@ -82,7 +82,7 @@
                 <div class="card bg-base-100 shadow-xl">
                     <div class="card-body p-0 overflow-hidden rounded-xl">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.2403187350315!2d110.39453837460343!3d-7.213403870821946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7086c928bcd071%3A0xdd9bdad29f0c31ac!2sPondok%20Pesantren%20Al-Mas&#39;udiyyah!5e0!3m2!1sid!2sid!4v1747402934436!5m2!1sid!2sid"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.2287275136086!2d110.39694929999999!3d-7.2147293999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7086c9492e61ef%3A0xb942b6f928ce5967!2sAl-Mas&#39;udiyyah%20Putri%202%20Blater!5e0!3m2!1sid!2sid!4v1749138011145!5m2!1sid!2sid"
                             width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>

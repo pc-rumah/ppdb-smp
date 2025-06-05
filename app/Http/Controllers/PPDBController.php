@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssetBuktiPendaftaran;
 use App\Models\Sakit;
 use App\Models\Saudara;
 use App\Models\Pendaftar;
@@ -11,6 +12,12 @@ use Illuminate\Support\Facades\Storage;
 
 class PPDBController extends Controller
 {
+    public function preview($id)
+    {
+        $pendaftar = Pendaftar::findOrFail($id);
+        return view('pdf.bukti_pendaftaran', compact('pendaftar'));
+    }
+
     public function create()
     {
         $riwayatPenyakitList = Sakit::all();
@@ -41,7 +48,7 @@ class PPDBController extends Controller
             'asal_sekolah' => 'required|string|max:100',
             'riwayat_penyakit' => 'required|array',
             'riwayat_saudara' => 'required',
-            'berkas' => 'required|array|min:1',
+            'berkas' => 'array|min:1',
             'berkas.*' => 'in:KK,Akte,KTP,Rapot',
             'penanggung_jawab' => 'required|string|max:255',
             'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:2048',
@@ -90,7 +97,24 @@ class PPDBController extends Controller
             'piagam_penghargaan'  => $piagamPath,
         ]);
 
-        $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
+        $asset = AssetBuktiPendaftaran::first();
+        function base64_image($path)
+        {
+            return $path && file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
+        }
+
+        $logo_pondok_kiri = base64_image(public_path('storage/' . $asset->logo_pondok_kiri));
+        $logo_pondok_kanan = base64_image(public_path('storage/' . $asset->logo_pondok_kanan));
+        $tanda_tangan = base64_image(public_path('storage/' . $asset->tanda_tangan));
+
+
+        $pdf = Pdf::loadView('pdf.bukti_pendaftaran', [
+            'pendaftar' => $pendaftar,
+            'logo_kiri' => $logo_pondok_kiri,
+            'logo_kanan' => $logo_pondok_kanan,
+            'tanda_tangan' => $tanda_tangan,
+        ])->setPaper('a4', 'portrait');
+
         $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '-' . now()->timestamp . '.pdf';
         Storage::disk('public')->put($pdfPath, $pdf->output());
 

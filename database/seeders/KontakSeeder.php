@@ -16,7 +16,7 @@ class KontakSeeder extends Seeder
         Kontak::create([
             'no_telp' => '0888888',
             'alamat' => 'semarang, jawa tengah',
-            'email' => 'tes@example.com,'
+            'email' => 'tes@example.com'
         ]);
 
         $this->command->info('Seeder Kontak Berhasil');

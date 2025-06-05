@@ -46,7 +46,7 @@ class KegiatanController extends Controller
         return view('manage3landing.pondok.kegiatan.edit', compact('data'));
     }
 
-    public function update(Request $request, Kegiatan $kegiatan)
+    public function update(Request $request, Kegiatan $kegiatanpondok)
     {
         $validated = $request->validate([
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -56,15 +56,15 @@ class KegiatanController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($kegiatan->image && Storage::disk('public')->exists($kegiatan->image)) {
-                Storage::disk('public')->delete($kegiatan->image);
+            if ($kegiatanpondok->image && Storage::disk('public')->exists($kegiatanpondok->image)) {
+                Storage::disk('public')->delete($kegiatanpondok->image);
             }
-            $imagePath = $request->file('image')->store('kegiatan', 'public');
+            $imagePath = $request->file('image')->store('kegiatanpondok', 'public');
         } else {
-            $imagePath = $kegiatan->image;
+            $imagePath = $kegiatanpondok->image;
         }
 
-        $kegiatan->update([
+        $kegiatanpondok->update([
             'image' => $imagePath,
             'title' => $validated['title'],
             'time' => $validated['time'],

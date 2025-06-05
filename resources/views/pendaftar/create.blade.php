@@ -39,7 +39,6 @@
                 </select>
             </div>
 
-
             <div class="form-group">
                 <label for="tempat_lahir" class="label required">Tempat Lahir</label>
                 <input type="text" value="{{ old('tempat_lahir') }}" id="tempat_lahir" name="tempat_lahir"
@@ -51,7 +50,6 @@
                 <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="input input-bordered w-full"
                     value="{{ old('tanggal_lahir') }}" required>
             </div>
-
         </div>
 
         <!-- Alamat -->
@@ -154,7 +152,6 @@
                     class="file-input file-input-bordered w-full" accept="image/*,application/pdf" required>
                 <p class="text-xs mt-1">Format: JPG, PNG, atau PDF. Maksimal 2MB.</p>
 
-                <!-- File Preview Container -->
                 <div id="file-preview" class="file-preview">
                     <div id="preview-content"></div>
                     <div class="file-info">
@@ -168,52 +165,44 @@
             </div>
 
             <div class="form-group">
-                <label class="label required">Berkas yang dilampirkan (checklist yang sudah ada)</label>
+                <label class="label ">Berkas yang dilampirkan (checklist yang sudah ada)</label>
                 <div class="flex flex-col gap-2">
                     <label class="label cursor-pointer">
-                        <input type="checkbox" name="berkas[]" value="KK" class="checkbox checkbox-primary"
-                            required>
+                        <input type="checkbox" name="berkas[]" value="KK" class="checkbox checkbox-primary">
                         <span class="label-text ml-2">Kartu Keluarga (KK)</span>
                     </label>
                     <label class="label cursor-pointer">
-                        <input type="checkbox" name="berkas[]" value="Akte" class="checkbox checkbox-primary"
-                            required>
+                        <input type="checkbox" name="berkas[]" value="Akte" class="checkbox checkbox-primary">
                         <span class="label-text ml-2">Akte Kelahiran</span>
                     </label>
                     <label class="label cursor-pointer">
-                        <input type="checkbox" name="berkas[]" value="KTP" class="checkbox checkbox-primary"
-                            required>
+                        <input type="checkbox" name="berkas[]" value="KTP" class="checkbox checkbox-primary">
                         <span class="label-text ml-2">KTP Orang Tua</span>
                     </label>
                     <label class="label cursor-pointer">
-                        <input type="checkbox" name="berkas[]" value="Rapot" class="checkbox checkbox-primary"
-                            required>
+                        <input type="checkbox" name="berkas[]" value="Rapot" class="checkbox checkbox-primary">
                         <span class="label-text ml-2">Rapot Kelas 6 Semester 2</span>
                     </label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="label">Riwayat Penyakit</label>
-                <div class="flex flex-col gap-2">
+                <label for="riwayat_penyakit" class="label">Riwayat Penyakit</label>
+                <select name="riwayat_penyakit[]" id="riwayat_penyakit" multiple class="form-control tom-select">
                     @foreach ($riwayatPenyakitList as $penyakit)
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="riwayat_penyakit[]"
-                                value="{{ $penyakit->id }}" id="penyakit{{ $penyakit->id }}">
-                            <label class="form-check-label" for="penyakit{{ $penyakit->id }}">
-                                {{ $penyakit->nama }}
-                            </label>
-                        </div>
+                        <option value="{{ $penyakit->id }}">{{ $penyakit->nama }}</option>
                     @endforeach
-                </div>
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="riwayat_saudara" class="label">Saudara</label>
                 <select id="riwayat_saudara" name="riwayat_saudara" class="select select-bordered w-full">
-                    <option selected>Pilih</option>
+                    <option disabled {{ old('riwayat_saudara') ? '' : 'selected' }}>Pilih</option>
                     @foreach ($saudara as $item)
-                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        <option value="{{ $item->id }}" {{ old('riwayat_saudara') == $item->id ? 'selected' : '' }}>
+                            {{ $item->nama }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -225,7 +214,6 @@
             </div>
         </div>
 
-        <!-- Submit Button -->
         <div class="form-group mt-8 text-center">
             <button type="submit" class="btn btn-primary btn-wide">Daftar</button>
         </div>

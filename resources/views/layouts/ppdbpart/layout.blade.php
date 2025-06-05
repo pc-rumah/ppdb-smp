@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('formpartial/styles.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
 </head>
 
 <body>
@@ -30,4 +32,12 @@
         @yield('content')
 
         <script src="{{ asset('formpartial/script.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+        <script>
+            new TomSelect('.tom-select', {
+                plugins: ['remove_button'],
+                placeholder: 'Pilih riwayat penyakit...',
+            });
+        </script>
 </body>

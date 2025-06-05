@@ -11,10 +11,17 @@ use Illuminate\Support\Facades\Storage;
 
 class PendaftarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pendaftar = Pendaftar::paginate(5);
+        $query = Pendaftar::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $query->where('nama_lengkap', 'like', '%' . $request->search . '%');
+        }
+
+        $pendaftar = $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString();
         $saudara = Saudara::all();
+
         return view('pendaftar.index', compact('pendaftar', 'saudara'));
     }
 

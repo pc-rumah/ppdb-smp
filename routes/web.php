@@ -25,6 +25,7 @@ use App\Http\Controllers\SosmedSmpController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ItemProgramController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AssetBuktiPendaftaranController;
 use App\Http\Controllers\SosmedPondokController;
 use App\Http\Controllers\ProgramPondokController;
 use App\Http\Controllers\SosmedMadrasahController;
@@ -32,6 +33,8 @@ use App\Http\Controllers\ProgramMadrasahController;
 use App\Http\Controllers\PrestasiMadrasahController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
+
+Route::get('/pendaftar/{id}/preview', [PPDBController::class, 'preview'])->name('pendaftar.preview');
 
 Route::get('/icons', function () {
     $path = public_path('icons.json');
@@ -141,11 +144,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('saudara', RsaudaraController::class);
         Route::resource('pendaftar', PendaftarController::class);
 
-        Route::get('admin/{pendaftar}/download', [PendaftarController::class, 'download'])->name('admin.download');
-    });
+        Route::resource('assetbukti', AssetBuktiPendaftaranController::class);
 
-    Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');
-    Route::get('pendaftar/{pendaftar}/download', [PendaftarController::class, 'download'])->name('pendaftar.download');
+        Route::get('admin/{pendaftar}/download', [PendaftarController::class, 'download'])->name('admin.download');
+        Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');
+        Route::get('pendaftar/{pendaftar}/download', [PendaftarController::class, 'download'])->name('pendaftar.download');
+    });
 });
 
 require __DIR__ . '/auth.php';

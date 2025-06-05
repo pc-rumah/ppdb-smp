@@ -13,13 +13,11 @@
                         <div class="mb-3">
                             <label for="image" class="form-label">Gambar</label>
                             <input type="file" class="form-control" name="image">
+                            <small class="text-muted">Kosongkan jika tidak ingin mengganti gambar.</small><br>
                             @if ($data->image)
                                 <img src="{{ asset('storage/' . $data->image) }}" alt="Gambar Sebelumnya"
                                     class="img-thumbnail mb-2" style="max-height: 150px;">
                             @endif
-
-                            <input type="file" class="form-control" name="image">
-                            <small class="text-muted">Kosongkan jika tidak ingin mengganti gambar.</small>
                         </div>
 
                         <div class="mb-3">
@@ -29,7 +27,7 @@
 
                         <div class="mb-3">
                             <label for="time" class="form-label">Waktu</label>
-                            <input type="text" class="form-control" name="time" value="{{ $data->time }}" required>
+                            <input type="time" class="form-control" name="time" value="{{ $data->time }}" required>
                         </div>
 
                         <div class="mb-3">

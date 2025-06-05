@@ -24,13 +24,14 @@
                     $randomGradient = $gradients[array_rand($gradients)];
                 @endphp
                 <div
-                    class="stat bg-gradient-to-br {{ $randomGradient['from'] }} {{ $randomGradient['to'] }} text-primary-content rounded-lg">
-                    <div class="stat-figure text-secondary">
-                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="Trophy" class="w-32 h-32 opacity-70" />
+                    class="stat bg-gradient-to-br {{ $randomGradient['from'] }} {{ $randomGradient['to'] }} text-primary-content rounded-lg p-4 flex flex-col items-center">
+                    <div class="mb-4">
+                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="Trophy"
+                            class="w-32 h-32 object-cover rounded-full shadow-md" />
                     </div>
-                    <div>
+                    <div class="text-center text-black">
                         <div class="stat-title text-primary-content/70">{{ $item->gelar }}</div>
-                        <div class="stat-value">{{ $item->nama_kegiatan }}</div>
+                        <div class="text-lg">{{ $item->nama_kegiatan }}</div>
                         <div class="stat-desc text-primary-content/70">{{ $item->tingkat }}</div>
                     </div>
                 </div>
@@ -38,5 +39,6 @@
                 <h2>tidak ada data</h2>
             @endforelse
         </div>
+
     </div>
 </section>

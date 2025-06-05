@@ -34,6 +34,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <!-- Default Table -->
+                                <form action="{{ route('pendaftar.index') }}" method="GET" class="mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="search" value="{{ request('search') }}"
+                                            class="form-control" placeholder="Cari nama lengkap...">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                        <a href="{{ route('pendaftar.index') }}" class="btn btn-secondary ms-2">Reset</a>
+                                    </div>
+                                </form>
+
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -84,8 +93,8 @@
                                                         </button> --}}
 
                                                         {{-- Modal Konfirmasi Hapus --}}
-                                                        <div class="modal fade" id="alert-hapus-kategori{{ $item->id }}"
-                                                            tabindex="-1"
+                                                        <div class="modal fade"
+                                                            id="alert-hapus-kategori{{ $item->id }}" tabindex="-1"
                                                             aria-labelledby="confirmDeleteModal{{ $item->id }}Label"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog">

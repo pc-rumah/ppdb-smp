@@ -6,160 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bukti Pendaftaran</title>
     <style>
-        /* Base Styles */
         body {
-            font-family: 'Arial Narrow', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        /* Header Styles */
-        .header {
-            display: table;
-            width: 100%;
-        }
-
-        .logo {
-            width: 100px;
-        }
-
-        .logo img {
-            width: 77px;
-            height: 85px;
-            object-fit: contain;
-        }
-
-        .logo,
-        .title {
-            display: table-cell;
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .title h1 {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .title p {
+            font-family: Arial, sans-serif;
             font-size: 12px;
-            margin: 3px 0;
+            margin: 0;
+            padding: 0;
         }
 
-        .title .italic {
-            font-style: italic;
-        }
-
-        /* Main Content */
-        .content {
-            padding: 20px;
-        }
-
-        .main-title {
+        .kop {
             text-align: center;
-            margin-bottom: 10px;
         }
 
-        .main-title h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
+        .logo-kiri,
+        .logo-kanan {
+            width: 80px;
+            height: auto;
         }
 
-        /* Tables */
-        .data-table {
+        .table-identitas {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-top: 20px;
         }
 
-        .data-table th,
-        .data-table td {
-            border: 1px solid #000;
-            padding: 8px;
+        .table-identitas th {
+            background-color: #000;
+            color: #fff;
+            padding: 5px;
             text-align: left;
         }
 
-        .data-table th {
-            background-color: #000;
-            color: white;
-            font-weight: bold;
+        .table-identitas td {
+            border: 1px solid #000;
+            padding: 5px;
+            vertical-align: top;
         }
 
-        .data-table tr td:first-child {
-            width: 40%;
+        .header-table {
+            width: 100%;
         }
 
-        .data-table tr td:nth-child(2) {
-            width: 5%;
+        .header-table td {
             text-align: center;
+            vertical-align: top;
         }
 
-        .data-table tr td:last-child {
-            width: 55%;
+        .footer {
+            margin-top: 30px;
         }
 
-        .indent {
-            padding-left: 20px !important;
+        .qr-image {
+            margin-top: 10px;
+            display: flex;
+            align-items: right;
+            justify-content: right;
         }
 
-        /* QR and Notes */
-        .qr-section {
-            display: table;
+        .signature-table {
             width: 100%;
             margin-top: 30px;
         }
 
-        .qr-code,
-        .notes {
-            display: table-cell;
+        .signature-table td {
+            width: 50%;
             vertical-align: top;
-            padding: 10px;
-        }
-
-        .qr-code img {
-            width: 200px;
-            height: 200px;
-        }
-
-        .notes p {
-            margin-bottom: 8px;
-        }
-
-        .notes p:first-child {
-            font-weight: bold;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 40px;
-            text-align: right;
-        }
-
-        .signatures {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
-
-        .signature {
-            text-align: center;
-        }
-
-        .signature p:last-child {
-            margin-top: 50px;
         }
     </style>
 </head>
@@ -167,151 +77,160 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header">
-            <div class="logo">
-                <img src="{{ public_path('suratbukti/Image_001.png') }}" alt="Logo Pesantren"
-                    style="width: 77px; height: 85px;">
-            </div>
-            <div class="title">
-                <h1>PONDOK PESANTREN AL MAS'UDIYYAH PUTRI 02 SMP AL MAS'UDIYYAH BANDUNGAN</h1>
-                <p class="italic">Alamat : Dsn. Blater, Desa Jimbaran, Kec. Bandungan, Kab. Semarang 50661</p>
-                <p>Telp. (0298) 6072011 Email : smpblater01@gmail.com</p>
-            </div>
-            <div class="logo">
-                <img src="{{ public_path('suratbukti/Image_002.jpg') }}" alt="Logo Pesantren"
-                    style="width: 77px; height: 85px;">
-            </div>
-        </div>
+        <table class="header-table">
+            <tr>
+                <td style="width: 20%;">
+                    @if ($logo_kiri)
+                        <img src="{{ $logo_kiri }}" style="width: 100px;" alt="Logo Kiri">
+                    @endif
+                </td>
+                <td style="width: 60%;">
+                    <div class="kop">
+                        <strong>PONDOK PESANTREN AL MAS'UDIYYAH PUTRI update<br>
+                            02 SMP AL MAS'UDIYYAH BANDUNGAN</strong><br>
+                        <em>Alamat: Dsn. Blater, Desa Jimbaran, Kec. Bandungan, Kab. Semarang 50661<br>
+                            Telp. (0298) 6072011 Email : smpblater01@gmail.com</em>
+                    </div>
+                </td>
+                <td style="width: 20%;">
+                    @if ($logo_kanan)
+                        <img src="{{ $logo_kanan }}" style="width: 100px;" alt="Logo Kanan">
+                    @endif
+                </td>
+            </tr>
+        </table>
 
         <!-- Main Content -->
         <div class="content">
             <div class="main-title">
-                <h2>FORMULIR BUKTI PENDAFTARAN SANTRI BARU</h2>
-                <p>Tahun Ajaran 2025 / 2026</p>
+                <hr style="border: 5px black solid;">
+                <h2 style="text-align: center;">FORMULIR BUKTI PENDAFTARAN SANTRI BARU</h2>
+                <p style="text-align: center;">Tahun Ajaran 2025 / 2026</p>
             </div>
 
             <!-- Identity Table -->
-            <table class="data-table">
+            <table class="table-identitas">
                 <thead>
                     <tr>
-                        <th colspan="4">IDENTITAS</th>
+                        <th colspan="2">IDENTITAS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="2">Nomor Pendaftaran</td>
-                        <td>:</td>
+                        <td>Nomor Pendaftaran</td>
                         <td>{{ $pendaftar->no_pendaftaran }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Nama Lengkap</td>
-                        <td>:</td>
+                        <td>Nama Lengkap</td>
                         <td>{{ $pendaftar->nama_lengkap }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Tempat, Tanggal Lahir</td>
-                        <td>:</td>
+                        <td>Tempat, Tanggal Lahir</td>
                         <td>{{ $pendaftar->tempat_lahir }},
                             {{ \Carbon\Carbon::parse($pendaftar->tanggal_lahir)->format('d/m/Y') }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Alamat Lengkap</td>
-                        <td>:</td>
-                        <td>{{ $pendaftar->dusun }} RT {{ $pendaftar->rt }} RW {{ $pendaftar->rw }}
-                            {{ $pendaftar->kecamatan }} {{ $pendaftar->kabupaten_kota }}
-                            {{ $pendaftar->provinsi }}</td>
+                        <td>Alamat Lengkap</td>
+                        <td>
+                            {{ $pendaftar->dusun }} RT {{ $pendaftar->rt }} RW {{ $pendaftar->rw }},
+                            {{ $pendaftar->kecamatan }}, {{ $pendaftar->kabupaten_kota }},
+                            {{ $pendaftar->provinsi }}
+                        </td>
                     </tr>
                     <tr>
-                        <td colspan="2">Asal Sekolah</td>
-                        <td>:</td>
+                        <td>Asal Sekolah</td>
                         <td>{{ $pendaftar->asal_sekolah }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2">Nomor HP (WA)</td>
-                        <td>:</td>
+                        <td>Nomor HP (WA)</td>
                         <td>{{ $pendaftar->no_wa }}</td>
                     </tr>
                     <tr>
-                        <td>Nama Ayah :</td>
+                        <td>Nama Ayah</td>
                         <td>{{ $pendaftar->nama_ayah }}</td>
-                        <td>Nama Ibu :</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Ibu</td>
                         <td>{{ $pendaftar->nama_ibu }}</td>
                     </tr>
                 </tbody>
             </table>
 
-            <!-- Administration Table -->
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th colspan="4">ADMINISTRASI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="2" class="indent">1. Biaya Pendaftaran</td>
-                        <td>:</td>
-                        <td>
-                            {{-- {{ dd($pendaftar->administrasi_lunas) }} --}}
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+                <table class="data-table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="4">ADMINISTRASI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2" class="indent">1. Biaya Pendaftaran</td>
+                            <td>:</td>
+                            <td>{{ $pendaftar->administrasi_lunas == 1 ? 'Lunas' : 'Menunggu Verifikasi' }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="indent">2. FC. Kartu Keluarga</td>
+                            <td>:</td>
+                            <td>{{ $pendaftar->kk }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="indent">3. FC. Akta Kelahiran</td>
+                            <td>:</td>
+                            <td>{{ $pendaftar->akte }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="indent">4. FC. Raport kelas 6 smt. 1</td>
+                            <td>:</td>
+                            <td>{{ $pendaftar->rapot }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="indent">5. FC. Piagam *<em>jika ada</em></td>
+                            <td>:</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="indent">6. Kartu/Keterangan NISN</td>
+                            <td>:</td>
+                            <td>undefined</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                            {{ $pendaftar->administrasi_lunas == 1 ? 'Lunas' : 'Menunggu Verifikasi' }}
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="indent">2. FC. Kartu Keluarga</td>
-                        <td>:</td>
-                        <td>{{ $pendaftar->kk }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="indent">3. FC. Akta Kelahiran</td>
-                        <td>:</td>
-                        <td>{{ $pendaftar->akte }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="indent">4. FC. Raport kelas 6 smt. 1</td>
-                        <td>:</td>
-                        <td>{{ $pendaftar->rapot }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="indent">5. FC. Piagam *<em>jika ada</em></td>
-                        <td>:</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="indent">6. Kartu/Keterangan NISN</td>
-                        <td>:</td>
-                        <td>undefined</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- QR Code and Notes -->
-            <div class="qr-section">
-                <div class="qr-code">
-                    <img src="{{ public_path('suratbukti/Image_003.png') }}" alt="QR Code">
+                <div class="qr-image">
+                    @if ($tanda_tangan)
+                        <img src="{{ $tanda_tangan }}" style="width: 100px;" alt="TTD">
+                    @endif
                 </div>
-                <div class="notes">
-                    <p>Keterangan :</p>
-                    <p>1. Bukti ini WAJIB dibawa ketika DAFTAR ULANG</p>
-                    <p>2. Contact person : Ust. Achmad Faiyun (0896 7644 0222) atau Ust. Tesa Melasari (0831 0208 4108)
-                    </p>
-                </div>
+            </div>
+
+            <div class="notes">
+                <p><strong>Keterangan :</strong></p>
+                <p>1. Bukti ini WAJIB dibawa ketika DAFTAR ULANG</p>
+                <p>2. Contact person : Ust. Achmad Faiyun (0896 7644 0222) atau Ust. Tesa Melasari (0831 0208 4108)</p>
             </div>
 
             <!-- Footer -->
             <div class="footer">
                 <p>Bandungan, {{ $pendaftar->created_at->format('d/m/Y H:i:s') }}</p>
-                <div class="signatures">
-                    <div class="signature">
-                        <p>Orang Tua/Wali</p>
-                        <p>DUROTUL BADI'AH S.Pd</p>
-                    </div>
-                    <div class="signature">
-                        <p>Ketua Panitia PSB,</p>
-                        <p>Achmad Faizun, S.Pd.</p>
-                    </div>
-                </div>
+                <table class="signature-table">
+                    <tr>
+                        <td>
+                            <p style="text-align: center;">Orang Tua/Wali</p>
+                            <br>
+                            <br>
+                            <br>
+                            <p style="text-align: center">DUROTUL BADI'AH S.Pd</p>
+                        </td>
+                        <td style="text-align: right;">
+                            <p style="text-align: center;">Ketua Panitia PSB,</p>
+                            <br>
+                            <br>
+                            <br>
+                            <p style="text-align: center;">Achmad Faizun, S.Pd.</p>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
