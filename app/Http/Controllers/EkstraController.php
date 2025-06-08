@@ -47,13 +47,12 @@ class EkstraController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'icon' => 'required|string',
         ]);
 
         $ekstra = Ekstra::findOrFail($id);
         $ekstra->update($validated);
 
-        return redirect()->route('ekstra.index')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('ekstra.index')->with('success', 'Data ekstrakurikuler berhasil diperbarui!');
     }
 
     public function destroy(string $id)
@@ -61,6 +60,6 @@ class EkstraController extends Controller
         $data = Ekstra::findOrFail($id);
 
         $data->delete();
-        return redirect()->route('ekstra.index')->with('success', 'Data Berhasil di Hapus');
+        return redirect()->route('ekstra.index')->with('success', 'Data ekstrakurikuler Berhasil di Hapus');
     }
 }

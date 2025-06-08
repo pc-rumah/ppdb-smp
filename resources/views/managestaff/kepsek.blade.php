@@ -18,6 +18,11 @@
                         <div class="mb-3">
                             <label for="image" class="form-label">Foto</label>
                             <input type="file" name="image" class="form-control" id="image">
+                            <br>
+                            @if (isset($kepsek->image_kepsek))
+                                <img src="{{ asset('storage/' . $kepsek->image_kepsek) }}"
+                                    style="max-width: 200px; display: block;">
+                            @endif
                         </div>
 
                         <div class="mb-3">

@@ -15,9 +15,9 @@ class SekolahController extends Controller
     public function home()
     {
         $cover = Cover::first();
-        $staff = Staff::all();
-        $ekstra = Ekstra::all();
-        $prestasi = Prestasi::all();
+        $staff = Staff::inRandomOrder()->take(4)->get();
+        $ekstra = Ekstra::inRandomOrder()->take(6)->get();
+        $prestasi = Prestasi::inRandomOrder()->take(4)->get();
         $sosmed = SosmedSmp::first();
         $kepsek = Kepsek::first();
         return view('sekolah', compact('cover', 'staff', 'ekstra', 'prestasi', 'sosmed', 'kepsek'));

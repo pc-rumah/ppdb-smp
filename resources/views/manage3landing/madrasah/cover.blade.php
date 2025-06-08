@@ -4,21 +4,7 @@
     <div class="card bg-info bg-gradient">
         <div class="card-body">
             <h5 class="card-title fw-semibold mb-4">Bagan Cover</h5>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            @if (Session::has('error'))
-                <div class="alert alert-danger">{{ Session::get('error') }}</div>
-            @endif
-            @if (Session::has('success'))
-                <div class="alert alert-success">{{ Session::get('success') }}</div>
-            @endif
+            @include('layouts.semuaalert')
             <div class="card">
                 <div class="card-body">
                     <form method="POST" action="{{ route('madrasah.store') }}" enctype="multipart/form-data">
@@ -34,7 +20,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Gambar Cover</label>
-                            <input type="file" name="cover_madrasah" class="form-control" required>
+                            <input type="file" name="cover_madrasah" class="form-control">
                             <br>
                             @if (isset($cover->cover_madrasah))
                                 <img src="{{ asset('storage/' . $cover->cover_madrasah) }}"

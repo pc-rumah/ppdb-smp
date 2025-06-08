@@ -31,7 +31,7 @@
                 <div class="card staff-card shadow-lg">
                     <figure class="px-6 pt-6">
                         <div class="avatar">
-                            <div class="w-24 rounded-full">
+                            <div class="w-32 rounded-full">
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="Guru Matematika" />
                             </div>
                         </div>

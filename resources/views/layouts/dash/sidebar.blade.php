@@ -68,7 +68,7 @@
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
-                            <span class="hide-menu">Event</span>
+                            <span class="hide-menu">Acara Mendatang</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -185,7 +185,7 @@
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
-                            <span class="hide-menu">Bagan Cover Sekolah</span>
+                            <span class="hide-menu">Bagan Cover Smp</span>
                         </a>
                     </li>
 
@@ -205,7 +205,7 @@
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
-                            <span class="hide-menu">Staff</span>
+                            <span class="hide-menu">Staff Smp</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -214,7 +214,7 @@
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
-                            <span class="hide-menu">Ekstrakurikuler</span>
+                            <span class="hide-menu">Ekstra Smp</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -223,7 +223,7 @@
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
-                            <span class="hide-menu">Prestasi</span>
+                            <span class="hide-menu">Prestasi Smp</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -232,7 +232,7 @@
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
-                            <span class="hide-menu">Sosial Media</span>
+                            <span class="hide-menu">Sosial Media Smp</span>
                         </a>
                     </li>
                 @endif
@@ -288,7 +288,7 @@
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
-                            <span class="hide-menu">Kegiatan</span>
+                            <span class="hide-menu">Kegiatan Pondok</span>
                         </a>
                     </li>
 

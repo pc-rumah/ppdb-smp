@@ -20,7 +20,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Gambar Cover</label>
-                            <input type="file" name="cover_pondok" class="form-control" required>
+                            <input type="file" name="cover_pondok" class="form-control">
                             <br>
                             @if (isset($cover->cover_pondok))
                                 <img src="{{ asset('storage/' . $cover->cover_pondok) }}"

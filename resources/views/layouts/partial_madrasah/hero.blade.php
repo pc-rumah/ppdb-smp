@@ -9,7 +9,7 @@
                 {{ $cover->deskripsi_madrasah ?? 'ini deskripsi' }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-                <button class="btn btn-accent btn-lg">Pelajari Lebih Lanjut</button>
+                <a href="#program" class="btn btn-accent btn-lg">Pelajari Lebih Lanjut</a>
             </div>
         </div>
     </div>

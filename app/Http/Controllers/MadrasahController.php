@@ -15,8 +15,8 @@ class MadrasahController extends Controller
     {
         $cover = Cover::first();
         $sosmed = SosmedMadrasah::first();
-        $program = ProgramMadrasah::all();
-        $prestasi = PrestasiMadrasah::all();
+        $program = ProgramMadrasah::orderBy('created_at', 'desc')->take(6)->get();
+        $prestasi = PrestasiMadrasah::inRandomOrder()->take(3)->get();
         return view('madrasah', compact('cover', 'sosmed', 'program', 'prestasi'));
     }
 

@@ -49,7 +49,7 @@ class PrestasiMadrasahController extends Controller
         return view('manage3landing.madrasah.prestasi.edit', compact('data'));
     }
 
-    public function update(Request $request, PrestasiMadrasah $programmadrasah)
+    public function update(Request $request, PrestasiMadrasah $prestasimadrasah)
     {
         $request->validate([
             'gelar' => 'required|string|max:255',
@@ -58,7 +58,7 @@ class PrestasiMadrasahController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
         ]);
 
-        $gambar = $programmadrasah->gambar;
+        $gambar = $prestasimadrasah->gambar;
 
         if ($request->hasFile('gambar')) {
             if ($gambar && Storage::disk('public')->exists($gambar)) {
@@ -68,24 +68,24 @@ class PrestasiMadrasahController extends Controller
             $gambar = $request->file('gambar')->store('prestasi', 'public');
         }
 
-        $programmadrasah->update([
+        $prestasimadrasah->update([
             'gelar' => $request->gelar,
             'nama_kegiatan' => $request->nama_kegiatan,
             'tingkat' => $request->tingkat,
             'gambar' => $gambar,
         ]);
 
-        return redirect()->route('programmadrasah.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('prestasimadrasah.index')->with('success', 'Data Prestasi berhasil diperbarui.');
     }
 
-    public function destroy(PrestasiMadrasah $programmadrasah)
+    public function destroy(PrestasiMadrasah $prestasimadrasah)
     {
-        if ($programmadrasah->gambar && Storage::disk('public')->exists($programmadrasah->gambar)) {
-            Storage::disk('public')->delete($programmadrasah->gambar);
+        if ($prestasimadrasah->gambar && Storage::disk('public')->exists($prestasimadrasah->gambar)) {
+            Storage::disk('public')->delete($prestasimadrasah->gambar);
         }
 
-        $programmadrasah->delete();
+        $prestasimadrasah->delete();
 
-        return redirect()->route('programmadrasah.index')->with('success', 'Data berhasil dihapus.');
+        return redirect()->route('prestasimadrasah.index')->with('success', 'Data Prestasi berhasil dihapus.');
     }
 }

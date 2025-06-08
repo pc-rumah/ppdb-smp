@@ -10,9 +10,9 @@
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                 <li><a href="#beranda">Beranda</a></li>
                 <li><a href="#program">Program</a></li>
-                <li><a href="#kegiatan">Kegiatan</a></li>
+                <li><a href="#program">Program</a></li>
                 <li><a href="#prestasi">Prestasi</a></li>
-                <li><a href="#kontak">Kontak</a></li>
+                <li><a href="#footer">Kontak</a></li>
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
@@ -24,9 +24,8 @@
         <ul class="menu menu-horizontal px-1">
             <li><a href="#beranda" class="hover:text-primary">Beranda</a></li>
             <li><a href="#program" class="hover:text-primary">Program</a></li>
-            <li><a href="#kegiatan" class="hover:text-primary">Kegiatan</a></li>
             <li><a href="#prestasi" class="hover:text-primary">Prestasi</a></li>
-            <li><a href="#kontak" class="hover:text-primary">Kontak</a></li>
+            <li><a href="#footer" class="hover:text-primary">Kontak</a></li>
         </ul>
     </div>
 </header>

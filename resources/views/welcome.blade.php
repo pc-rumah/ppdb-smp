@@ -43,25 +43,24 @@
     <!-- Header -->
     @include('layouts.welcomebagan.header')
 
-    <!-- School Highlights with Carousel -->
+    <!-- carousel -->
     @include('layouts.welcomebagan.carousel')
 
-    <!-- About Section -->
+    <!-- section about -->
     @include('layouts.welcomebagan.about')
 
-    <!-- Registration Process -->
+    <!-- alur registrasi -->
     @include('layouts.welcomebagan.registration')
 
-    <!-- Events & Announcements -->
+    <!-- avent dan acara mendatang -->
     @include('layouts.welcomebagan.event')
 
-    <!-- Contact Section -->
+    <!-- kontak -->
     @include('layouts.welcomebagan.kontak')
 
     <!-- Footer -->
     @include('layouts.welcomebagan.footer')
 
-    <!-- Custom JavaScript -->
     <script src="{{ asset('landing/script.js') }}"></script>
 </body>
 

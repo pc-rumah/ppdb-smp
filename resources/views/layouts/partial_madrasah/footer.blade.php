@@ -1,4 +1,4 @@
-<footer class="footer footer-center p-10 bg-base-200 text-base-content">
+<footer id="footer" class="footer footer-center p-10 bg-base-200 text-base-content">
     <aside>
         <i class="fas fa-mosque text-4xl text-primary"></i>
         <p class="font-bold text-xl">{{ $cover->judul_madrasah ?? 'ini judul' }}</p>

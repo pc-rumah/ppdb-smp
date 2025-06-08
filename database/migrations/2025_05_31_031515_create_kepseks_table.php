@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_kepsek')->nullable();
             $table->string('image_kepsek')->nullable();
-            $table->string('description_kepsek')->nullable();
+            $table->text('description_kepsek')->nullable();
             $table->timestamps();
         });
     }

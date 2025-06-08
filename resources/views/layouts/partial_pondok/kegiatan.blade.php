@@ -10,10 +10,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Card 1 -->
             @forelse ($kegiatan as $item)
-                <div class="card bg-base-100 shadow-xl">
-                    <figure>
-                        <img src="{{ asset('storage/' . $item->image) }}" alt="Ilustrasi Qiyamul Lail" />
+                <div class="card bg-neutral-200 shadow-xl">
+                    <figure class="h-48  overflow-hidden">
+                        <img src="{{ asset('storage/' . $item->image) }}" alt="gambar kegiatan"
+                            class="mt-6 h-full object-cover" />
                     </figure>
+
                     <div class="card-body">
                         <h3 class="card-title text-primary">
                             {{ \Carbon\Carbon::parse($item->time)->format('H:i') }} – {{ $item->title }}

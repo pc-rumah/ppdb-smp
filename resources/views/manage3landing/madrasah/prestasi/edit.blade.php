@@ -3,34 +3,39 @@
 @section('content')
     <div class="card bg-info bg-gradient">
         <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Update Data Program</h5>
+            <h5 class="card-title fw-semibold mb-4">Update Data Prestasi</h5>
             @include('layouts.semuaalert')
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('programmadrasah.update', $data) }}">
+                    <form method="POST" action="{{ route('prestasimadrasah.update', $data->id) }}"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Program</label>
-                            <input type="text" name="nama" class="form-control" id="nama" aria-describedby=""
-                                value="{{ $data->title }}">
+                            <label for="gelar" class="form-label">Gelar</label>
+                            <input type="text" name="gelar" class="form-control" id="gelar"
+                                value="{{ $data->gelar }}" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="description" class="form-label">Deskripsi</label>
-                            <textarea type="text" name="description" class="form-control" id="description" aria-describedby="">{{ $data->description }}</textarea>
+                            <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
+                            <input type="text" name="nama_kegiatan" class="form-control" id="nama_kegiatan"
+                                value="{{ $data->nama_kegiatan }}" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="icon" class="form-label">Pilih Icon</label>
-                            <div class="d-flex align-items-center gap-3">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#iconPickerModal">
-                                    Pilih Icon
-                                </button>
-                                <input type="hidden" name="icon" id="iconInput" value="{{ $data->icon }}">
-                                <i id="iconPreview" class="{{ $data->icon }}" style="font-size: 1.5rem;"></i>
-                            </div>
+                            <label for="tingkat" class="form-label">Tingkat</label>
+                            <input type="text" name="tingkat" class="form-control" id="tingkat"
+                                value="{{ $data->tingkat }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="gambar" class="form-label">Gambar</label>
+                            <input type="file" name="gambar" class="form-control" id="gambar" accept="image/*"> <br>
+
+                            @if (isset($data->gambar))
+                                <img src="{{ asset('storage/' . $data->gambar) }}" style="max-width: 200px; display:block;">
+                            @endif
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>

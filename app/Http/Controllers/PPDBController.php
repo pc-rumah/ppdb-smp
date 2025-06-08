@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AssetBuktiPendaftaran;
 use App\Models\Sakit;
 use App\Models\Saudara;
 use App\Models\Pendaftar;
+use App\PendaftarService;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\AssetBuktiPendaftaran;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StorePendaftarRequest;
 
 class PPDBController extends Controller
 {
@@ -26,42 +28,17 @@ class PPDBController extends Controller
         return view('pendaftar.create', compact('riwayatPenyakitList', 'saudara'));
     }
 
-    public function store(Request $request)
+    public function store(StorePendaftarRequest $request, PendaftarService $pendaftarService)
     {
-        $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'jenis_pendaftaran' => 'required|in:online,offline',
-            'tempat_lahir' => 'required|max:255',
-            'tanggal_lahir' => 'required|date',
-            'dusun' => 'required|string|max:255',
-            'rt' => 'required|string|max:30',
-            'rw' => 'required|string|max:30',
-            'desa' => 'required|string|max:255',
-            'kecamatan' => 'required|string|max:50',
-            'kabupaten' => 'required|string|max:50',
-            'provinsi' => 'required|string|max:50',
-            'nama_ayah' => 'required|string|max:100',
-            'nama_ibu' => 'required|string|max:100',
-            'no_wa' => 'required|regex:/^[0-9]+$/|min:10|max:18',
-            'email' => 'required|email|max:100',
-            'asal_sekolah' => 'required|string|max:100',
-            'riwayat_penyakit' => 'required|array',
-            'riwayat_saudara' => 'required',
-            'berkas' => 'array|min:1',
-            'berkas.*' => 'in:KK,Akte,KTP,Rapot',
-            'penanggung_jawab' => 'required|string|max:255',
-            'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'piagam' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
-        ]);
-
-        $lastPendaftar = Pendaftar::latest()->first();
-        $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
-        $noPendaftaran = 'SMP' . date('Y') . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        $noPendaftaran = $pendaftarService->generateNoPendaftaran();
 
         $buktiPembayaranPath = $request->hasFile('bukti_pembayaran')
             ? $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public')
             : null;
+
+        $lastPendaftar = Pendaftar::latest()->first();
+        $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
+        $noPendaftaran = 'SMP' . date('Y') . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
         $piagamPath = $request->hasFile('piagam')
             ? $request->file('piagam')->store('piagam', 'public')
@@ -97,30 +74,9 @@ class PPDBController extends Controller
             'piagam_penghargaan'  => $piagamPath,
         ]);
 
-        $asset = AssetBuktiPendaftaran::first();
-        function base64_image($path)
-        {
-            return $path && file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
-        }
+        $pendaftarService->generateBuktiPendaftaran($pendaftar);
 
-        $logo_pondok_kiri = base64_image(public_path('storage/' . $asset->logo_pondok_kiri));
-        $logo_pondok_kanan = base64_image(public_path('storage/' . $asset->logo_pondok_kanan));
-        $tanda_tangan = base64_image(public_path('storage/' . $asset->tanda_tangan));
-
-
-        $pdf = Pdf::loadView('pdf.bukti_pendaftaran', [
-            'pendaftar' => $pendaftar,
-            'logo_kiri' => $logo_pondok_kiri,
-            'logo_kanan' => $logo_pondok_kanan,
-            'tanda_tangan' => $tanda_tangan,
-        ])->setPaper('a4', 'portrait');
-
-        $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '-' . now()->timestamp . '.pdf';
-        Storage::disk('public')->put($pdfPath, $pdf->output());
-
-        $pendaftar->update([
-            'bukti_pendaftaran' => $pdfPath,
-        ]);
+        $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);
 
         if ($request->has('riwayat_penyakit')) {
             $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);

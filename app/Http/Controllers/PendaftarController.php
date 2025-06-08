@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Sakit;
 use App\Models\Saudara;
 use App\Models\Pendaftar;
+use App\PendaftarService;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\AssetBuktiPendaftaran;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StorePendaftarRequest;
 
 class PendaftarController extends Controller
 {
@@ -46,48 +49,21 @@ class PendaftarController extends Controller
         return back()->with('success', 'Status administrasi berhasil diperbarui.');
     }
 
-    public function store(Request $request)
+    public function store(StorePendaftarRequest $request, PendaftarService $pendaftarService)
     {
-        $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'jenis_pendaftaran' => 'required|in:online,offline',
-            'tempat_lahir' => 'required|max:255',
-            'tanggal_lahir' => 'required|date',
-            'dusun' => 'required|string|max:255',
-            'rt' => 'required|string|max:30',
-            'rw' => 'required|string|max:30',
-            'desa' => 'required|string|max:255',
-            'kecamatan' => 'required|string|max:50',
-            'kabupaten' => 'required|string|max:50',
-            'provinsi' => 'required|string|max:50',
-            'nama_ayah' => 'required|string|max:100',
-            'nama_ibu' => 'required|string|max:100',
-            'no_wa' => 'required|regex:/^[0-9]+$/|min:10|max:18',
-            'email' => 'required|email|max:100',
-            'asal_sekolah' => 'required|string|max:100',
-            'riwayat_penyakit' => 'required|array',
-            'riwayat_saudara' => 'required',
-            'dokumen_tambahan' => 'nullable|array',
-            'dokumen_tambahan.*' => 'in:kk,akte,ktp,rapot',
-            'penanggung_jawab' => 'required|string|max:255',
-            'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:4096',
-            'piagam' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
-        ]);
+        $noPendaftaran = $pendaftarService->generateNoPendaftaran();
+
+        $buktiPembayaranPath = $request->hasFile('bukti_pembayaran')
+            ? $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public')
+            : null;
 
         $lastPendaftar = Pendaftar::latest()->first();
         $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
         $noPendaftaran = 'SMP' . date('Y') . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
-        $buktiPembayaranPath = null;
-        if ($request->hasFile('bukti_pembayaran')) {
-            $buktiPembayaranPath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
-        }
-
-        $piagamPath = null;
-        if ($request->hasFile('piagam')) {
-            $piagamPath = $request->file('piagam')->store('piagam', 'public');
-        }
+        $piagamPath = $request->hasFile('piagam')
+            ? $request->file('piagam')->store('piagam', 'public')
+            : null;
 
         $pendaftar = Pendaftar::create([
             'no_pendaftaran' => $noPendaftaran,
@@ -119,17 +95,9 @@ class PendaftarController extends Controller
             'piagam_penghargaan' => $piagamPath,
         ]);
 
-        $pdf = Pdf::loadView('pdf.bukti_pendaftaran', compact('pendaftar'));
-        $pdfPath = 'bukti_pendaftaran/' . $noPendaftaran . '-' . now()->timestamp . '.pdf';
-        Storage::disk('public')->put($pdfPath, $pdf->output());
+        $pendaftarService->generateBuktiPendaftaran($pendaftar);
 
-        $pendaftar->update([
-            'bukti_pendaftaran' => $pdfPath,
-        ]);
-
-        if ($request->has('riwayat_penyakit')) {
-            $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);
-        }
+        $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);
 
         return redirect()->route('pendaftar.index')->with('success', 'Data Berhasil disimpan.');
     }

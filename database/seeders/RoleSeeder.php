@@ -18,5 +18,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'staff']);
         Role::create(['name' => 'madrasah']);
         Role::create(['name' => 'pondok']);
+
+        $this->command->info('Seeder Role Berhasil');
     }
 }

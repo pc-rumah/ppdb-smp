@@ -37,7 +37,7 @@ class KegiatanController extends Controller
             'description' => $validated['description'],
         ]);
 
-        return redirect()->route('kegiatanpondok.index')->with('success', 'Data berhasil disimpan!');
+        return redirect()->route('kegiatanpondok.index')->with('success', 'Data Kegiatan berhasil disimpan!');
     }
 
     public function edit(string $id)
@@ -71,7 +71,7 @@ class KegiatanController extends Controller
             'description' => $validated['description'],
         ]);
 
-        return redirect()->route('kegiatanpondok.index')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('kegiatanpondok.index')->with('success', 'Data Kegiatan berhasil diperbarui!');
     }
 
     public function destroy(Kegiatan $kegiatanpondok)
@@ -81,6 +81,6 @@ class KegiatanController extends Controller
         }
         // dd($kegiatanpondok);
         $kegiatanpondok->delete();
-        return redirect()->back()->with('success', 'Data berhasil dihapus.');
+        return redirect()->back()->with('success', 'Data Kegiatan berhasil dihapus.');
     }
 }

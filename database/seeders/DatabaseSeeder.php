@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DataPenyakit::class);
         $this->call(DataSaudara::class);
         $this->call(KontakSeeder::class);
+        $this->call(WelcomeSeeder::class);
+        $this->call(CoverSeeder::class);
     }
 }

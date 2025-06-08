@@ -58,7 +58,7 @@ class EventController extends Controller
             'judul' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'waktu_mulai' => 'required|date_format:H:i',
+            'waktu_mulai' => 'required|date_format:H:i:s',
             'waktu_type' => 'required|in:waktu,selesai',
             'waktu_selesai_time' => 'required_if:waktu_type,waktu|nullable|date_format:H:i',
             'waktu_selesai_text' => 'required_if:waktu_type,selesai|nullable|in:selesai',

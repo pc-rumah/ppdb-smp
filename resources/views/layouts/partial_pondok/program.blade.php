@@ -27,7 +27,7 @@
                         </div>
                         <div class="flex-shrink-0">
                             <img src="{{ asset('storage/' . $item->foto) }}" alt="Kitab Image"
-                                class="w-44 h-auto rounded shadow-lg">
+                                class="w-32 h-auto rounded shadow-lg">
                         </div>
                     </div>
                 </div>

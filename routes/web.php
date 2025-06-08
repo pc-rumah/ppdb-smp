@@ -72,8 +72,8 @@ Route::get('/pendaftaran/sukses/{id}', [PPDBController::class, 'success'])->name
 Route::get('formppdb/{pendaftar}/download', [PPDBController::class, 'download'])->name('ppdb.download');
 
 //3-landing diakses user
-Route::get('/landing/madrasah', [MadrasahController::class, 'home'])->name('madrasah.home');
 Route::get('/landing/sekolah', [SekolahController::class, 'home'])->name('sekolah.home');
+Route::get('/landing/madrasah', [MadrasahController::class, 'home'])->name('madrasah.home');
 Route::get('/landing/pondok', [PondokController::class, 'home'])->name('pondok.home');
 
 Route::redirect('/admin', 'dashboard');
@@ -126,8 +126,8 @@ Route::middleware('auth')->group(function () {
 
     //pondok
     Route::middleware('role:pondok|admin,web')->group(function () {
+        Route::resource('pondok', PondokController::class);
         Route::resource('sosmedpondok', SosmedPondokController::class);
-        Route::resource('pondok', PondokController::class)->middleware('role:pondok');
         Route::resource('kegiatanpondok', KegiatanController::class);
         Route::get('pondok/program', [PondokController::class, 'createprogram'])->name('program.pondok');
         Route::resource('pengasuh', PengasuhController::class);

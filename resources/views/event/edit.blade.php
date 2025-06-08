@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="container-fluid">
-            <div class="card">
+            <div class="card bg-info bg-gradient">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold mb-4">Forms</h5>
                     @if ($errors->any())
@@ -42,13 +42,27 @@
                                 <div class="mb-3">
                                     <label for="waktu_mulai" class="form-label">Waktu Mulai</label>
                                     <input type="time" name="waktu_mulai" class="form-control"
-                                        value="{{ old('waktu_mulai', $event->waktu_mulai) }}">
+                                        value="{{ $event->waktu_mulai }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="waktu_selesai" class="form-label">Waktu Selesai</label>
-                                    <input type="text" name="waktu_selesai" class="form-control"
-                                        value="{{ old('waktu_selesai', $event->waktu_selesai) }}">
+                                    <label class="form-label">Pilih jenis waktu selesai</label>
+                                    <div>
+                                        <input type="radio" id="waktuRadio" name="waktu_type" value="waktu" checked>
+                                        <label for="waktuRadio">Waktu (misal 10:25)</label><br>
+                                        <input type="radio" id="selesaiRadio" name="waktu_type" value="selesai">
+                                        <label for="selesaiRadio">Selesai</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3" id="inputWaktu">
+                                    <label for="waktu_selesai_time" class="form-label">Masukkan Waktu Selesai</label>
+                                    <input type="time" name="waktu_selesai_time" class="form-control">
+                                </div>
+
+                                <div class="mb-3 d-none" id="inputSelesai">
+                                    <label for="waktu_selesai_text" class="form-label">Ketik "selesai"</label>
+                                    <input type="text" name="waktu_selesai_text" class="form-control" value="selesai">
                                 </div>
 
                                 <div class="mb-3">

@@ -172,17 +172,17 @@
                         <tr>
                             <td colspan="2" class="indent">2. FC. Kartu Keluarga</td>
                             <td>:</td>
-                            <td>{{ $pendaftar->kk }}</td>
+                            <td>{{ $pendaftar->kk == 1 ? 'Ada' : 'Tidak Ada' }}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="indent">3. FC. Akta Kelahiran</td>
                             <td>:</td>
-                            <td>{{ $pendaftar->akte }}</td>
+                            <td>{{ $pendaftar->akte == 1 ? 'Ada' : 'Tidak Ada' }}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="indent">4. FC. Raport kelas 6 smt. 1</td>
                             <td>:</td>
-                            <td>{{ $pendaftar->rapot }}</td>
+                            <td>{{ $pendaftar->rapot == 1 ? 'Ada' : 'Tidak Ada' }}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="indent">5. FC. Piagam *<em>jika ada</em></td>

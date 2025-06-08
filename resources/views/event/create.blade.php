@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="mb-3" id="inputWaktu">
-                            <label for="waktu_selesai_time" class="form-label">Masukkan Waktu</label>
+                            <label for="waktu_selesai_time" class="form-label">Masukkan Waktu Selesai</label>
                             <input type="time" name="waktu_selesai_time" class="form-control"
                                 value="{{ old('waktu_selesai_time') }}">
                         </div>

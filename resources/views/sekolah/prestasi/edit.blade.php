@@ -46,6 +46,10 @@
                         <div class="mb-3">
                             <label for="foto" class="form-label">Upload Foto (PNG/JPG)</label>
                             <input type="file" class="form-control" name="foto" accept="image/*">
+                            <br>
+                            @if (isset($data->foto))
+                                <img src="{{ asset('storage/' . $data->foto) }}" style="max-width: 200px; display: block;">
+                            @endif
                         </div>
 
                         <button type="submit" class="btn btn-primary">Simpan</button>

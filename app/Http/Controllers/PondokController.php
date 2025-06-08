@@ -16,10 +16,10 @@ class PondokController extends Controller
     public function home()
     {
         $cover = Cover::first();
-        $pengasuh = Pengasuh::all();
+        $pengasuh = Pengasuh::inRandomOrder()->take(4)->get();
         $sosmed = SosmedPondok::first();
-        $program = ProgramPondok::with('kategori')->get();
-        $kegiatan = Kegiatan::all();
+        $program = ProgramPondok::with('kategori')->take(4)->get();
+        $kegiatan = Kegiatan::orderBy('created_at', 'desc')->take(3)->get();
         return view('pondok', compact('cover', 'pengasuh', 'sosmed', 'program', 'kegiatan'));
     }
 

@@ -3,7 +3,7 @@
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4">Prestasi Sekolah</h2>
             <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
-                Pencapaian membanggakan yang diraih siswa-siswi SMP Negeri 1 Harapan
+                Pencapaian membanggakan yang diraih siswa-siswi {{ $cover->judul_smp ?? 'ini judul' }}
             </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -21,7 +21,6 @@
             @empty
                 <h2>Tidak ada data</h2>
             @endforelse
-
         </div>
     </div>
 </section>

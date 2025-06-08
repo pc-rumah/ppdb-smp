@@ -28,7 +28,7 @@ class PrestasiController extends Controller
             'title' => 'required|string|max:255',
             'subjudul' => 'required|string|max:255',
             'background_color' => 'required|string|max:7',
-            'foto' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+            'foto' => 'required|image|mimes:png,jpg,jpeg|max:4096',
         ]);
 
         $path = $request->file('foto')->store('prestasi', 'public');
@@ -44,26 +44,12 @@ class PrestasiController extends Controller
         return redirect()->route('prestasi.index')->with('success', 'Data prestasi berhasil disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $data = Prestasi::find($id);
         return view('sekolah.prestasi.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Prestasi $prestasi)
     {
         $validated = $request->validate([
@@ -93,9 +79,6 @@ class PrestasiController extends Controller
         return redirect()->route('prestasi.index')->with('success', 'Data prestasi berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $data = Prestasi::findOrFail($id);

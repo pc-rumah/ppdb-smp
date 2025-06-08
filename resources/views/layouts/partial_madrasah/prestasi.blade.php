@@ -3,21 +3,22 @@
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4">Prestasi Madrasah</h2>
             <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
-                Pencapaian membanggakan yang diraih siswa-siswi Madrasah Al-Hikmah
+                Pencapaian membanggakan yang diraih siswa-siswi {{ $cover->judul_madrasah ?? 'ini judul' }}
             </p>
         </div>
         @php
             $gradients = [
-                ['from' => 'from-pink-500', 'to' => 'to-pink-700'],
-                ['from' => 'from-blue-500', 'to' => 'to-blue-700'],
-                ['from' => 'from-green-500', 'to' => 'to-green-700'],
-                ['from' => 'from-purple-500', 'to' => 'to-purple-700'],
-                ['from' => 'from-yellow-500', 'to' => 'to-yellow-700'],
-                ['from' => 'from-red-500', 'to' => 'to-red-700'],
-                ['from' => 'from-indigo-500', 'to' => 'to-indigo-700'],
-                ['from' => 'from-cyan-500', 'to' => 'to-cyan-700'],
+                ['from' => 'from-lime-300', 'to' => 'to-lime-500'],
+                ['from' => 'from-yellow-300', 'to' => 'to-yellow-500'],
+                ['from' => 'from-orange-300', 'to' => 'to-orange-500'],
+                ['from' => 'from-sky-300', 'to' => 'to-sky-500'],
+                ['from' => 'from-emerald-300', 'to' => 'to-emerald-500'],
+                ['from' => 'from-teal-300', 'to' => 'to-teal-500'],
+                ['from' => 'from-rose-300', 'to' => 'to-rose-500'],
+                ['from' => 'from-indigo-200', 'to' => 'to-indigo-400'],
             ];
         @endphp
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @forelse ($prestasi as $item)
                 @php

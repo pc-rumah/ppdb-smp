@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Forgot Password</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.18/dist/full.css" rel="stylesheet" type="text/css" />
 </head>
@@ -53,9 +54,10 @@
                 @enderror
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <button type="submit" class="btn btn-primary btn-wide">Send Reset Link</button>
+            <div class="flex items-center justify-center mt-4">
+                <button type="submit" class="btn btn-primary w-full sm:w-auto">Send Reset Link</button>
             </div>
+
         </form>
     </div>
 
