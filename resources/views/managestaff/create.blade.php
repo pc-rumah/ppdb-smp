@@ -3,7 +3,7 @@
 @section('content')
     <div class="card bg-info bg-gradient">
         <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Tambah Data</h5>
+            <h5 class="card-title fw-semibold mb-4">Tambah Data Staff</h5>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>

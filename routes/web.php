@@ -34,6 +34,10 @@ use App\Http\Controllers\PrestasiMadrasahController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
+Route::get('/register', function () {
+    return redirect('/login');
+});
+
 Route::get('/pendaftar/{id}/preview', [PPDBController::class, 'preview'])->name('pendaftar.preview');
 
 Route::get('/icons', function () {

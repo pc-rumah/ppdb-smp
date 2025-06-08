@@ -33,5 +33,6 @@ class UserWithRolesSeeder extends Seeder
             // Assign role ke user
             $user->assignRole($role);
         }
+        $this->command->info('Seeder User Berhasil');
     }
 }

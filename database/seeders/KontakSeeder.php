@@ -8,15 +8,12 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class KontakSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         Kontak::create([
             'no_telp' => '0888888',
-            'alamat' => 'semarang, jawa tengah',
-            'email' => 'tes@example.com'
+            'alamat' => 'Dsn. Blater, Desa Jimbaran, Kec. Bandungan, Kab. Semarang 50661',
+            'email' => 'smpblater01@gmail.com'
         ]);
 
         $this->command->info('Seeder Kontak Berhasil');

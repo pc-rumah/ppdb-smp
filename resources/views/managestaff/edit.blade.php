@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="container-fluid">
-            <div class="card">
+            <div class="card bg-info bg-gradient">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold mb-4">Edit</h5>
                     <div class="card">

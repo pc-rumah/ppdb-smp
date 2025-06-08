@@ -3,7 +3,7 @@
 @section('content')
     <div class="card bg-info bg-gradient">
         <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Tambah Data Pengasuh</h5>
+            <h5 class="card-title fw-semibold mb-4">Tambah Data Kegiatan Pondok</h5>
             @include('layouts.semuaalert')
             <div class="card">
                 <div class="card-body">

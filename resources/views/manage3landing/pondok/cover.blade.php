@@ -3,7 +3,7 @@
 @section('content')
     <div class="card bg-info bg-gradient">
         <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Bagan Cover</h5>
+            <h5 class="card-title fw-semibold mb-4">Bagan Cover Pondok</h5>
             @include('layouts.semuaalert')
             <div class="card">
                 <div class="card-body">
