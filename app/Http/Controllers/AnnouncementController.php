@@ -80,6 +80,8 @@ class AnnouncementController extends Controller
 
         $pengumuman->delete();
 
+        Cache::forget('landing_event');
+
         return redirect()->route('pengumuman.index')
             ->with('success', 'Pengumuman berhasil dihapus.');
     }

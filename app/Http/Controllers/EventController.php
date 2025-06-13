@@ -90,6 +90,8 @@ class EventController extends Controller
     {
         $event->delete();
 
+        Cache::forget('landing_event');
+
         return redirect()->route('event.index')
             ->with('success', 'Event deleted successfully.');
     }
