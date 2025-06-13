@@ -5,7 +5,7 @@
             @foreach ($slides as $item)
                 <div class="swiper-slide">
                     <img src="{{ asset('storage/' . $item['image']) }}" alt="School Campus"
-                        class="w-full h-full object-cover">
+                        class="w-full h-full object-cover" loading="lazy">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-center justify-center">
                         <div class="text-white p-8 text-center max-w-3xl">

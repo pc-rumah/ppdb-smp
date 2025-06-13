@@ -28,6 +28,8 @@
     <!-- Kegiatan Pondok -->
     @include('layouts.partial_pondok.kegiatan')
 
+    @include('layouts.partial_pondok.event')
+
     <!-- Footer -->
     @include('layouts.partial_pondok.footer')
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AnnouncementPondok;
 use App\Models\Cover;
+use App\Models\EventPondok;
 use App\Models\KategoriProgramPondok;
 use App\Models\Kegiatan;
 use App\Models\Pengasuh;
@@ -20,7 +22,9 @@ class PondokController extends Controller
         $sosmed = SosmedPondok::first();
         $program = ProgramPondok::with('kategori')->take(4)->get();
         $kegiatan = Kegiatan::orderBy('created_at', 'desc')->take(3)->get();
-        return view('pondok', compact('cover', 'pengasuh', 'sosmed', 'program', 'kegiatan'));
+        $eventpondok = EventPondok::orderBy('created_at', 'desc')->get();
+        $pengumumanpondok = AnnouncementPondok::orderBy('created_at', 'desc')->get();
+        return view('pondok', compact('cover', 'pengasuh', 'sosmed', 'program', 'kegiatan', 'eventpondok', 'pengumumanpondok'));
     }
 
     public function create()

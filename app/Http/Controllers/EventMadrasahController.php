@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
+use App\Models\EventMadrasah;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
-class EventController extends Controller
+class EventMadrasahController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $data = Event::paginate(5);
-        return view('event.index', compact('data'));
+        $eventmadrasah = EventMadrasah::paginate(5);
+        return view('manage3landing.madrasah.event.index', compact('eventmadrasah'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        return view('event.create');
+        return view('manage3landing.madrasah.event.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -32,11 +40,9 @@ class EventController extends Controller
             'deskripsi' => 'nullable|string',
         ]);
 
-        $waktu_selesai = $request->waktu_type === 'waktu'
-            ? $request->waktu_selesai_time
-            : 'selesai';
+        $waktu_selesai = $request->waktu_type === 'waktu' ? $request->waktu_selesai_time : 'selesai';
 
-        Event::create([
+        EventMadrasah::create([
             'judul' => $request->judul,
             'lokasi' => $request->lokasi,
             'tanggal' => $request->tanggal,
@@ -45,34 +51,44 @@ class EventController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        Cache::forget('landing_event');
-
-        return redirect()->route('event.index')->with('success', 'Event created successfully.');
+        return redirect()->route('eventmadrasah.index')->with('success', 'Data Berhasil ditambahkan');
     }
 
-    public function edit(Event $event)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        return view('event.edit', compact('event'));
+        //
     }
 
-    public function update(Request $request, Event $event)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(EventMadrasah $eventmadrasah)
+    {
+        return view('manage3landing.madrasah.event.edit', compact('eventmadrasah'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, EventMadrasah $eventmadrasah)
     {
         $request->validate([
             'judul' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'waktu_mulai' => 'required|date_format:H:i:s',
+            'waktu_mulai' => 'required|date_format:H:i',
             'waktu_type' => 'required|in:waktu,selesai',
             'waktu_selesai_time' => 'required_if:waktu_type,waktu|nullable|date_format:H:i',
             'waktu_selesai_text' => 'required_if:waktu_type,selesai|nullable|in:selesai',
             'deskripsi' => 'nullable|string',
         ]);
 
-        $waktu_selesai = $request->waktu_type === 'waktu'
-            ? $request->waktu_selesai_time
-            : 'selesai';
+        $waktu_selesai = $request->waktu_type === 'waktu' ? $request->waktu_selesai_time : 'selesai';
 
-        $event->update([
+        $eventmadrasah->update([
             'judul' => $request->judul,
             'lokasi' => $request->lokasi,
             'tanggal' => $request->tanggal,
@@ -81,16 +97,15 @@ class EventController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        Cache::forget('landing_event');
-
-        return redirect()->route('event.index')->with('success', 'Event updated successfully.');
+        return redirect()->route('eventmadrasah.index')->with('success', 'Data Berhasil ditambahkan');
     }
 
-    public function destroy(Event $event)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(EventMadrasah $eventmadrasah)
     {
-        $event->delete();
-
-        return redirect()->route('event.index')
-            ->with('success', 'Event deleted successfully.');
+        $eventmadrasah->delete();
+        return redirect()->back()->with('success', 'Data Berhasil dihapus');
     }
 }

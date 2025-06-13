@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AnnouncementMadrasah;
 use App\Models\Cover;
+use App\Models\EventMadrasah;
 use App\Models\Madrasah;
 use App\Models\PrestasiMadrasah;
 use App\Models\ProgramMadrasah;
@@ -17,7 +19,9 @@ class MadrasahController extends Controller
         $sosmed = SosmedMadrasah::first();
         $program = ProgramMadrasah::orderBy('created_at', 'desc')->take(6)->get();
         $prestasi = PrestasiMadrasah::inRandomOrder()->take(3)->get();
-        return view('madrasah', compact('cover', 'sosmed', 'program', 'prestasi'));
+        $eventmadrasah = EventMadrasah::orderBy('created_at', 'desc')->get();
+        $pengumumanmadrasah = AnnouncementMadrasah::orderBy('created_at', 'desc')->get();
+        return view('madrasah', compact('cover', 'eventmadrasah', 'pengumumanmadrasah', 'sosmed', 'program', 'prestasi'));
     }
 
     public function create()

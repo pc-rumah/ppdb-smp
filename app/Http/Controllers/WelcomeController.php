@@ -19,33 +19,36 @@ class WelcomeController extends Controller
 {
     public function welcome()
     {
-        $welcome = Welcome::firstOrNew([]);
-        $kontak = Kontak::first();
-        $event = Event::latest()->take(3)->get();
-        $pengumuman = Announcement::latest()->take(3)->get();
-        $galeri = Galeri::latest()->take(6)->get();
+        $welcome = Cache::remember('landing_welcome', 60 * 60, function () {
+            $w = Welcome::firstOrNew([]);
+            $defaultWelcome = [
+                'title1' => 'Selamat Datang di Sekolah Kami',
+                'description1' => 'Ini adalah deskripsi dummy slide pertama.',
+                'image1' => '',
+                'title2' => 'Fasilitas Lengkap dan Modern',
+                'description2' => 'Ini adalah deskripsi dummy slide kedua.',
+                'image2' => '',
+                'title3' => 'Lingkungan Nyaman untuk Belajar',
+                'description3' => 'Ini adalah deskripsi dummy slide ketiga.',
+                'image3' => '',
+            ];
 
-        $defaultWelcome = [
-            'title1' => 'Selamat Datang di Sekolah Kami',
-            'description1' => 'Ini adalah deskripsi dummy slide pertama.',
-            'image1' => '',
-            'title2' => 'Fasilitas Lengkap dan Modern',
-            'description2' => 'Ini adalah deskripsi dummy slide kedua.',
-            'image2' => '',
-            'title3' => 'Lingkungan Nyaman untuk Belajar',
-            'description3' => 'Ini adalah deskripsi dummy slide ketiga.',
-            'image3' => '',
-        ];
-
-        foreach ($defaultWelcome as $key => $value) {
-            if (empty($welcome->$key)) {
-                $welcome->$key = $value;
+            foreach ($defaultWelcome as $key => $value) {
+                if (empty($w->$key)) {
+                    $w->$key = $value;
+                }
             }
-        }
+
+            return $w;
+        });
+
+        $kontak = Cache::remember('landing_kontak', 60 * 60, fn() => Kontak::first());
+        $event = Cache::remember('landing_event', 60 * 10, fn() => Event::latest()->take(3)->get());
+        $pengumuman = Cache::remember('landing_pengumuman', 60 * 10, fn() => Announcement::latest()->take(3)->get());
 
         $slides = $this->prepareSlides($welcome);
 
-        return view('welcome', compact('galeri', 'event', 'pengumuman', 'slides', 'kontak', 'welcome'));
+        return view('welcome', compact('event', 'pengumuman', 'slides', 'kontak', 'welcome'));
     }
 
 
@@ -86,6 +89,8 @@ class WelcomeController extends Controller
         $action = $welcome->exists ? 'diperbarui' : 'ditambahkan';
 
         $welcome->fill($data)->save();
+
+        Cache::forget('landing_welcome');
 
         return redirect()->back()->with('success', "Data berhasil $action.");
     }

@@ -12,7 +12,7 @@
                 <li><a href="#program">Program</a></li>
                 <li><a href="#program">Program</a></li>
                 <li><a href="#prestasi">Prestasi</a></li>
-                <li><a href="#footer">Kontak</a></li>
+                <li><a href="#events">Event</a></li>
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
@@ -25,7 +25,7 @@
             <li><a href="#beranda" class="hover:text-primary">Beranda</a></li>
             <li><a href="#program" class="hover:text-primary">Program</a></li>
             <li><a href="#prestasi" class="hover:text-primary">Prestasi</a></li>
-            <li><a href="#footer" class="hover:text-primary">Kontak</a></li>
+            <li><a href="#events">Event</a></li>
         </ul>
     </div>
 </header>

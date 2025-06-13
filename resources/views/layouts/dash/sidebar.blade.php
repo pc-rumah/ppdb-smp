@@ -171,6 +171,26 @@
                             <span class="hide-menu">Sosial Media</span>
                         </a>
                     </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('eventmadrasah*') ? 'active' : '' }}"
+                            href="{{ route('eventmadrasah.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Acara Mendatang</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('pengumumanmadrasah*') ? 'active' : '' }}"
+                            href="{{ route('pengumumanmadrasah.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Pengumuman Madrasah</span>
+                        </a>
+                    </li>
                 @endif
 
                 @if (Auth::user()->hasAnyRole(['staff', 'admin']))
@@ -233,6 +253,24 @@
                                 <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Sosial Media Smp</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('eventsmp*') ? 'active' : '' }}"
+                            href="{{ route('eventsmp.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Acara Mendatang</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('pengumumansmp*') ? 'active' : '' }}"
+                            href="{{ route('pengumumansmp.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Pengumuman</span>
                         </a>
                     </li>
                 @endif
@@ -299,6 +337,26 @@
                                 <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Sosial Media</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('eventpondok*') ? 'active' : '' }}"
+                            href="{{ route('eventpondok.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Acara Mendatang</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('pengumumanpondok*') ? 'active' : '' }}"
+                            href="{{ route('pengumumanpondok.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Pengumuman Pondok</span>
                         </a>
                     </li>
                 @endif

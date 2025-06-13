@@ -25,6 +25,8 @@
     <!-- Prestasi -->
     @include('layouts.partial_madrasah.prestasi')
 
+    @include('layouts.partial_madrasah.event')
+
     <!-- Footer -->
     @include('layouts.partial_madrasah.footer')
 

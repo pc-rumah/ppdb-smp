@@ -28,6 +28,8 @@
     <!-- Prestasi -->
     @include('layouts.partial_sekolah.prestasi')
 
+    @include('layouts.partial_sekolah.event')
+
     <!-- Footer -->
     @include('layouts.partial_sekolah.footer')
 

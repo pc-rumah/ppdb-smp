@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kontak;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class KontakController extends Controller
 {
@@ -30,6 +31,8 @@ class KontakController extends Controller
             Kontak::create($validated);
             $message = 'Data berhasil ditambahkan.';
         }
+
+        Cache::forget('landing_kontak');
 
         return redirect()->back()->with('success', $message);
     }

@@ -12,6 +12,7 @@
                 <li><a href="#staf">Staf & Guru</a></li>
                 <li><a href="#ekstrakurikuler">Ekstrakurikuler</a></li>
                 <li><a href="#prestasi">Prestasi</a></li>
+                <li><a href="#events">Event</a></li>
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
@@ -25,6 +26,7 @@
             <li><a href="#staf" class="hover:text-primary transition-colors">Staf & Guru</a></li>
             <li><a href="#ekstrakurikuler" class="hover:text-primary transition-colors">Ekstrakurikuler</a></li>
             <li><a href="#prestasi" class="hover:text-primary transition-colors">Prestasi</a></li>
+            <li><a href="#events">Event</a></li>
         </ul>
     </div>
 </header>

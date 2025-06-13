@@ -25,12 +25,20 @@ use App\Http\Controllers\SosmedSmpController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ItemProgramController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AnnouncementMadrasahController;
+use App\Http\Controllers\AnnouncementPondokController;
+use App\Http\Controllers\AnnouncementSmpController;
 use App\Http\Controllers\AssetBuktiPendaftaranController;
+use App\Http\Controllers\EventMadrasahController;
+use App\Http\Controllers\EventPondokController;
+use App\Http\Controllers\EventSmpController;
 use App\Http\Controllers\SosmedPondokController;
 use App\Http\Controllers\ProgramPondokController;
 use App\Http\Controllers\SosmedMadrasahController;
 use App\Http\Controllers\ProgramMadrasahController;
 use App\Http\Controllers\PrestasiMadrasahController;
+use App\Models\AnnouncementPondok;
+use App\Models\EventMadrasah;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
@@ -118,6 +126,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('prestasi', PrestasiController::class);
         Route::resource('sosmedsmp', SosmedSmpController::class);
         Route::resource('kepsek', KepsekController::class);
+        Route::resource('eventsmp', EventSmpController::class);
+        Route::resource('pengumumansmp', AnnouncementSmpController::class);
     });
 
     //madrasah
@@ -126,6 +136,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('madrasah', MadrasahController::class);
         Route::resource('programmadrasah', ProgramMadrasahController::class);
         Route::resource('prestasimadrasah', PrestasiMadrasahController::class);
+        Route::resource('eventmadrasah', EventMadrasahController::class);
+        Route::resource('pengumumanmadrasah', AnnouncementMadrasahController::class);
     });
 
     //pondok
@@ -137,6 +149,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('pengasuh', PengasuhController::class);
         Route::resource('programpondok', ProgramPondokController::class);
         Route::resource('itemprogrampondok', ItemProgramController::class);
+        Route::resource('eventpondok', EventPondokController::class);
+        Route::resource('pengumumanpondok', AnnouncementPondokController::class);
     });
 
     //ppdb

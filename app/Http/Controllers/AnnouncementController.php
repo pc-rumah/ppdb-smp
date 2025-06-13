@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class AnnouncementController extends Controller
@@ -36,6 +37,8 @@ class AnnouncementController extends Controller
 
         Announcement::create($data);
 
+        Cache::forget('landing_pengumuman');
+
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan.');
     }
 
@@ -62,6 +65,8 @@ class AnnouncementController extends Controller
         }
 
         $pengumuman->update($validatedData);
+
+        Cache::forget('landing_pengumuman');
 
         return redirect()->route('pengumuman.index')
             ->with('success', 'Pengumuman berhasil diperbarui.');

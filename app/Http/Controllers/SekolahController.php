@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AnnouncementSmp;
 use App\Models\Cover;
 use App\Models\Ekstra;
+use App\Models\EventSmp;
 use App\Models\Kepsek;
 use App\Models\Prestasi;
 use App\Models\SosmedSmp;
@@ -20,7 +22,9 @@ class SekolahController extends Controller
         $prestasi = Prestasi::inRandomOrder()->take(4)->get();
         $sosmed = SosmedSmp::first();
         $kepsek = Kepsek::first();
-        return view('sekolah', compact('cover', 'staff', 'ekstra', 'prestasi', 'sosmed', 'kepsek'));
+        $eventsmp = EventSmp::all();
+        $pengumumansmp = AnnouncementSmp::all();
+        return view('sekolah', compact('cover', 'pengumumansmp', 'staff', 'ekstra', 'prestasi', 'sosmed', 'kepsek', 'eventsmp'));
     }
 
     public function index()

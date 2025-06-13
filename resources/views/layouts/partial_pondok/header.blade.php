@@ -12,6 +12,7 @@
                 <li><a href="#pengasuh">Pengasuh</a></li>
                 <li><a href="#program">Program</a></li>
                 <li><a href="#kegiatan">Kegiatan</a></li>
+                <li><a href="#events">Event</a></li>
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
@@ -25,6 +26,7 @@
             <li><a href="#pengasuh" class="hover:text-primary">Pengasuh</a></li>
             <li><a href="#program" class="hover:text-primary">Program</a></li>
             <li><a href="#kegiatan" class="hover:text-primary">Kegiatan</a></li>
+            <li><a href="#events">Event</a></li>
         </ul>
     </div>
 </header>
