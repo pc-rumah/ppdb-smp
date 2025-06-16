@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementMadrasah;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\AnnouncementRequest;
 
 class AnnouncementMadrasahController extends Controller
 {
@@ -28,16 +29,9 @@ class AnnouncementMadrasahController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AnnouncementRequest $request)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
-
-        $data = $request->only(['judul', 'tanggal', 'deskripsi']);
+        $data = $request->validated();
 
         if ($request->hasFile('gambar')) {
             $data['gambar'] = $request->file('gambar')->store('pengumumanmadrasah', 'public');
@@ -67,24 +61,19 @@ class AnnouncementMadrasahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AnnouncementMadrasah $pengumumanmadrasah)
+    public function update(AnnouncementRequest $request, AnnouncementMadrasah $pengumumanmadrasah)
     {
-        $validatedData = $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('gambar')) {
             if ($pengumumanmadrasah->gambar && Storage::disk('public')->exists($pengumumanmadrasah->gambar)) {
                 Storage::disk('public')->delete($pengumumanmadrasah->gambar);
             }
 
-            $validatedData['gambar'] = $request->file('gambar')->store('pengumumanmadrasah', 'public');
+            $data['gambar'] = $request->file('gambar')->store('pengumumanmadrasah', 'public');
         }
 
-        $pengumumanmadrasah->update($validatedData);
+        $pengumumanmadrasah->update($data);
 
         return redirect()->route('pengumumanmadrasah.index')
             ->with('success', 'Pengumuman berhasil diperbarui.');

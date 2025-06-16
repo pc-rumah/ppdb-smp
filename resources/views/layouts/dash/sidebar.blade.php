@@ -63,16 +63,14 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Request::is('event*') ? 'active' : '' }}"
+                        <a class="sidebar-link {{ Request::is('event') || Request::is('event/*') ? 'active' : '' }}"
                             href="{{ route('event.index') }}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-article"></i>
-                            </span>
+                            <span><i class="ti ti-article"></i></span>
                             <span class="hide-menu">Acara Mendatang</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ Request::is('pengumuman*') ? 'active' : '' }}"
+                        <a class="sidebar-link {{ Request::is('pengumuman') || Request::is('pengumuman/*') ? 'active' : '' }}"
                             href="{{ route('pengumuman.index') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
@@ -270,7 +268,7 @@
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
-                            <span class="hide-menu">Pengumuman</span>
+                            <span class="hide-menu">Pengumuman Sekolah</span>
                         </a>
                     </li>
                 @endif

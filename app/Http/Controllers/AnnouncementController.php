@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnnouncementRequest;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -20,23 +21,15 @@ class AnnouncementController extends Controller
         return view('announcement.create');
     }
 
-    public function store(Request $request)
+    public function store(AnnouncementRequest $request)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
-
-        $data = $request->only(['judul', 'tanggal', 'deskripsi']);
+        $data = $request->validated();
 
         if ($request->hasFile('gambar')) {
             $data['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
         }
 
         Announcement::create($data);
-
         Cache::forget('landing_pengumuman');
 
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan.');
@@ -47,24 +40,19 @@ class AnnouncementController extends Controller
         return view('announcement.edit', compact('pengumuman'));
     }
 
-    public function update(Request $request, Announcement $pengumuman)
+    public function update(AnnouncementRequest $request, Announcement $pengumuman)
     {
-        $validatedData = $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('gambar')) {
             if ($pengumuman->gambar && Storage::disk('public')->exists($pengumuman->gambar)) {
                 Storage::disk('public')->delete($pengumuman->gambar);
             }
 
-            $validatedData['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+            $data['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
         }
 
-        $pengumuman->update($validatedData);
+        $pengumuman->update($data);
 
         Cache::forget('landing_pengumuman');
 

@@ -1,29 +1,40 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
+<body class="bg-base-200 min-h-screen">
+    <!-- Header -->
+    <div class="navbar bg-base-100 shadow-sm">
+        <div class="container mx-auto">
+            <div class="flex-1">
+                <a href="/dashboard" class="text-xl font-bold">Kembali ke Dashboard</a>
             </div>
         </div>
     </div>
-</x-app-layout>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
+
+            <!-- Profile Information Card -->
+            @include('profile.partials.update-profile-information-form')
+
+
+            <!-- Update Password Card -->
+            @include('profile.partials.update-password-form')
+
+            <!-- Delete Account Card -->
+            @include('profile.partials.delete-user-form')
+        </div>
+    </div>
+</body>
+
+</html>

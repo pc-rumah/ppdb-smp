@@ -105,8 +105,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::resource('sakit', SakitController::class);
         Route::resource('saudara', RsaudaraController::class);
-        Route::resource('/event', EventController::class);
-        Route::resource('/pengumuman', AnnouncementController::class);
+        Route::resource('event', EventController::class);
+        Route::resource('pengumuman', AnnouncementController::class);
 
         Route::resource('kelolausers', UserController::class);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnnouncementRequest;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementPondok;
 use Illuminate\Support\Facades\Storage;
@@ -28,16 +29,9 @@ class AnnouncementPondokController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AnnouncementRequest $request)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
-
-        $data = $request->only(['judul', 'tanggal', 'deskripsi']);
+        $data = $request->validated();
 
         if ($request->hasFile('gambar')) {
             $data['gambar'] = $request->file('gambar')->store('pengumumanpondok', 'public');
@@ -67,24 +61,19 @@ class AnnouncementPondokController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AnnouncementPondok $pengumumanpondok)
+    public function update(AnnouncementRequest $request, AnnouncementPondok $pengumumanpondok)
     {
-        $validatedData = $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('gambar')) {
             if ($pengumumanpondok->gambar && Storage::disk('public')->exists($pengumumanpondok->gambar)) {
                 Storage::disk('public')->delete($pengumumanpondok->gambar);
             }
 
-            $validatedData['gambar'] = $request->file('gambar')->store('pengumumanpondok', 'public');
+            $data['gambar'] = $request->file('gambar')->store('pengumumanpondok', 'public');
         }
 
-        $pengumumanpondok->update($validatedData);
+        $pengumumanpondok->update($data);
 
         return redirect()->route('pengumumanpondok.index')
             ->with('success', 'Pengumuman berhasil diperbarui.');

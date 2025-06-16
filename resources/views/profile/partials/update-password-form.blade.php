@@ -1,48 +1,93 @@
-<section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Update Password') }}
+<div class="card bg-base-100 shadow-lg">
+    <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">
+            <i class="fas fa-lock text-warning"></i>
+            Ubah Password
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __('Ensure your account is using a long, random password to stay secure.') }}
-        </p>
-    </header>
+        <form method="post" action="{{ route('password.update') }}" class="space-y-4">
+            @csrf
+            @method('put')
 
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
-        @csrf
-        @method('put')
+            {{-- Password Saat Ini --}}
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-medium">Password Sekarang</span>
+                </label>
+                <div class="relative">
+                    <input type="password" name="current_password" id="currentPassword"
+                        placeholder="Masukkan password sekarang"
+                        class="input input-bordered w-full focus:input-warning pr-12" autocomplete="current-password" />
+                    <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        onclick="togglePassword('currentPassword')">
+                        <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+                    </button>
+                </div>
+                @error('current_password', 'updatePassword')
+                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                @enderror
+            </div>
 
-        <div>
-            <x-input-label for="update_password_current_password" :value="__('Current Password')" />
-            <x-text-input id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
-            <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
-        </div>
+            {{-- Password Baru --}}
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-medium">Password Baru</span>
+                </label>
+                <div class="relative">
+                    <input type="password" name="password" id="newPassword" placeholder="Masukkan password baru"
+                        class="input input-bordered w-full focus:input-warning pr-12" autocomplete="new-password" />
+                    <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        onclick="togglePassword('newPassword')">
+                        <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+                    </button>
+                </div>
+                @error('password', 'updatePassword')
+                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                @enderror
+            </div>
 
-        <div>
-            <x-input-label for="update_password_password" :value="__('New Password')" />
-            <x-text-input id="update_password_password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
-        </div>
+            {{-- Konfirmasi Password Baru --}}
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-medium">Konfirmasi Password Baru</span>
+                </label>
+                <div class="relative">
+                    <input type="password" name="password_confirmation" id="confirmPassword"
+                        placeholder="Konfirmasi password baru"
+                        class="input input-bordered w-full focus:input-warning pr-12" autocomplete="new-password" />
+                    <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        onclick="togglePassword('confirmPassword')">
+                        <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+                    </button>
+                </div>
+                @error('password_confirmation', 'updatePassword')
+                    <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                @enderror
+            </div>
 
-        <div>
-            <x-input-label for="update_password_password_confirmation" :value="__('Confirm Password')" />
-            <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
-        </div>
+            {{-- Aksi --}}
+            <div class="card-actions justify-end pt-4">
+                <button class="btn btn-warning" type="submit">
+                    <i class="fas fa-key"></i>
+                    Update Password
+                </button>
+            </div>
 
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
-
+            {{-- Status berhasil --}}
             @if (session('status') === 'password-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Saved.') }}</p>
+                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
+                    class="text-sm text-green-600">
+                    Password berhasil diperbarui.
+                </p>
             @endif
-        </div>
-    </form>
-</section>
+        </form>
+    </div>
+</div>
+
+{{-- Script Toggle Password --}}
+<script>
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        input.type = input.type === 'password' ? 'text' : 'password';
+    }
+</script>

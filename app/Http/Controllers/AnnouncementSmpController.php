@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnnouncementRequest;
 use App\Models\Announcement;
 use App\Models\AnnouncementSmp;
 use Illuminate\Http\Request;
@@ -29,16 +30,9 @@ class AnnouncementSmpController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AnnouncementRequest $request)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:png,jpg|max:4096',
-        ]);
-
-        $data = $request->only(['judul', 'tanggal', 'deskripsi']);
+        $data = $request->validated();
 
         if ($request->hasFile('gambar')) {
             $data['gambar'] = $request->file('gambar')->store('pengumumansmp', 'public');
@@ -68,16 +62,9 @@ class AnnouncementSmpController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AnnouncementSmp $pengumumansmp)
+    public function update(AnnouncementRequest $request, AnnouncementSmp $pengumumansmp)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:png,jpg|max:4096',
-        ]);
-
-        $data = $request->only(['judul', 'tanggal', 'deskripsi']);
+        $data = $request->validated();
 
         if ($request->hasFile('gambar')) {
             if ($pengumumansmp->gambar && Storage::disk('public')->exists($pengumumansmp->gambar)) {
