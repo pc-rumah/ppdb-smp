@@ -161,6 +161,16 @@
                     </li>
 
                     <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('stafmadrasah*') ? 'active' : '' }}"
+                            href="{{ route('stafmadrasah.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Staff Madrasah</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('sosmedmadrasah*') ? 'active' : '' }}"
                             href="{{ route('sosmedmadrasah.create') }}" aria-expanded="false">
                             <span>

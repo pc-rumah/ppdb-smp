@@ -19,6 +19,8 @@
     <!-- Hero Section -->
     @include('layouts.partial_madrasah.hero')
 
+    @include('layouts.partial_madrasah.guru')
+
     <!-- Program Madrasah -->
     @include('layouts.partial_madrasah.program')
 

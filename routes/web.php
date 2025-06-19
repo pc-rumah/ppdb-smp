@@ -37,6 +37,7 @@ use App\Http\Controllers\ProgramPondokController;
 use App\Http\Controllers\SosmedMadrasahController;
 use App\Http\Controllers\ProgramMadrasahController;
 use App\Http\Controllers\PrestasiMadrasahController;
+use App\Http\Controllers\StafMadrasahController;
 use App\Models\AnnouncementPondok;
 use App\Models\EventMadrasah;
 
@@ -138,6 +139,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('prestasimadrasah', PrestasiMadrasahController::class);
         Route::resource('eventmadrasah', EventMadrasahController::class);
         Route::resource('pengumumanmadrasah', AnnouncementMadrasahController::class);
+        Route::resource('stafmadrasah', StafMadrasahController::class);
     });
 
     //pondok

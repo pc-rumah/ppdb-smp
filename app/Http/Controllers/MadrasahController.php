@@ -9,6 +9,7 @@ use App\Models\Madrasah;
 use App\Models\PrestasiMadrasah;
 use App\Models\ProgramMadrasah;
 use App\Models\SosmedMadrasah;
+use App\Models\StaffMadrasah;
 use Illuminate\Http\Request;
 
 class MadrasahController extends Controller
@@ -21,7 +22,8 @@ class MadrasahController extends Controller
         $prestasi = PrestasiMadrasah::inRandomOrder()->take(3)->get();
         $eventmadrasah = EventMadrasah::orderBy('created_at', 'desc')->get();
         $pengumumanmadrasah = AnnouncementMadrasah::orderBy('created_at', 'desc')->get();
-        return view('madrasah', compact('cover', 'eventmadrasah', 'pengumumanmadrasah', 'sosmed', 'program', 'prestasi'));
+        $guru = StaffMadrasah::orderBy('created_at', 'desc')->get();
+        return view('madrasah', compact('cover', 'eventmadrasah', 'guru', 'pengumumanmadrasah', 'sosmed', 'program', 'prestasi'));
     }
 
     public function create()

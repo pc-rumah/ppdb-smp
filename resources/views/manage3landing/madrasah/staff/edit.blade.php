@@ -1,0 +1,50 @@
+@extends('dashboard')
+
+@section('content')
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="card bg-info bg-gradient">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Edit</h5>
+                    @include('layouts.semuaalert')
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('stafmadrasah.update', $stafmadrasah) }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nama</label>
+                                    <input type="text" name="name" class="form-control" id="name"
+                                        aria-describedby="" value="{{ $stafmadrasah->name }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="position" class="form-label">Jabatan</label>
+                                    <input type="text" name="position" class="form-control" id="position"
+                                        aria-describedby="" value="{{ $stafmadrasah->position }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Foto</label>
+                                    <input type="file" name="image" class="form-control" id="image">
+                                    <br>
+                                    @if (isset($stafmadrasah->image))
+                                        <img src="{{ asset('storage/' . $stafmadrasah->image) }}"
+                                            style="max-width: 200px; display: block; margin-bottom: 10px;">
+                                    @endif
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Deskripsi</label>
+                                    <textarea type="text" name="description" class="form-control" id="description" aria-describedby="">{{ $stafmadrasah->description }}</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
