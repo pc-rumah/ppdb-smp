@@ -36,6 +36,7 @@ class PondokController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'logo_pondok' => 'nullable|image|mimes:png,jpg|max:2048',
             'judul_pondok' => 'nullable|string|max:255',
             'deskripsi_pondok' => 'nullable|string',
             'cover_pondok' => 'nullable|image|max:2048',
@@ -45,6 +46,10 @@ class PondokController extends Controller
 
         if ($request->hasFile('cover_pondok')) {
             $cover->cover_pondok = $request->file('cover_pondok')->store('landing_covers', 'public');
+        }
+
+        if ($request->hasFile('logo_pondok')) {
+            $cover->logo_pondok = $request->file('logo_pondok')->store('logo_unit', 'public');
         }
 
         $cover->judul_pondok = $request->judul_pondok;

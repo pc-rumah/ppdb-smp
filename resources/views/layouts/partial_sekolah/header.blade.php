@@ -16,7 +16,7 @@
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
-            <i class="fas fa-school text-primary"></i>
+            <img src="{{ asset('storage/' . $cover->logo_smp) }}" alt="Logo Sekolah" style="height: 24px;">
             {{ $cover->judul_smp ?? 'ini judul' }}
         </a>
     </div>

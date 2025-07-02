@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StafRequest;
+use App\Http\Requests\StafUpdateRequest;
 use App\Models\Staff;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class StafController extends Controller
@@ -19,14 +20,9 @@ class StafController extends Controller
         return view('managestaff.create');
     }
 
-    public function store(Request $request)
+    public function store(StafRequest $request)
     {
-        $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'position'    => 'required|string|max:255',
-            'image'       => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'description' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         $validated['image'] = $request->file('image')->store('staff', 'public');
 
@@ -40,14 +36,9 @@ class StafController extends Controller
         return view('managestaff.edit', ['data' => $staff]);
     }
 
-    public function update(Request $request, Staff $staff)
+    public function update(StafUpdateRequest $request, Staff $staff)
     {
-        $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'position'    => 'required|string|max:255',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'description' => 'nullable|string',
-        ]);
+        $request->validated();
 
         $data = $request->only(['name', 'position', 'description']);
 

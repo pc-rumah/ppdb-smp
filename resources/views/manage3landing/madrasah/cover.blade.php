@@ -10,6 +10,15 @@
                     <form method="POST" action="{{ route('madrasah.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
+                            <label class="form-label">Logo Madrasah</label>
+                            <input type="file" name="logo_madrasah" class="form-control">
+                            <br>
+                            @isset($cover->logo_madrasah)
+                                <img style="max-width: 20%" src="{{ asset('storage/' . $cover->logo_madrasah) }}"
+                                    alt="logo madrasah">
+                            @endisset
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Nama</label>
                             <input type="text" name="judul_madrasah" class="form-control"
                                 value="{{ $cover->judul_madrasah ?? '' }}" required>

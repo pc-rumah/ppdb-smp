@@ -27,11 +27,6 @@ class SekolahController extends Controller
         return view('sekolah', compact('cover', 'pengumumansmp', 'staff', 'ekstra', 'prestasi', 'sosmed', 'kepsek', 'eventsmp'));
     }
 
-    public function index()
-    {
-        //
-    }
-
     public function indexprestasi()
     {
         $data = Staff::orderBy('created_at', 'desc')->paginate(5);
@@ -47,12 +42,17 @@ class SekolahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'logo_smp' => 'nullable|image|max:2048',
             'judul_smp' => 'nullable|string|max:255',
             'deskripsi_smp' => 'nullable|string',
             'cover_smp' => 'nullable|image|max:2048',
         ]);
 
         $cover = Cover::first() ?? new Cover();
+
+        if ($request->hasFile('logo_smp')) {
+            $cover->logo_smp = $request->file('logo_smp')->store('logo_unit', 'public');
+        }
 
         if ($request->hasFile('cover_smp')) {
             $cover->cover_smp = $request->file('cover_smp')->store('landing_covers', 'public');
@@ -64,25 +64,5 @@ class SekolahController extends Controller
         $cover->save();
 
         return redirect()->back()->with('success', 'Data berhasil disimpan atau diperbarui.');
-    }
-
-    public function show(string $id)
-    {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
     }
 }

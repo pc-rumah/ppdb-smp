@@ -10,6 +10,15 @@
                     <form method="POST" action="{{ route('pondok.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
+                            <label class="form-label">Logo Pondok</label>
+                            <input type="file" name="logo_pondok" class="form-control">
+                            <br>
+                            @isset($cover->logo_pondok)
+                                <img style="max-width: 20%" src="{{ asset('storage/' . $cover->logo_pondok) }}"
+                                    alt="logo pondok">
+                            @endisset
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Nama</label>
                             <input type="text" name="judul_pondok" class="form-control"
                                 value="{{ $cover->judul_pondok ?? '' }}" required>

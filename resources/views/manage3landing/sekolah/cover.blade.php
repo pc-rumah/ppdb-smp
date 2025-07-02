@@ -24,6 +24,14 @@
                     <form method="POST" action="{{ route('sekolah.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
+                            <label class="form-label">Logo SMP</label>
+                            <input type="file" name="logo_smp" class="form-control">
+                            <br>
+                            @if (isset($cover->logo_smp))
+                                <img style="max-width: 10%" src="{{ asset('storage/' . $cover->logo_smp) }}" alt="logo_smp">
+                            @endif
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Nama</label>
                             <input type="text" name="judul_smp" class="form-control"
                                 value="{{ $cover->judul_smp ?? '' }}" required>

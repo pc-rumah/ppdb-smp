@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SosmedRequest;
 use App\Models\SosmedSmp;
-use Illuminate\Http\Request;
 
 class SosmedSmpController extends Controller
 {
@@ -13,15 +13,9 @@ class SosmedSmpController extends Controller
         return view('sekolah.sosmed.create', compact('data'));
     }
 
-    public function store(Request $request)
+    public function store(SosmedRequest $request)
     {
-        $request->validate([
-            'facebook' => 'nullable|string|max:255',
-            'instagram' => 'nullable|string|max:255',
-            'youtube' => 'nullable|string|max:255',
-            'twitter' => 'nullable|string|max:255',
-            'tiktok' => 'nullable|string|max:255',
-        ]);
+        $request->validated();
 
         $data = SosmedSmp::first() ?? new SosmedSmp();
 
@@ -34,31 +28,5 @@ class SosmedSmpController extends Controller
         $data->save();
 
         return redirect()->back()->with('success', 'Data media sosial berhasil disimpan.');
-    }
-
-    public function show(string $id)
-    {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

@@ -35,15 +35,20 @@ class MadrasahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'logo_madrasah' => 'nullable|image|mimes:png,jpg|max:2048',
             'judul_madrasah' => 'nullable|string|max:255',
             'deskripsi_madrasah' => 'nullable|string',
-            'cover_madrasah' => 'nullable|image|max:2048',
+            'cover_madrasah' => 'nullable|image|mimes:png,jpg|max:2048',
         ]);
 
         $cover = Cover::first() ?? new Cover();
 
         if ($request->hasFile('cover_madrasah')) {
             $cover->cover_madrasah = $request->file('cover_madrasah')->store('landing_covers', 'public');
+        }
+
+        if ($request->hasFile('logo_madrasah')) {
+            $cover->logo_madrasah = $request->file('logo_madrasah')->store('logo_unit', 'public');
         }
 
         $cover->judul_madrasah = $request->judul_madrasah;

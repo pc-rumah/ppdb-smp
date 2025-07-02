@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SosmedRequest;
 use App\Models\SosmedMadrasah;
-use Illuminate\Http\Request;
 
 class SosmedMadrasahController extends Controller
 {
@@ -13,15 +13,9 @@ class SosmedMadrasahController extends Controller
         return view('manage3landing.madrasah.sosmed', compact('data'));
     }
 
-    public function store(Request $request)
+    public function store(SosmedRequest $request)
     {
-        $request->validate([
-            'facebook' => 'nullable|string|max:255',
-            'instagram' => 'nullable|string|max:255',
-            'youtube' => 'nullable|string|max:255',
-            'twitter' => 'nullable|string|max:255',
-            'tiktok' => 'nullable|string|max:255',
-        ]);
+        $request->validated();
 
         $data = SosmedMadrasah::first() ?? new SosmedMadrasah();
 

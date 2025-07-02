@@ -16,7 +16,9 @@
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
-            <i class="fas fa-mosque text-primary"></i>
+            @isset($cover->logo_madrasah)
+                <img src="{{ asset('storage/' . $cover->logo_madrasah) }}" alt="logo madrasah" style="height: 28px">
+            @endisset
             {{ $cover->judul_madrasah ?? 'ini judul' }}
         </a>
     </div>

@@ -38,8 +38,6 @@ use App\Http\Controllers\SosmedMadrasahController;
 use App\Http\Controllers\ProgramMadrasahController;
 use App\Http\Controllers\PrestasiMadrasahController;
 use App\Http\Controllers\StafMadrasahController;
-use App\Models\AnnouncementPondok;
-use App\Models\EventMadrasah;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 

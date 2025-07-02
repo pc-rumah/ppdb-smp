@@ -14,16 +14,19 @@ return new class extends Migration
         Schema::create('covers', function (Blueprint $table) {
             $table->id();
             // Cover Madrasah
+            $table->string('logo_madrasah')->nullable();
             $table->string('judul_madrasah')->nullable();
             $table->text('deskripsi_madrasah')->nullable();
             $table->string('cover_madrasah')->nullable();
 
             // Cover SMP
+            $table->string('logo_smp')->nullable();
             $table->string('judul_smp')->nullable();
             $table->text('deskripsi_smp')->nullable();
             $table->string('cover_smp')->nullable();
 
             // Cover Pondok
+            $table->string('logo_pondok')->nullable();
             $table->string('judul_pondok')->nullable();
             $table->text('deskripsi_pondok')->nullable();
             $table->string('cover_pondok')->nullable();

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StafRequest;
+use App\Http\Requests\StafUpdateRequest;
 use App\Models\StaffMadrasah;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class StafMadrasahController extends Controller
@@ -19,14 +20,9 @@ class StafMadrasahController extends Controller
         return view('manage3landing.madrasah.staff.create');
     }
 
-    public function store(Request $request)
+    public function store(StafRequest $request)
     {
-        $validated = $request->validate([
-            'name'          => 'required|string|max:255',
-            'position'      => 'required|string|max:255',
-            'image'         => 'required|image|mimes:png,jpg|max:2048',
-            'description'   => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         $validated['image'] = $request->file('image')->store('staffmadrasah', 'public');
 
@@ -40,14 +36,9 @@ class StafMadrasahController extends Controller
         return view('manage3landing.madrasah.staff.edit', compact('stafmadrasah'));
     }
 
-    public function update(Request $request, StaffMadrasah $stafmadrasah)
+    public function update(StafUpdateRequest $request, StaffMadrasah $stafmadrasah)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'position' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:png,jpg|max:2048',
-            'description' => 'nullable|string'
-        ]);
+        $request->validated();
 
         $data = $request->only(['name', 'position', 'description']);
 
