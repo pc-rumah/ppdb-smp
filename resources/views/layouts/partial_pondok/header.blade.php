@@ -16,8 +16,8 @@
             </ul>
         </div>
         <a class="btn btn-ghost text-xl font-bold">
-            @isset($cover->logo_madrasah)
-                <img src="{{ asset('storage/' . $cover->logo_madrasah) }}" alt="logo madrasah" style="max-height: 26px">
+            @isset($cover->logo_pondok)
+                <img src="{{ asset('storage/' . $cover->logo_pondok) }}" alt="logo madrasah" style="max-height: 26px">
             @endisset
             {{ $cover->judul_pondok ?? 'ini judul' }}
         </a>
