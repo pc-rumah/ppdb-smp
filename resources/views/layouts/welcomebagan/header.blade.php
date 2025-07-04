@@ -17,6 +17,15 @@
         </div>
         <a class="btn btn-ghost text-xl">
             <img src="{{ asset('gambar/logo.jpg') }}" alt="School Logo" class="h-10">
+            @isset($cover->logo_madrasah)
+                <img src="{{ asset('storage/' . $cover->logo_madrasah) }}" alt="logo madrasah" class="h-10">
+            @endisset
+            @isset($cover->logo_smp)
+                <img src="{{ asset('storage/' . $cover->logo_smp) }}" alt="Logo Sekolah" class="h-10">
+            @endisset
+            @isset($cover->logo_pondok)
+                <img src="{{ asset('storage/' . $cover->logo_pondok) }}" alt="logo madrasah" class="h-10">
+            @endisset
         </a>
     </div>
     <div class="navbar-end hidden lg:flex">

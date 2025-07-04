@@ -12,6 +12,7 @@ use App\Models\Sekolah;
 use App\Models\Welcome;
 use App\Models\Madrasah;
 use App\Models\Announcement;
+use App\Models\Cover;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -47,8 +48,8 @@ class WelcomeController extends Controller
         $pengumuman = Cache::remember('landing_pengumuman', 60 * 10, fn() => Announcement::latest()->take(3)->get());
 
         $slides = $this->prepareSlides($welcome);
-
-        return view('welcome', compact('event', 'pengumuman', 'slides', 'kontak', 'welcome'));
+        $cover = Cover::first();
+        return view('welcome', compact('event', 'pengumuman', 'cover', 'slides', 'kontak', 'welcome'));
     }
 
 
