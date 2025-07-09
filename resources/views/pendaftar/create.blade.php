@@ -16,11 +16,11 @@
             <div class="form-group">
                 <label class="label required">Jenis Kelamin</label>
                 <div class="flex gap-4">
-                    <label class="label cursor-pointer">
+                    {{-- <label class="label cursor-pointer">
                         <input type="radio" name="jenis_kelamin" value="Laki-laki" class="radio radio-primary" required
                             {{ old('jenis_kelamin') == 'Laki-laki' ? 'checked' : '' }}>
                         <span class="label-text ml-2">Laki-laki</span>
-                    </label>
+                    </label> --}}
                     <label class="label cursor-pointer">
                         <input type="radio" name="jenis_kelamin" value="Perempuan" class="radio radio-primary" required
                             {{ old('jenis_kelamin') == 'Perempuan' ? 'checked' : '' }}>

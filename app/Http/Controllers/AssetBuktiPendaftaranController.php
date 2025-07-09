@@ -16,12 +16,14 @@ class AssetBuktiPendaftaranController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'tahun_ajar' => 'required|string',
             'logo_pondok_kiri' => 'nullable|image|mimes:png,jpg|max:4096',
             'logo_pondok_kanan' => 'nullable|image|mimes:png,jpg|max:4096',
             'tanda_tangan' => 'nullable|image|mimes:png,jpg|max:4096',
         ]);
 
         $data = AssetBuktiPendaftaran::first() ?? new AssetBuktiPendaftaran();
+        $data->tahun_ajar = $request->tahun_ajar;
 
         if ($request->hasFile('logo_pondok_kiri')) {
             $data->logo_pondok_kiri = $request->file('logo_pondok_kiri')->store('asset_bukti', 'public');

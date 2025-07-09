@@ -197,11 +197,7 @@
                     </tbody>
                 </table>
 
-                <div class="qr-image">
-                    @if ($tanda_tangan)
-                        <img src="{{ $tanda_tangan }}" style="width: 100px;" alt="TTD">
-                    @endif
-                </div>
+
             </div>
 
             <div class="notes">
@@ -220,13 +216,16 @@
                             <br>
                             <br>
                             <br>
-                            <p style="text-align: center">DUROTUL BADI'AH S.Pd</p>
+                            <br>
+                            <p style="text-align: center">{{ $pendaftar->penanggung_jawab }}</p>
                         </td>
-                        <td style="text-align: right;">
+                        <td style="text-align: center;">
                             <p style="text-align: center;">Ketua Panitia PSB,</p>
-                            <br>
-                            <br>
-                            <br>
+                            <div class="qr-image">
+                                @if ($tanda_tangan)
+                                    <img src="{{ $tanda_tangan }}" style="width: 100px;" alt="TTD">
+                                @endif
+                            </div>
                             <p style="text-align: center;">Achmad Faizun, S.Pd.</p>
                         </td>
                     </tr>

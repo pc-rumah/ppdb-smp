@@ -10,6 +10,12 @@
                     <form method="POST" action="{{ route('assetbukti.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
+                            <label for="tahun_ajar" class="form-label">Tahun Ajar</label>
+                            <input type="text" name="tahun_ajar" id="tahun_ajar" class="form-control"
+                                value="{{ old('tahun_ajar', isset($data) ? $data->tahun_ajar : '') }}">
+                        </div>
+
+                        <div class="mb-3">
                             <label for="logo_pondok_kiri" class="form-label">Logo Kiri</label>
                             <input type="file" name="logo_pondok_kiri" class="form-control" id="logo_pondok_kiri"><br>
 

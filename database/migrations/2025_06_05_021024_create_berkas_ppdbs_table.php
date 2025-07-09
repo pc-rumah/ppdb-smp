@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('asset_bukti_pendaftaran', function (Blueprint $table) {
             $table->id();
+            $table->string('tahun_ajar');
             $table->string('logo_pondok_kiri');
             $table->string('logo_pondok_kanan');
             $table->string('tanda_tangan');
