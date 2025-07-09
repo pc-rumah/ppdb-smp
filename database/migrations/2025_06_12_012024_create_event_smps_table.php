@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('event_smp', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('judul');
             $table->string('lokasi');
             $table->date('tanggal');

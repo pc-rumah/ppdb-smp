@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sosmed_pondok', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('facebook_pondok')->nullable();
             $table->string('insta_pondok')->nullable();
             $table->string('youtube_pondok')->nullable();

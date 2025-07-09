@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pendaftars', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('no_pendaftaran')->unique();
-            $table->enum('jenis_pendaftaran', ['online', 'offline']);
-            $table->string('nama_lengkap');
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
 
-            //alamat
+            // Ganti enum jadi string
+            $table->string('jenis_pendaftaran');
+            $table->string('nama_lengkap');
+            $table->string('jenis_kelamin');
+
+            // alamat
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('dusun');
@@ -29,13 +31,13 @@ return new class extends Migration
             $table->string('kabupaten_kota');
             $table->string('provinsi');
 
-            //berkas
+            // berkas
             $table->boolean('kk')->default(false);
             $table->boolean('akte')->default(false);
             $table->boolean('ktp')->default(false);
             $table->boolean('rapot')->default(false);
 
-            //data
+            // data
             $table->string('nama_ayah');
             $table->string('nama_ibu');
             $table->string('no_wa');

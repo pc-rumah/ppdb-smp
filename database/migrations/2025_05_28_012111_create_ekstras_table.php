@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ekstra', function (Blueprint $table) {
-            $table->id();
-            $table->string('icon')->nullable(); // bisa simpan nama class icon atau URL
+            $table->bigIncrements('id');
+            $table->string('icon')->nullable();
             $table->string('title');
             $table->text('description');
             $table->timestamps();

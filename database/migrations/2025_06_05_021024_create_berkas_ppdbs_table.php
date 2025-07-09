@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('asset_bukti_pendaftaran', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('tahun_ajar');
             $table->string('logo_pondok_kiri');
             $table->string('logo_pondok_kanan');

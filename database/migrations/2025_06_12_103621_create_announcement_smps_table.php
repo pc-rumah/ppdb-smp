@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('announcement_smp', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('judul');
             $table->date('tanggal');
             $table->text('deskripsi');

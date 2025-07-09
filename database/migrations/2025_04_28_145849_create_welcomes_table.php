@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('welcomes', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             //carousel
             $table->string('title1');
             $table->text('description1');
@@ -21,11 +21,12 @@ return new class extends Migration
             $table->string('title2');
             $table->text('description2');
             $table->string('image2')->nullable();
-            $table->timestamps();
 
             $table->string('title3');
             $table->text('description3');
             $table->string('image3')->nullable();
+
+            $table->timestamps();
         });
     }
 

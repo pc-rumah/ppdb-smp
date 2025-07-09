@@ -22,8 +22,8 @@ class SekolahController extends Controller
         $prestasi = Prestasi::inRandomOrder()->take(4)->get();
         $sosmed = SosmedSmp::first();
         $kepsek = Kepsek::first();
-        $eventsmp = EventSmp::all();
-        $pengumumansmp = AnnouncementSmp::all();
+        $eventsmp = EventSmp::orderBy('created_at', 'desc')->take(5)->get();
+        $pengumumansmp = AnnouncementSmp::orderBy('created_at', 'desc')->take(5)->get();
         return view('sekolah', compact('cover', 'pengumumansmp', 'staff', 'ekstra', 'prestasi', 'sosmed', 'kepsek', 'eventsmp'));
     }
 

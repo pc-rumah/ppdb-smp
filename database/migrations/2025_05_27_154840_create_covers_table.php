@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('covers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             // Cover Madrasah
             $table->string('logo_madrasah')->nullable();
             $table->string('judul_madrasah')->nullable();

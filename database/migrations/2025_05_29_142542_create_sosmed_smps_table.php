@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sosmed_smp', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('facebook_smp')->nullable();
             $table->string('insta_smp')->nullable();
             $table->string('youtube_smp')->nullable();
