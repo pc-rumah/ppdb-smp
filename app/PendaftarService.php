@@ -27,12 +27,14 @@ class PendaftarService
                 : null;
         }
 
+        $tahun_ajar = $asset->tahun_ajar;
         $logo_pondok_kiri = base64_image(public_path('storage/' . $asset->logo_pondok_kiri));
         $logo_pondok_kanan = base64_image(public_path('storage/' . $asset->logo_pondok_kanan));
         $tanda_tangan = base64_image(public_path('storage/' . $asset->tanda_tangan));
 
         $pdf = Pdf::loadView('pdf.bukti_pendaftaran', [
             'pendaftar' => $pendaftar,
+            'tahun_ajar' => $tahun_ajar,
             'logo_kiri' => $logo_pondok_kiri,
             'logo_kanan' => $logo_pondok_kanan,
             'tanda_tangan' => $tanda_tangan,
@@ -41,7 +43,6 @@ class PendaftarService
         $pdfPath = 'bukti_pendaftaran/' . $pendaftar->no_pendaftaran . '-' . now()->timestamp . '.pdf';
         Storage::disk('public')->put($pdfPath, $pdf->output());
 
-        // Update field di database
         $pendaftar->update([
             'bukti_pendaftaran' => $pdfPath,
         ]);

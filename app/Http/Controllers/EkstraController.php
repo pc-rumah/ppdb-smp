@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EkstraRequest;
 use App\Models\Ekstra;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class EkstraController extends Controller
 {
@@ -19,21 +18,13 @@ class EkstraController extends Controller
         return view('sekolah.ekstra.create');
     }
 
-    public function store(Request $request)
+    public function store(EkstraRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         Ekstra::create($validated);
 
         return redirect()->route('ekstra.index')->with('success', 'Data ekstrakurikuler berhasil disimpan!');
-    }
-
-    public function show(string $id)
-    {
-        //
     }
 
     public function edit(string $id)
@@ -42,12 +33,9 @@ class EkstraController extends Controller
         return view('sekolah.ekstra.edit', compact('data'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(EkstraRequest $request, string $id)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         $ekstra = Ekstra::findOrFail($id);
         $ekstra->update($validated);

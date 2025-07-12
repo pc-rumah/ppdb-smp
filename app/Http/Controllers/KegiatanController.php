@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\KegiatanRequest;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,16 +20,15 @@ class KegiatanController extends Controller
         return view('manage3landing.pondok.kegiatan.create');
     }
 
-    public function store(Request $request)
+    public function store(KegiatanRequest $request)
     {
-        $validated = $request->validate([
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'title' => 'required|string|max:255',
-            'time' => 'required|string|max:10',
-            'description' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
-        $imagePath = $request->file('image')->store('kegiatan', 'public');
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('kegiatan', 'public');
+        } else {
+            $imagePath = null;
+        }
 
         Kegiatan::create([
             'image' => $imagePath,
@@ -46,14 +46,9 @@ class KegiatanController extends Controller
         return view('manage3landing.pondok.kegiatan.edit', compact('data'));
     }
 
-    public function update(Request $request, Kegiatan $kegiatanpondok)
+    public function update(KegiatanRequest $request, Kegiatan $kegiatanpondok)
     {
-        $validated = $request->validate([
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'title' => 'required|string|max:255',
-            'time' => 'required|string|max:10',
-            'description' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             if ($kegiatanpondok->image && Storage::disk('public')->exists($kegiatanpondok->image)) {

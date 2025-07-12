@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\AnnouncementMadrasah;
 use App\Models\Cover;
 use App\Models\EventMadrasah;
-use App\Models\Madrasah;
 use App\Models\PrestasiMadrasah;
 use App\Models\ProgramMadrasah;
 use App\Models\SosmedMadrasah;
@@ -35,10 +34,10 @@ class MadrasahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'logo_madrasah' => 'nullable|image|mimes:png,jpg|max:2048',
+            'logo_madrasah' => 'nullable|image|mimes:png,jpg|max:4096',
             'judul_madrasah' => 'nullable|string|max:255',
             'deskripsi_madrasah' => 'nullable|string',
-            'cover_madrasah' => 'nullable|image|mimes:png,jpg|max:2048',
+            'cover_madrasah' => 'nullable|image|mimes:png,jpg|max:4096',
         ]);
 
         $cover = Cover::first() ?? new Cover();

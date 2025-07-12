@@ -105,7 +105,7 @@
             <div class="main-title">
                 <hr style="border: 5px black solid;">
                 <h2 style="text-align: center;">FORMULIR BUKTI PENDAFTARAN SANTRI BARU</h2>
-                <p style="text-align: center;">Tahun Ajaran 2025 / 2026</p>
+                <p style="text-align: center;">Tahun Ajaran {{ $tahun_ajar }}</p>
             </div>
 
             <!-- Identity Table -->

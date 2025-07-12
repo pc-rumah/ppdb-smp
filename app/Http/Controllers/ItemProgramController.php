@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ItemProgramRequest;
 use App\Models\ProgramPondok;
 use App\Models\KategoriProgramPondok;
-use Illuminate\Support\Facades\Storage;
 
 class ItemProgramController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $kategori = KategoriProgramPondok::paginate(5);
@@ -19,24 +15,15 @@ class ItemProgramController extends Controller
         return view('manage3landing.pondok.kategoriProgram.index', compact('kategori', 'program'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $program = ProgramPondok::all();
         return view('manage3landing.pondok.kategoriProgram.create', compact('program'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(ItemProgramRequest $request)
     {
-        $request->validate([
-            'kategori_id' => 'required|exists:program_pondok,id',
-            'nama' => 'required|string|max:255',
-        ]);
+        $request->validated();
 
         KategoriProgramPondok::create([
             'program_id' => $request->kategori_id,
@@ -46,17 +33,6 @@ class ItemProgramController extends Controller
         return redirect()->route('itemprogrampondok.index')->with('success', 'Data berhasil disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $data = KategoriProgramPondok::first();
@@ -64,20 +40,14 @@ class ItemProgramController extends Controller
         return view('manage3landing.pondok.kategoriProgram.edit', compact('data', 'program'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(ItemProgramRequest $request, string $id)
     {
-        $request->validate([
-            'kategori_id' => 'required|exists:program_pondok,id',
-            'nama' => 'required|string|max:255',
-        ]);
+        $request->validated();
 
         $item = KategoriProgramPondok::findOrFail($id);
 
         $item->update([
-            'kategori_id' => $request->kategori_id,
+            'program_id' => $request->kategori_id,
             'nama' => $request->nama,
         ]);
 

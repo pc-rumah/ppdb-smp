@@ -7,8 +7,6 @@ use App\Models\Saudara;
 use App\Models\Pendaftar;
 use App\PendaftarService;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\AssetBuktiPendaftaran;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StorePendaftarRequest;
 
@@ -115,20 +113,5 @@ class PendaftarController extends Controller
     {
         $pendaftar = Pendaftar::findOrFail($id);
         return view('pendaftar.show', compact('pendaftar'));
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
     }
 }

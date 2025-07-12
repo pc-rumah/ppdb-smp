@@ -13,6 +13,6 @@ class KategoriProgramPondok extends Model
 
     public function program(): BelongsTo
     {
-        return $this->belongsTo(ProgramPondok::class, 'program_id');
+        return $this->belongsTo(ProgramPondok::class);
     }
 }

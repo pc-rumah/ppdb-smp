@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PrestasiRequest;
 use App\Models\Prestasi;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Pest\Preset;
 
 class PrestasiController extends Controller
 {
@@ -21,15 +19,9 @@ class PrestasiController extends Controller
         return view('sekolah.prestasi.create');
     }
 
-    public function store(Request $request)
+    public function store(PrestasiRequest $request)
     {
-        $validated = $request->validate([
-            'juara' => 'required|string|max:255',
-            'title' => 'required|string|max:255',
-            'subjudul' => 'required|string|max:255',
-            'background_color' => 'required|string|max:7',
-            'foto' => 'required|image|mimes:png,jpg,jpeg|max:4096',
-        ]);
+        $validated = $request->validated();
 
         $path = $request->file('foto')->store('prestasi', 'public');
 
@@ -50,15 +42,9 @@ class PrestasiController extends Controller
         return view('sekolah.prestasi.edit', compact('data'));
     }
 
-    public function update(Request $request, Prestasi $prestasi)
+    public function update(PrestasiRequest $request, Prestasi $prestasi)
     {
-        $validated = $request->validate([
-            'juara' => 'required|string|max:255',
-            'title' => 'required|string|max:255',
-            'subjudul' => 'required|string|max:255',
-            'background_color' => 'required|string|max:7',
-            'foto' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
-        ]);
+        $validated = $request->validated();
 
         $data = [
             'juara' => $validated['juara'],

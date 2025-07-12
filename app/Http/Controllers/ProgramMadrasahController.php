@@ -35,11 +35,6 @@ class ProgramMadrasahController extends Controller
         return redirect()->route('programmadrasah.index')->with('success', 'Program berhasil ditambahkan.');
     }
 
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit(string $id)
     {
         $data = ProgramMadrasah::find($id);
