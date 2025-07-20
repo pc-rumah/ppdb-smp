@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('juara');
             $table->string('title');
             $table->string('subjudul');
-            $table->string('background_color')->nullable();
             $table->timestamps();
         });
     }

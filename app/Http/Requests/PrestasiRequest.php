@@ -25,7 +25,6 @@ class PrestasiRequest extends FormRequest
             'juara' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'subjudul' => 'required|string|max:255',
-            'background_color' => 'required|string|max:7',
             'foto' => 'required|image|mimes:png,jpg,jpeg|max:4096',
         ];
     }

@@ -29,7 +29,6 @@ class PrestasiController extends Controller
             'juara' => $validated['juara'],
             'title' => $validated['title'],
             'subjudul' => $validated['subjudul'],
-            'background_color' => $validated['background_color'],
             'foto' => $path,
         ]);
 
@@ -50,7 +49,6 @@ class PrestasiController extends Controller
             'juara' => $validated['juara'],
             'title' => $validated['title'],
             'subjudul' => $validated['subjudul'],
-            'background_color' => $validated['background_color'],
         ];
 
         if ($request->hasFile('foto')) {

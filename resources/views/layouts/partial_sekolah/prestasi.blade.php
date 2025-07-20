@@ -8,7 +8,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             @forelse ($prestasi as $item)
-                <div class="card text-white shadow-xl" style="background-color: {{ $item->background_color }}">
+                <div class="card text-black shadow-xl">
                     <div class="card-body items-center text-center">
                         <div class="mb-2">
                             <img src="{{ asset('storage/' . $item->foto) }}" alt="🏆" class="w-64 h-64">

@@ -13,24 +13,18 @@
 </head>
 
 <body class="bg-base-100">
-    <!-- Header -->
     @include('layouts.partial_sekolah.header')
 
-    <!-- Hero Section -->
     @include('layouts.partial_sekolah.hero')
 
-    <!-- Staf dan Guru -->
     @include('layouts.partial_sekolah.staff')
 
-    <!-- Ekstrakurikuler -->
     @include('layouts.partial_sekolah.ekstra')
 
-    <!-- Prestasi -->
     @include('layouts.partial_sekolah.prestasi')
 
     @include('layouts.partial_sekolah.event')
 
-    <!-- Footer -->
     @include('layouts.partial_sekolah.footer')
 
     <script>

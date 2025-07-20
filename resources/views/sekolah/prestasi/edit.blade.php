@@ -38,12 +38,6 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="background_color" class="form-label">Warna Background</label>
-                            <input type="color" class="form-control form-control-color" name="background_color"
-                                id="background_color" value="{{ $data->background_color }}" title="Pilih warna">
-                        </div>
-
-                        <div class="mb-3">
                             <label for="foto" class="form-label">Upload Foto (PNG/JPG)</label>
                             <input type="file" class="form-control" name="foto" accept="image/*">
                             <br>
