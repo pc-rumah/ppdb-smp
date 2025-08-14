@@ -1,4 +1,9 @@
 /* Custom Styles */
+.login{
+    background-color: lightblue;
+    border: 1px solid snow;
+    border-radius: 25px;
+}
 
 /* Timeline Styles */
 .timeline-container {

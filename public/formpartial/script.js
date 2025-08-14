@@ -106,9 +106,59 @@
         }
 }
 
-
         jenisPendaftaran.addEventListener('change', toggleBuktiPembayaran);
 
-        // Trigger saat load pertama kali (jika user reload)
+        // Trigger saat load pertama kali
         toggleBuktiPembayaran();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const jenisPendaftaran     = document.getElementById('jenis_pendaftaran');
+
+  // Bukti pembayaran
+  const buktiPembayaranGroup = document.getElementById('form-grouppembayaran');
+  const buktiPembayaranInput = document.getElementById('bukti_pembayaran');
+
+  function toggleBuktiPembayaran() {
+    if (jenisPendaftaran.value === 'online') {
+      buktiPembayaranGroup.classList.remove('hidden');
+      buktiPembayaranInput.required = true;
+      buktiPembayaranInput.disabled = false;
+    } else {
+      buktiPembayaranGroup.classList.add('hidden');
+      buktiPembayaranInput.required = false;
+      buktiPembayaranInput.value = '';
+      buktiPembayaranInput.disabled = true;
+    }
+  }
+
+  // === BERKAS ===
+  const berkasGroup = document.getElementById('form-groupberkas');
+  const berkasInputs = berkasGroup.querySelectorAll('input[type="file"]');
+
+  function toggleBerkas() {
+    if (jenisPendaftaran.value === 'online') {
+      berkasGroup.classList.remove('hidden');
+      berkasInputs.forEach(inp => {
+        inp.required = false;
+        inp.disabled = false;
+      });
+    } else {
+      berkasGroup.classList.add('hidden');
+      berkasInputs.forEach(inp => {
+        inp.required = false;
+        inp.value = '';
+        inp.disabled = true;
+      });
+    }
+  }
+
+  // Event + trigger awal
+  jenisPendaftaran.addEventListener('change', () => {
+    toggleBuktiPembayaran();
+    toggleBerkas();
+  });
+
+  toggleBuktiPembayaran();
+  toggleBerkas();
 });

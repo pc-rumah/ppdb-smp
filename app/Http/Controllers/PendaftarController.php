@@ -114,4 +114,12 @@ class PendaftarController extends Controller
         $pendaftar = Pendaftar::findOrFail($id);
         return view('pendaftar.show', compact('pendaftar'));
     }
+
+    public function destroy(string $id)
+    {
+        $pendaftar = Pendaftar::findOrFail($id);
+        $pendaftar->delete();
+
+        return redirect()->back()->with('success', 'Berhasil di Hapus');
+    }
 }

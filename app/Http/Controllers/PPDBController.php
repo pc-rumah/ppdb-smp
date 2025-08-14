@@ -37,9 +37,13 @@ class PPDBController extends Controller
         $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
         $noPendaftaran = 'SMP' . date('Y') . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
-        $piagamPath = $request->hasFile('piagam')
-            ? $request->file('piagam')->store('piagam', 'public')
-            : null;
+        $piagamPath = $request->hasFile('piagam') ? $request->file('piagam')->store('piagam', 'public') : null;
+        $fotoPath = $request->hasFile('foto') ? $request->file('foto')->store('foto', 'public') : null;
+
+        $kkPath    = $request->hasFile('kk') ? $request->file('kk')->store('berkas/kk', 'public') : null;
+        $aktePath  = $request->hasFile('akte') ? $request->file('akte')->store('berkas/akte', 'public') : null;
+        $ktpPath   = $request->hasFile('ktp') ? $request->file('ktp')->store('berkas/ktp', 'public') : null;
+        $rapotPath = $request->hasFile('rapot') ? $request->file('rapot')->store('berkas/rapot', 'public') : null;
 
         $pendaftar = Pendaftar::create([
             'no_pendaftaran'      => $noPendaftaran,
@@ -48,6 +52,7 @@ class PPDBController extends Controller
             'jenis_pendaftaran'   => $request->jenis_pendaftaran,
             'tempat_lahir'        => $request->tempat_lahir,
             'tanggal_lahir'       => $request->tanggal_lahir,
+            'foto'                => $fotoPath,
             'dusun'               => $request->dusun,
             'rt'                  => $request->rt,
             'rw'                  => $request->rw,
@@ -61,10 +66,10 @@ class PPDBController extends Controller
             'email'               => $request->email,
             'asal_sekolah'        => $request->asal_sekolah,
             'administrasi_lunas' => false,
-            'kk'                  => in_array('KK', $request->berkas ?? []),
-            'akte'                => in_array('Akte', $request->berkas ?? []),
-            'ktp'                 => in_array('KTP', $request->berkas ?? []),
-            'rapot'               => in_array('Rapot', $request->berkas ?? []),
+            'kk'    => $kkPath,
+            'akte'  => $aktePath,
+            'ktp'   => $ktpPath,
+            'rapot' => $rapotPath,
             'saudaras_id'         => $request->riwayat_saudara,
             'penanggung_jawab'    => $request->penanggung_jawab,
             'bukti_pembayaran'    => $buktiPembayaranPath,

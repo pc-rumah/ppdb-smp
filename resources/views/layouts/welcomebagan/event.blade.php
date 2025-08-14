@@ -7,7 +7,7 @@
                 <h3 class="text-2xl font-bold mb-6 text-center">Pengumuman Terbaru</h3>
 
                 <div class="space-y-6">
-                    @foreach ($pengumuman as $item)
+                    @forelse ($pengumuman as $item)
                         <div class="card bg-base-100 shadow-xl">
                             <div class="card-body flex flex-row items-center">
                                 <div class="flex-1">
@@ -25,7 +25,12 @@
                                 @endif
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="flex items-center empty-state">
+                            <div class="empty-state-icon">📅</div>
+                            <p>Tidak ada Data pengumuman.</p>
+                        </div>
+                    @endforelse
                 </div>
             </div>
 
@@ -35,7 +40,7 @@
 
                 <div class="space-y-6">
                     <!-- Event 1 -->
-                    @foreach ($event as $item)
+                    @forelse ($event as $item)
                         <div class="card bg-base-100 shadow-xl">
                             <div class="card-body">
                                 <h4 class="card-title">{{ $item->judul }}</h4>
@@ -61,7 +66,12 @@
                                 <p>{{ $item->deskripsi }}</p>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="flex items-center empty-state">
+                            <div class="empty-state-icon">📰</div>
+                            <p>Tidak ada data Acara.</p>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>

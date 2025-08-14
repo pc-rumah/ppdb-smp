@@ -21,8 +21,6 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('landing/styles.css') }}">
-
-    <!-- Configure Tailwind with our color palette -->
     <script>
         tailwind.config = {
             theme: {

@@ -38,6 +38,7 @@ use App\Http\Controllers\SosmedMadrasahController;
 use App\Http\Controllers\ProgramMadrasahController;
 use App\Http\Controllers\PrestasiMadrasahController;
 use App\Http\Controllers\StafMadrasahController;
+use App\Models\Cover;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
@@ -88,9 +89,12 @@ Route::get('/landing/madrasah', [MadrasahController::class, 'home'])->name('madr
 Route::get('/landing/pondok', [PondokController::class, 'home'])->name('pondok.home');
 
 Route::redirect('/admin', 'dashboard');
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $cover = Cover::first();
+    return view('dashboard', compact('cover'));
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

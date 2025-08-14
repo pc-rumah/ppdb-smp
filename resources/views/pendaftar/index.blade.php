@@ -33,7 +33,6 @@
                         <hr class="hr">
                         <div class="card">
                             <div class="card-body">
-                                <!-- Default Table -->
                                 <form action="{{ route('pendaftar.index') }}" method="GET" class="mb-3">
                                     <div class="input-group">
                                         <input type="text" name="search" value="{{ request('search') }}"
@@ -48,9 +47,7 @@
                                         <thead>
                                             <tr class="bg-info bg-gradient bg-opacity-75 text-dark">
                                                 <th scope="col">#</th>
-                                                {{-- <th scope="col">No. Pendaftaran</th> --}}
                                                 <th scope="col">Nama Lengkap</th>
-                                                <th scope="col">Jenis Kelamin</th>
                                                 <th scope="col">Jenis Pendaftaran</th>
                                                 <th scope="col">Asal Sekolah</th>
                                                 <th scope="col">Status Pembayaran</th>
@@ -64,9 +61,7 @@
                                                     <th scope="row">
                                                         {{ $pendaftar->firstItem() + $loop->index }}
                                                     </th>
-                                                    {{-- <td>{{ $item->no_pendaftaran }}</td> --}}
                                                     <td>{{ $item->nama_lengkap }}</td>
-                                                    <td>{{ ucfirst($item->jenis_kelamin) }}</td>
                                                     <td>{{ ucfirst($item->jenis_pendaftaran) }}</td>
                                                     <td>{{ $item->asal_sekolah }}</td>
                                                     <td>
@@ -83,14 +78,11 @@
                                                         <a href="{{ route('pendaftar.show', $item) }}"
                                                             class="btn btn-primary btn-sm">Show</a>
 
-                                                        {{-- <a href="{{ route('pendaftar.edit', $item) }}"
-                                                            class="btn btn-primary btn-sm">Edit</a>
-
                                                         <button type="button" class="btn btn-danger btn-sm"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#alert-hapus-kategori{{ $item->id }}">
                                                             Delete
-                                                        </button> --}}
+                                                        </button>
 
                                                         {{-- Modal Konfirmasi Hapus --}}
                                                         <div class="modal fade"
@@ -139,7 +131,6 @@
                                         {{ $pendaftar->links() }}
                                     </table>
                                 </div>
-                                <!-- End Default Table Example -->
                             </div>
                         </div>
                     </div>

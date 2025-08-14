@@ -1,14 +1,47 @@
 <aside class="left-sidebar">
-    <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/" class="text-nowrap logo-img">
-                <img src="{{ asset('dash/assets/images/logos/dark-logo.svg') }}" width="180" alt="" />
+                @switch(true)
+                    @case(Auth::user()->hasRole('admin'))
+                        <img src="{{ asset('dash/assets/images/logos/logosidebar.webp') }}" width="180" alt="" />
+                    @break
+
+                    @case(Auth::user()->hasRole('ppdb'))
+                        <img src="{{ asset('dash/assets/images/logos/logosidebar.webp') }}" width="180" alt="" />
+                    @break
+
+                    @case(Auth::user()->hasRole('madrasah'))
+                        <div class="gruplogo">
+                            <img class="logounit" src="{{ asset('storage/' . $cover->logo_madrasah) }}" width="50"
+                                alt="" />
+                            <h4 style="margin: 0;">Madrasah</h4>
+                        </div>
+                    @break
+
+                    @case(Auth::user()->hasRole('pondok'))
+                        <div class="gruplogo">
+                            <img class="logounit" src="{{ asset('storage/' . $cover->logo_pondok) }}" width="50"
+                                alt="" />
+                            <h4 style="margin: 0;">Pondok</h4>
+                        </div>
+                    @break
+
+                    @case(Auth::user()->hasRole('staff'))
+                        <div class="gruplogo">
+                            <img class="logounit" src="{{ asset('storage/' . $cover->logo_smp) }}" width="50"
+                                alt="" />
+                            <h4 style="margin: 0; font-size: 15px;">SMP Al Mas`udiyyah</h4>
+                        </div>
+                    @break
+                @endswitch
+
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
             </div>
         </div>
+
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
@@ -80,7 +113,7 @@
                     </li>
                 @endif
 
-                @if (Auth::user()->hasAnyRole(['ppdb', 'admiin']))
+                @if (Auth::user()->hasAnyRole(['ppdb', 'admin']))
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">PPDB</span>
@@ -372,5 +405,4 @@
         </nav>
         <!-- End Sidebar navigation -->
     </div>
-    <!-- End Sidebar scroll-->
 </aside>

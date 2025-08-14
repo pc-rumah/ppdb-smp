@@ -22,30 +22,47 @@ class StorePendaftarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_lengkap' => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'jenis_pendaftaran' => 'required|in:online,offline',
-            'tempat_lahir' => 'required|max:255',
-            'tanggal_lahir' => 'required|date',
-            'dusun' => 'required|string|max:255',
-            'rt' => 'required|string|max:30',
-            'rw' => 'required|string|max:30',
-            'desa' => 'required|string|max:255',
-            'kecamatan' => 'required|string|max:50',
-            'kabupaten' => 'required|string|max:50',
-            'provinsi' => 'required|string|max:50',
-            'nama_ayah' => 'required|string|max:100',
-            'nama_ibu' => 'required|string|max:100',
-            'no_wa' => 'required|regex:/^[0-9]+$/|min:10|max:18',
-            'email' => 'required|email|max:100',
-            'asal_sekolah' => 'required|string|max:100',
-            'riwayat_penyakit' => 'required|array',
-            'riwayat_saudara' => 'required',
-            'dokumen_tambahan' => 'nullable|array',
-            'dokumen_tambahan.*' => 'in:kk,akte,ktp,rapot',
-            'penanggung_jawab' => 'required|string|max:255',
-            'bukti_pembayaran' => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:4096',
-            'piagam' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
+            'nama_lengkap'       => 'required|string|max:255',
+            'jenis_kelamin'      => 'required|in:Laki-laki,Perempuan',
+            'jenis_pendaftaran'  => 'required|in:online,offline',
+            'tempat_lahir'       => 'required|string|max:255',
+            'tanggal_lahir'      => 'required|date',
+            'foto'               => 'required|file|mimes:jpg,jpeg,png,pdf|max:4096',
+
+            // Alamat (ID dari dropdown)
+            'provinsi_id'        => 'required|integer',
+            'kabupaten_id'       => 'required|integer',
+            'kecamatan_id'       => 'required|integer',
+            'desa_id'            => 'required|integer',
+
+            // Alamat (nama untuk disimpan di kolom lama)
+            'provinsi'           => 'required|string|max:100',
+            'kabupaten'          => 'required|string|max:100',
+            'kecamatan'          => 'required|string|max:100',
+            'desa'               => 'required|string|max:255',
+
+            'dusun'              => 'required|string|max:255',
+            'rt'                 => 'required|string|max:30',
+            'rw'                 => 'required|string|max:30',
+
+            'nama_ayah'          => 'required|string|max:100',
+            'nama_ibu'           => 'required|string|max:100',
+            'no_wa'              => 'required|regex:/^[0-9]+$/|min:10|max:18',
+            'email'              => 'required|email|max:100',
+            'asal_sekolah'       => 'required|string|max:100',
+
+            'riwayat_penyakit'   => 'required|array',
+            'riwayat_saudara'    => 'required',
+
+            'kk'    => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
+            'akte'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
+            'ktp'   => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
+            'rapot' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
+
+            'penanggung_jawab'   => 'required|string|max:255',
+
+            'bukti_pembayaran'   => 'required_if:jenis_pendaftaran,online|file|mimes:jpg,jpeg,png,pdf|max:4096',
+            'piagam'             => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
         ];
     }
 }

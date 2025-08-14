@@ -8,11 +8,16 @@
                 </svg>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a href="#hero">Home</a></li>
+                <li><a href="#hero">Beranda</a></li>
                 <li><a href="#about">Tentang</a></li>
-                <li><a href="#registration">Registration</a></li>
-                <li><a href="#events">Events</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#registration">Pendaftaran</a></li>
+                <li><a href="#events">Acara</a></li>
+                <li><a href="#contact">Kontak</a></li>
+                @if (Auth::check())
+                    <li class="login"><a href="/dashboard">Dashboard</a></li>
+                @else
+                    <li class="login"><a href="/login">Login</a></li>
+                @endif
             </ul>
         </div>
         <a class="btn btn-ghost text-xl">
@@ -29,11 +34,16 @@
     </div>
     <div class="navbar-end hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-            <li><a href="#hero">Home</a></li>
+            <li><a href="#hero">Beranda</a></li>
             <li><a href="#about">Tentang</a></li>
-            <li><a href="#registration">Registration</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#registration">Pendaftaran</a></li>
+            <li><a href="#events">Acara</a></li>
+            <li><a href="#contact">Kontak</a></li>
+            @if (Auth::check())
+                <li class="login"><a href="/dashboard">Dashboard</a></li>
+            @else
+                <li class="login"><a href="/login">Login</a></li>
+            @endif
         </ul>
     </div>
 </header>

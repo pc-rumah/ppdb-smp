@@ -3,11 +3,11 @@
 @section('content')
     <main id="main" class="main">
         <div class="pagetitle">
-            <h4>Kelola Data Event</h4>
+            <h4>Kelola Data Acara Mendatang</h4>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Data Event</li>
+                    <li class="breadcrumb-item active">Data Acara Mendatang</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->

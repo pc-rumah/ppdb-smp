@@ -17,7 +17,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
+                            <label for="nama_kegiatan" class="form-label">Nama</label>
                             <input type="text" name="nama_kegiatan" class="form-control" id="nama_kegiatan"
                                 value="{{ old('nama_kegiatan') }}" required>
                         </div>

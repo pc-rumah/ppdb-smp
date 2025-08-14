@@ -15,6 +15,16 @@
             display: block;
             margin-bottom: 10px;
         }
+
+        .logounit {
+            margin: 10px 0 0 20px;
+        }
+
+        .gruplogo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 </head>

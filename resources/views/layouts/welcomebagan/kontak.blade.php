@@ -67,7 +67,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-semibold">Office Hours</h4>
+                                    <h4 class="text-lg font-semibold">Jam Kerja</h4>
                                     <p class="mt-1">Senin - Jum'at: 8:00 AM - 3:00 PM<br>Sabtu: 9:00 AM -
                                         12:00 PM<br>Minggu: Libur</p>
                                 </div>

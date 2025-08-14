@@ -13,6 +13,7 @@
                     class="input input-bordered w-full" required>
             </div>
 
+            {{-- jenis kelamin --}}
             <div class="form-group">
                 <label class="label required">Jenis Kelamin</label>
                 <div class="flex gap-4">
@@ -50,21 +51,69 @@
                 <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="input input-bordered w-full"
                     value="{{ old('tanggal_lahir') }}" required>
             </div>
+
+            <div class="form-group">
+                <label class="label">Foto Pendaftar</label>
+                <input type="file" id="foto" name="foto" class="file-input file-input-bordered w-full"
+                    accept=".jpg,.jpeg,.png,.pdf">
+            </div>
         </div>
 
         <!-- Alamat -->
         <fieldset>
             <legend>Alamat</legend>
             <div class="address-grid">
+                {{-- PROVINSI --}}
+                <div class="form-group">
+                    <label for="provinsi" class="label required">Provinsi</label>
+                    <select id="provinsi" name="provinsi_id" class="input input-bordered w-full" required></select>
+                    <input type="hidden" id="provinsi_id" name="provinsi_id" value="{{ old('provinsi_id') }}">
+                    <input type="hidden" id="provinsi_text" name="provinsi"
+                        value="{{ old('provinsi') }}"><!-- simpan nama -->
+                    @error('provinsi_id')
+                        <small class="text-red-600">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                {{-- KABUPATEN/KOTA --}}
+                <div class="form-group">
+                    <label for="kabupaten" class="label required">Kabupaten/Kota</label>
+                    <select id="kabupaten" name="kabupaten_id" class="input input-bordered w-full" required
+                        disabled></select>
+                    <input type="hidden" id="kabupaten_id" name="kabupaten_id" value="{{ old('kabupaten_id') }}">
+                    <input type="hidden" id="kabupaten_text" name="kabupaten" value="{{ old('kabupaten') }}">
+                    @error('kabupaten_id')
+                        <small class="text-red-600">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                {{-- KECAMATAN --}}
+                <div class="form-group">
+                    <label for="kecamatan" class="label required">Kecamatan</label>
+                    <select id="kecamatan" name="kecamatan_id" class="input input-bordered w-full" required
+                        disabled></select>
+                    <input type="hidden" id="kecamatan_id" name="kecamatan_id" value="{{ old('kecamatan_id') }}">
+                    <input type="hidden" id="kecamatan_text" name="kecamatan" value="{{ old('kecamatan') }}">
+                    @error('kecamatan_id')
+                        <small class="text-red-600">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                {{-- DESA/KELURAHAN --}}
+                <div class="form-group">
+                    <label for="desa" class="label required">Desa/Kelurahan</label>
+                    <select id="desa" name="desa_id" class="input input-bordered w-full" required disabled></select>
+                    <input type="hidden" id="desa_id" name="desa_id" value="{{ old('desa_id') }}">
+                    <input type="hidden" id="desa_text" name="desa" value="{{ old('desa') }}">
+                    @error('desa_id')
+                        <small class="text-red-600">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                {{-- Tetap input biasa --}}
                 <div class="form-group">
                     <label for="dusun" class="label">Dusun</label>
                     <input value="{{ old('dusun') }}" type="text" id="dusun" name="dusun"
-                        class="input input-bordered w-full">
-                </div>
-
-                <div class="form-group">
-                    <label for="rt" class="label">RT</label>
-                    <input value="{{ old('rt') }}" type="text" id="rt" name="rt"
                         class="input input-bordered w-full">
                 </div>
 
@@ -75,29 +124,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="desa" class="label required">Desa/Kelurahan</label>
-                    <input value="{{ old('desa') }}" type="text" id="desa" name="desa"
-                        class="input input-bordered w-full" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="kecamatan" class="label required">Kecamatan</label>
-                    <input value="{{ old('kecamatan') }}" type="text" id="kecamatan" name="kecamatan"
-                        class="input input-bordered w-full" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="kabupaten" class="label required">Kabupaten/Kota</label>
-                    <input value="{{ old('kabupaten') }}" type="text" id="kabupaten" name="kabupaten"
-                        class="input input-bordered w-full" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="provinsi" class="label required">Provinsi</label>
-                    <input value="{{ old('provinsi') }}" type="text" id="provinsi" name="provinsi"
-                        class="input input-bordered w-full" required>
+                    <label for="rt" class="label">RT</label>
+                    <input value="{{ old('rt') }}" type="text" id="rt" name="rt"
+                        class="input input-bordered w-full">
                 </div>
             </div>
+
         </fieldset>
 
         <!-- Data Orang Tua -->
@@ -164,27 +196,27 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="label ">Berkas yang dilampirkan (checklist yang sudah ada)</label>
-                <div class="flex flex-col gap-2">
-                    <label class="label cursor-pointer">
-                        <input type="checkbox" name="berkas[]" value="KK" class="checkbox checkbox-primary">
-                        <span class="label-text ml-2">Kartu Keluarga (KK)</span>
-                    </label>
-                    <label class="label cursor-pointer">
-                        <input type="checkbox" name="berkas[]" value="Akte" class="checkbox checkbox-primary">
-                        <span class="label-text ml-2">Akte Kelahiran</span>
-                    </label>
-                    <label class="label cursor-pointer">
-                        <input type="checkbox" name="berkas[]" value="KTP" class="checkbox checkbox-primary">
-                        <span class="label-text ml-2">KTP Orang Tua</span>
-                    </label>
-                    <label class="label cursor-pointer">
-                        <input type="checkbox" name="berkas[]" value="Rapot" class="checkbox checkbox-primary">
-                        <span class="label-text ml-2">Rapot Kelas 6 Semester 2</span>
-                    </label>
-                </div>
+            <!-- GROUP BERKAS -->
+            <div class="form-group hidden" id="form-groupberkas">
+                <label class="label">Upload Berkas</label>
+
+                <label class="label">Kartu Keluarga (KK)</label>
+                <input type="file" id="berkas_kk" name="kk" class="file-input file-input-bordered w-full"
+                    accept=".jpg,.jpeg,.png,.pdf">
+
+                <label class="label">Akte Kelahiran</label>
+                <input type="file" id="berkas_akte" name="akte" class="file-input file-input-bordered w-full"
+                    accept=".jpg,.jpeg,.png,.pdf">
+
+                <label class="label">KTP Orang Tua</label>
+                <input type="file" id="berkas_ktp" name="ktp" class="file-input file-input-bordered w-full"
+                    accept=".jpg,.jpeg,.png,.pdf">
+
+                <label class="label">Rapot Kelas 6 Semester 2</label>
+                <input type="file" id="berkas_rapot" name="rapot" class="file-input file-input-bordered w-full"
+                    accept=".jpg,.jpeg,.png,.pdf">
             </div>
+
 
             <div class="form-group">
                 <label for="riwayat_penyakit" class="label">Riwayat Penyakit</label>

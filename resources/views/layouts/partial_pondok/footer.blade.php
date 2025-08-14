@@ -13,8 +13,6 @@
                     class="fab fa-instagram"></i></a>
             <a href="{{ $sosmed->youtube_pondok ?? '#' }}" class="text-2xl hover:text-primary transition-colors"><i
                     class="fab fa-youtube"></i></a>
-            <a href="{{ $sosmed->twitter_pondok ?? '#' }}" class="text-2xl hover:text-primary transition-colors"><i
-                    class="fab fa-twitter"></i></a>
             <a href="{{ $sosmed->tiktok_pondok ?? '#' }}" class="text-2xl hover:text-primary transition-colors"><i
                     class="fab fa-tiktok"></i></a>
         </div>

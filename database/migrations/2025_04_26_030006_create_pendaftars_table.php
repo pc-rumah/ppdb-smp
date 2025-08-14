@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('pendaftars', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_pendaftaran')->unique();
-
-            // Ganti enum jadi string
             $table->string('jenis_pendaftaran');
             $table->string('nama_lengkap');
             $table->string('jenis_kelamin');
+            $table->string('foto');
 
             // alamat
             $table->string('tempat_lahir');
@@ -31,11 +30,16 @@ return new class extends Migration
             $table->string('kabupaten_kota');
             $table->string('provinsi');
 
+            $table->char('provinsi_id', 2)->nullable()->index()->after('provinsi');
+            $table->char('kabupaten_id', 4)->nullable()->index()->after('provinsi_id');
+            $table->char('kecamatan_id', 7)->nullable()->index()->after('kabupaten_id');
+            $table->char('desa_id', 10)->nullable()->index()->after('kecamatan_id');
+
             // berkas
-            $table->boolean('kk')->default(false);
-            $table->boolean('akte')->default(false);
-            $table->boolean('ktp')->default(false);
-            $table->boolean('rapot')->default(false);
+            $table->string('kk')->nullable();
+            $table->string('akte')->nullable();
+            $table->string('ktp')->nullable();
+            $table->string('rapot')->nullable();
 
             // data
             $table->string('nama_ayah');
