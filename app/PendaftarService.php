@@ -27,12 +27,22 @@ class PendaftarService
                 : null;
         }
 
+        $nama_kontak_1  = $asset->nama_kontak_1;
+        $nomor_kontak_1 = $asset->nomor_kontak_1;
+        $nama_kontak_2  = $asset->nama_kontak_2;
+        $nomor_kontak_2 = $asset->nomor_kontak_2;
+        $ketua_panitia  = $asset->ketua_panitia;
         $tahun_ajar = $asset->tahun_ajar;
         $logo_pondok_kiri = base64_image(public_path('storage/' . $asset->logo_pondok_kiri));
         $logo_pondok_kanan = base64_image(public_path('storage/' . $asset->logo_pondok_kanan));
         $tanda_tangan = base64_image(public_path('storage/' . $asset->tanda_tangan));
 
         $pdf = Pdf::loadView('pdf.bukti_pendaftaran', [
+            'nama_kontak_1'  => $nama_kontak_1,
+            'nomor_kontak_1' => $nomor_kontak_1,
+            'nama_kontak_2'  => $nama_kontak_2,
+            'nomor_kontak_2' => $nomor_kontak_2,
+            'ketua_panitia'  => $ketua_panitia,
             'pendaftar' => $pendaftar,
             'tahun_ajar' => $tahun_ajar,
             'logo_kiri' => $logo_pondok_kiri,

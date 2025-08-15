@@ -12,7 +12,7 @@
                             <h1 class="text-3xl md:text-6xl font-bold mb-5">{{ $item['title'] }}</h1>
                             <p class="text-xl md:text-2xl mb-8">{{ $item['description'] }}</p>
                             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                                <a href="/formppdb"
+                                <a href="/ppdb"
                                     class="btn btn-lg bg-secondary hover:bg-secondary/80 text-white border-none">Daftar
                                     Sekarang</a>
                                 <a href="#about"

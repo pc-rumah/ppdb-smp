@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('asset_bukti_pendaftaran', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('tahun_ajar');
-            $table->string('logo_pondok_kiri');
-            $table->string('logo_pondok_kanan');
-            $table->string('tanda_tangan');
+            $table->string('tahun_ajar')->nullable();
+            $table->string('logo_pondok_kiri')->nullable();
+            $table->string('logo_pondok_kanan')->nullable();
+            $table->string('tanda_tangan')->nullable();
+            $table->string('nama_kontak_1')->nullable();
+            $table->string('nomor_kontak_1')->nullable();
+            $table->string('nama_kontak_2')->nullable();
+            $table->string('nomor_kontak_2')->nullable();
+            $table->string('ketua_panitia')->nullable();
             $table->timestamps();
         });
     }

@@ -29,9 +29,7 @@ class PPDBController extends Controller
     {
         $noPendaftaran = $pendaftarService->generateNoPendaftaran();
 
-        $buktiPembayaranPath = $request->hasFile('bukti_pembayaran')
-            ? $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public')
-            : null;
+        $buktiPembayaranPath = $request->hasFile('bukti_pembayaran') ? $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public') : null;
 
         $lastPendaftar = Pendaftar::latest()->first();
         $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
@@ -39,7 +37,6 @@ class PPDBController extends Controller
 
         $piagamPath = $request->hasFile('piagam') ? $request->file('piagam')->store('piagam', 'public') : null;
         $fotoPath = $request->hasFile('foto') ? $request->file('foto')->store('foto', 'public') : null;
-
         $kkPath    = $request->hasFile('kk') ? $request->file('kk')->store('berkas/kk', 'public') : null;
         $aktePath  = $request->hasFile('akte') ? $request->file('akte')->store('berkas/akte', 'public') : null;
         $ktpPath   = $request->hasFile('ktp') ? $request->file('ktp')->store('berkas/ktp', 'public') : null;

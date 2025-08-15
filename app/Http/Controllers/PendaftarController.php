@@ -118,6 +118,26 @@ class PendaftarController extends Controller
     public function destroy(string $id)
     {
         $pendaftar = Pendaftar::findOrFail($id);
+
+        $fileColumns = [
+            'bukti_pembayaran',
+            'piagam',
+            'foto',
+            'kk',
+            'akte',
+            'ktp',
+            'rapot',
+        ];
+
+        $disk = Storage::disk('public');
+
+        foreach ($fileColumns as $col) {
+            $path = $pendaftar->{$col};
+            if (!empty($path) && $disk->exists($path)) {
+                $disk->delete($path);
+            }
+        }
+
         $pendaftar->delete();
 
         return redirect()->back()->with('success', 'Berhasil di Hapus');

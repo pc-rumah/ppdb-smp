@@ -25,7 +25,7 @@ class AnnouncementRequest extends FormRequest
             'judul' => 'required|string|max:255',
             'tanggal' => 'required|date',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ];
     }
 }

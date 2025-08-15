@@ -15,6 +15,7 @@
 
         .kop {
             text-align: center;
+            margin-top: 30px;
         }
 
         .logo-kiri,
@@ -196,14 +197,13 @@
                         </tr>
                     </tbody>
                 </table>
-
-
             </div>
 
             <div class="notes">
                 <p><strong>Keterangan :</strong></p>
                 <p>1. Bukti ini WAJIB dibawa ketika DAFTAR ULANG</p>
-                <p>2. Contact person : Ust. Achmad Faiyun (0896 7644 0222) atau Ust. Tesa Melasari (0831 0208 4108)</p>
+                <p>2. Contact person : {{ $nama_kontak_1 }} ({{ $nomor_kontak_1 }}) atau {{ $nama_kontak_1 }}
+                    ({{ $nomor_kontak_2 }})</p>
             </div>
 
             <!-- Footer -->
@@ -226,7 +226,7 @@
                                     <img src="{{ $tanda_tangan }}" style="width: 100px;" alt="TTD">
                                 @endif
                             </div>
-                            <p style="text-align: center;">Achmad Faizun, S.Pd.</p>
+                            <p style="text-align: center;"> {{ $ketua_panitia }} </p>
                         </td>
                     </tr>
                 </table>

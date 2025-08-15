@@ -42,6 +42,8 @@ use App\Models\Cover;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
+Route::view('/ppdb', 'ppdb');
+
 Route::get('/register', function () {
     return redirect('/login');
 });

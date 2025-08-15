@@ -24,7 +24,7 @@ class StafRequest extends FormRequest
         return [
             'name'        => 'required|string|max:255',
             'position'    => 'required|string|max:255',
-            'image'       => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'image'       => 'required|image|mimes:jpg,jpeg,png|max:4096',
             'description' => 'nullable|string',
         ];
     }
