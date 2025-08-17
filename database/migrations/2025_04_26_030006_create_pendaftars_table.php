@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->string('jenis_kelamin');
             $table->string('foto');
+            $table->enum('status', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
 
             // alamat
             $table->string('tempat_lahir');

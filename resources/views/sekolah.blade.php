@@ -25,6 +25,8 @@
 
     @include('layouts.partial_sekolah.event')
 
+    @include('components.kontak')
+
     @include('layouts.partial_sekolah.footer')
 
     <script>

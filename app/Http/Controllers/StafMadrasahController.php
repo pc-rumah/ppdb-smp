@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StafRequest;
-use App\Http\Requests\StafUpdateRequest;
+use App\Models\Cover;
 use App\Models\StaffMadrasah;
+use App\Http\Requests\StafRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StafUpdateRequest;
 
 class StafMadrasahController extends Controller
 {

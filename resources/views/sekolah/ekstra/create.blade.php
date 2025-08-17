@@ -7,12 +7,17 @@
             @include('layouts.semuaalert')
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('ekstra.store') }}" method="POST">
+                    <form action="{{ route('ekstra.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
                             <label for="title" class="form-label">Judul</label>
                             <input type="text" class="form-control" name="title" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="gambar" class="form-label">Gambar</label>
+                            <input type="file" class="form-control" name="gambar" accept="image/*" required>
                         </div>
 
                         <div class="mb-3">

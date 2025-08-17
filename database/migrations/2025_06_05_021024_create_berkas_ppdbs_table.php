@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('logo_pondok_kiri')->nullable();
             $table->string('logo_pondok_kanan')->nullable();
             $table->string('tanda_tangan')->nullable();
+            $table->string('stempel')->nullable();
             $table->string('nama_kontak_1')->nullable();
             $table->string('nomor_kontak_1')->nullable();
             $table->string('nama_kontak_2')->nullable();

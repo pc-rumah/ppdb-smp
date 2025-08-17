@@ -47,10 +47,17 @@ class PendaftarController extends Controller
         return back()->with('success', 'Status administrasi berhasil diperbarui.');
     }
 
+    public function updateStatusSiswa(Request $request, $id)
+    {
+        $pendaftar = Pendaftar::findOrFail($id);
+        $pendaftar->update(['status' => $request->status]);
+
+        return back()->with('success', 'Status pendaftar berhasil diperbarui!');
+    }
+
     public function store(StorePendaftarRequest $request, PendaftarService $pendaftarService)
     {
         $noPendaftaran = $pendaftarService->generateNoPendaftaran();
-
         $buktiPembayaranPath = $request->hasFile('bukti_pembayaran')
             ? $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public')
             : null;
@@ -59,43 +66,50 @@ class PendaftarController extends Controller
         $nextNumber = $lastPendaftar ? ((int) substr($lastPendaftar->no_pendaftaran, -4)) + 1 : 1;
         $noPendaftaran = 'SMP' . date('Y') . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
-        $piagamPath = $request->hasFile('piagam')
-            ? $request->file('piagam')->store('piagam', 'public')
-            : null;
+        $piagamPath = $request->hasFile('piagam') ? $request->file('piagam')->store('piagam', 'public') : null;
+        $fotoPath = $request->hasFile('foto') ? $request->file('foto')->store('foto', 'public') : null;
+        $kkPath    = $request->hasFile('kk') ? $request->file('kk')->store('berkas/kk', 'public') : null;
+        $aktePath  = $request->hasFile('akte') ? $request->file('akte')->store('berkas/akte', 'public') : null;
+        $ktpPath   = $request->hasFile('ktp') ? $request->file('ktp')->store('berkas/ktp', 'public') : null;
+        $rapotPath = $request->hasFile('rapot') ? $request->file('rapot')->store('berkas/rapot', 'public') : null;
 
         $pendaftar = Pendaftar::create([
-            'no_pendaftaran' => $noPendaftaran,
-            'nama_lengkap' => $request->nama_lengkap,
-            'jenis_kelamin' => $request->jenis_kelamin,
+            'no_pendaftaran'    => $noPendaftaran,
+            'nama_lengkap'      => $request->nama_lengkap,
+            'jenis_kelamin'     => $request->jenis_kelamin,
             'jenis_pendaftaran' => $request->jenis_pendaftaran,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'dusun' => $request->dusun,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'desa_kelurahan' => $request->desa,
-            'kecamatan' => $request->kecamatan,
-            'kabupaten_kota' => $request->kabupaten,
-            'provinsi' => $request->provinsi,
-            'nama_ayah' => $request->nama_ayah,
-            'nama_ibu' => $request->nama_ibu,
-            'no_wa' => $request->no_wa,
-            'email' => $request->email,
-            'asal_sekolah' => $request->asal_sekolah,
+            'tempat_lahir'      => $request->tempat_lahir,
+            'tanggal_lahir'     => $request->tanggal_lahir,
+            'foto'              => $fotoPath,
+            'dusun'             => $request->dusun,
+            'rt'                => $request->rt,
+            'rw'                => $request->rw,
+            'desa_kelurahan'    => $request->desa,
+            'kecamatan'         => $request->kecamatan,
+            'kabupaten_kota'    => $request->kabupaten,
+            'provinsi'          => $request->provinsi,
+            'nama_ayah'         => $request->nama_ayah,
+            'nama_ibu'          => $request->nama_ibu,
+            'no_wa'             => $request->no_wa,
+            'email'             => $request->email,
+            'asal_sekolah'      => $request->asal_sekolah,
             'administrasi_lunas' => false,
-            'kk'    => in_array('kk', $request->dokumen_tambahan ?? []),
-            'akte'  => in_array('akte', $request->dokumen_tambahan ?? []),
-            'ktp'   => in_array('ktp', $request->dokumen_tambahan ?? []),
-            'rapot' => in_array('rapot', $request->dokumen_tambahan ?? []),
-            'saudaras_id' => $request->riwayat_saudara,
-            'penanggung_jawab' => $request->penanggung_jawab,
-            'bukti_pembayaran' => $buktiPembayaranPath,
+            'kk'                => $kkPath,
+            'akte'              => $aktePath,
+            'ktp'               => $ktpPath,
+            'rapot'             => $rapotPath,
+            'saudaras_id'       => $request->riwayat_saudara,
+            'penanggung_jawab'  => $request->penanggung_jawab,
+            'bukti_pembayaran'  => $buktiPembayaranPath,
             'piagam_penghargaan' => $piagamPath,
+            'status'            => 'menunggu',
         ]);
 
         $pendaftarService->generateBuktiPendaftaran($pendaftar);
 
-        $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);
+        if ($request->has('riwayat_penyakit')) {
+            $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);
+        }
 
         return redirect()->route('pendaftar.index')->with('success', 'Data Berhasil disimpan.');
     }

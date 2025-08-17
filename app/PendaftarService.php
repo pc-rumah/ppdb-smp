@@ -36,6 +36,7 @@ class PendaftarService
         $logo_pondok_kiri = base64_image(public_path('storage/' . $asset->logo_pondok_kiri));
         $logo_pondok_kanan = base64_image(public_path('storage/' . $asset->logo_pondok_kanan));
         $tanda_tangan = base64_image(public_path('storage/' . $asset->tanda_tangan));
+        $stempel = base64_image(public_path('storage/' . $asset->stempel));
 
         $pdf = Pdf::loadView('pdf.bukti_pendaftaran', [
             'nama_kontak_1'  => $nama_kontak_1,
@@ -48,6 +49,7 @@ class PendaftarService
             'logo_kiri' => $logo_pondok_kiri,
             'logo_kanan' => $logo_pondok_kanan,
             'tanda_tangan' => $tanda_tangan,
+            'stempel' => $stempel,
         ])->setPaper('a4', 'portrait');
 
         $pdfPath = 'bukti_pendaftaran/' . $pendaftar->no_pendaftaran . '-' . now()->timestamp . '.pdf';

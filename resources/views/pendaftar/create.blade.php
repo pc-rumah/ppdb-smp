@@ -30,6 +30,7 @@
                 </div>
             </div>
 
+            {{-- jenis pendaftaran --}}
             <div class="form-group">
                 <label for="jenis_pendaftaran" class="label required">Jenis Pendaftaran</label>
                 <select id="jenis_pendaftaran" name="jenis_pendaftaran" class="select select-bordered w-full" required>
@@ -66,10 +67,9 @@
                 {{-- PROVINSI --}}
                 <div class="form-group">
                     <label for="provinsi" class="label required">Provinsi</label>
-                    <select id="provinsi" name="provinsi_id" class="input input-bordered w-full" required></select>
+                    <select id="provinsi" class="input input-bordered w-full" required></select>
                     <input type="hidden" id="provinsi_id" name="provinsi_id" value="{{ old('provinsi_id') }}">
-                    <input type="hidden" id="provinsi_text" name="provinsi"
-                        value="{{ old('provinsi') }}"><!-- simpan nama -->
+                    <input type="hidden" id="provinsi_text" name="provinsi" value="{{ old('provinsi') }}">
                     @error('provinsi_id')
                         <small class="text-red-600">{{ $message }}</small>
                     @enderror
@@ -78,8 +78,7 @@
                 {{-- KABUPATEN/KOTA --}}
                 <div class="form-group">
                     <label for="kabupaten" class="label required">Kabupaten/Kota</label>
-                    <select id="kabupaten" name="kabupaten_id" class="input input-bordered w-full" required
-                        disabled></select>
+                    <select id="kabupaten" class="input input-bordered w-full" required disabled></select>
                     <input type="hidden" id="kabupaten_id" name="kabupaten_id" value="{{ old('kabupaten_id') }}">
                     <input type="hidden" id="kabupaten_text" name="kabupaten" value="{{ old('kabupaten') }}">
                     @error('kabupaten_id')
@@ -90,8 +89,7 @@
                 {{-- KECAMATAN --}}
                 <div class="form-group">
                     <label for="kecamatan" class="label required">Kecamatan</label>
-                    <select id="kecamatan" name="kecamatan_id" class="input input-bordered w-full" required
-                        disabled></select>
+                    <select id="kecamatan" class="input input-bordered w-full" required disabled></select>
                     <input type="hidden" id="kecamatan_id" name="kecamatan_id" value="{{ old('kecamatan_id') }}">
                     <input type="hidden" id="kecamatan_text" name="kecamatan" value="{{ old('kecamatan') }}">
                     @error('kecamatan_id')
@@ -102,7 +100,7 @@
                 {{-- DESA/KELURAHAN --}}
                 <div class="form-group">
                     <label for="desa" class="label required">Desa/Kelurahan</label>
-                    <select id="desa" name="desa_id" class="input input-bordered w-full" required disabled></select>
+                    <select id="desa" class="input input-bordered w-full" required disabled></select>
                     <input type="hidden" id="desa_id" name="desa_id" value="{{ old('desa_id') }}">
                     <input type="hidden" id="desa_text" name="desa" value="{{ old('desa') }}">
                     @error('desa_id')
@@ -110,7 +108,6 @@
                     @enderror
                 </div>
 
-                {{-- Tetap input biasa --}}
                 <div class="form-group">
                     <label for="dusun" class="label">Dusun</label>
                     <input value="{{ old('dusun') }}" type="text" id="dusun" name="dusun"
@@ -129,7 +126,6 @@
                         class="input input-bordered w-full">
                 </div>
             </div>
-
         </fieldset>
 
         <!-- Data Orang Tua -->
@@ -216,7 +212,6 @@
                 <input type="file" id="berkas_rapot" name="rapot" class="file-input file-input-bordered w-full"
                     accept=".jpg,.jpeg,.png,.pdf">
             </div>
-
 
             <div class="form-group">
                 <label for="riwayat_penyakit" class="label">Riwayat Penyakit</label>

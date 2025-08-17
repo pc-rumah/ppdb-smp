@@ -16,6 +16,7 @@
                                 value="{{ old('nama_lengkap') }}" required>
                         </div>
 
+                        {{-- jenis kelamin --}}
                         <div class="mb-3">
                             <label class="form-label">Jenis Kelamin</label><br>
                             <div class="form-check form-check-inline">
@@ -30,6 +31,7 @@
                             </div>
                         </div>
 
+                        {{-- jenis pendaftaran --}}
                         <div class="mb-3">
                             <label for="jenis_pendaftaran" class="form-label">Pendaftaran</label>
                             <select name="jenis_pendaftaran" class="form-control" id="jenis_pendaftaran" required>
@@ -52,10 +54,42 @@
                                 value="{{ old('tanggal_lahir') }}">
                         </div>
 
+                        {{-- alamat --}}
                         <div class="mb-3">
                             <label class="form-label">Alamat</label>
+
+                            {{-- Provinsi --}}
+                            <select id="provinsi" class="form-control mb-2">
+                                <option value="">Pilih Provinsi</option>
+                            </select>
+                            <input type="hidden" id="provinsi_id" name="provinsi_id" value="{{ old('provinsi_id') }}">
+                            <input type="hidden" id="provinsi_text" name="provinsi" value="{{ old('provinsi') }}">
+
+                            {{-- Kabupaten --}}
+                            <select id="kabupaten" class="form-control mb-2" disabled>
+                                <option value="">Pilih Kabupaten/Kota</option>
+                            </select>
+                            <input type="hidden" id="kabupaten_id" name="kabupaten_id" value="{{ old('kabupaten_id') }}">
+                            <input type="hidden" id="kabupaten_text" name="kabupaten" value="{{ old('kabupaten_kota') }}">
+
+                            {{-- Kecamatan --}}
+                            <select id="kecamatan" class="form-control mb-2" disabled>
+                                <option value="">Pilih Kecamatan</option>
+                            </select>
+                            <input type="hidden" id="kecamatan_id" name="kecamatan_id" value="{{ old('kecamatan_id') }}">
+                            <input type="hidden" id="kecamatan_text" name="kecamatan" value="{{ old('kecamatan') }}">
+
+                            {{-- Desa --}}
+                            <select id="desa" class="form-control mb-2" disabled>
+                                <option value="">Pilih Desa/Kelurahan</option>
+                            </select>
+                            <input type="hidden" id="desa_id" name="desa_id" value="{{ old('desa_id') }}">
+                            <input type="hidden" id="desa_text" name="desa" value="{{ old('desa_kelurahan') }}">
+
+                            {{-- Dusun --}}
                             <input type="text" name="dusun" class="form-control mb-2" placeholder="Dusun"
                                 value="{{ old('dusun') }}">
+
                             <div class="row">
                                 <div class="col">
                                     <input type="text" name="rt" class="form-control" placeholder="RT"
@@ -66,14 +100,6 @@
                                         value="{{ old('rw') }}">
                                 </div>
                             </div>
-                            <input type="text" name="desa" class="form-control mt-2" placeholder="Desa/Kelurahan"
-                                value="{{ old('desa') }}">
-                            <input type="text" name="kecamatan" class="form-control mt-2" placeholder="Kecamatan"
-                                value="{{ old('kecamatan') }}">
-                            <input type="text" name="kabupaten" class="form-control mt-2" placeholder="Kabupaten/Kota"
-                                value="{{ old('kabupaten') }}">
-                            <input type="text" name="provinsi" class="form-control mt-2" placeholder="Provinsi"
-                                value="{{ old('provinsi') }}">
                         </div>
 
                         <div class="mb-3">
@@ -105,37 +131,33 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Berkas Tambahan</label><br>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="dokumen_tambahan[]" value="kk"
-                                    id="kk" {{ in_array('kk', old('dokumen_tambahan', [])) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="kk">Kartu Keluarga (KK)</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="dokumen_tambahan[]" value="akte"
-                                    id="akte" {{ in_array('akte', old('dokumen_tambahan', [])) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="akte">Akte Kelahiran</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="dokumen_tambahan[]" value="ktp"
-                                    id="ktp" {{ in_array('ktp', old('dokumen_tambahan', [])) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="ktp">KTP</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="dokumen_tambahan[]" value="rapot"
-                                    id="rapot" {{ in_array('rapot', old('dokumen_tambahan', [])) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="rapot">Rapor Kelas 6 Semester 2</label>
-                            </div>
+                            <label class="form-label">Foto Pendaftar</label>
+                            <input type="file" name="foto" class="form-control" accept="image/*" required>
                         </div>
 
-                        <div class="mb-3" id="piagam">
-                            <label for="piagam" class="form-label">Upload Piagam (Bila Ada)</label>
-                            <input type="file" name="piagam" class="form-control" id="piagam"
-                                accept="image/*,application/pdf">
+                        <div class="mb-3">
+                            <label class="form-label">Kartu Keluarga (KK)</label>
+                            <input type="file" name="kk" class="form-control" accept="image/*,application/pdf">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Akte Kelahiran</label>
+                            <input type="file" name="akte" class="form-control" accept="image/*,application/pdf">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">KTP Orang Tua</label>
+                            <input type="file" name="ktp" class="form-control" accept="image/*,application/pdf">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Raport</label>
+                            <input type="file" name="rapot" class="form-control" accept="image/*,application/pdf">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="piagam" class="form-label">Piagam Penghargaan (Opsional)</label>
+                            <input type="file" name="piagam" class="form-control" accept="image/*,application/pdf">
                         </div>
 
                         <div class="mb-3 d-none" id="bukti_pembayaran_group">
@@ -167,8 +189,9 @@
                                 <input type="text" name="penanggung_jawab" class="form-control" id="penanggung_jawab"
                                     value="{{ old('penanggung_jawab') }}">
                             </div>
+                        </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

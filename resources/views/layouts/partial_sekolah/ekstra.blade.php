@@ -27,15 +27,24 @@
 
                 <div
                     class="card bg-gradient-to-br {{ $randomGradient['from'] }} {{ $randomGradient['to'] }} text-white shadow-xl">
-                    <div class="card-body">
-                        <h3 class="card-title text-xl">{{ $item->title }}</h3>
+                    <div class="card-body flex flex-col items-center text-center justify-between">
+
+                        <div class="h-40 flex items-center justify-center">
+                            @if ($item->gambar)
+                                <img class="max-h-full max-w-full object-contain"
+                                    src="{{ asset('storage/' . $item->gambar) }}" alt="Gambar">
+                            @else
+                                <span class="text-sm italic opacity-70">Tidak ada gambar</span>
+                            @endif
+                        </div>
+
+                        <h3 class="card-title text-xl mt-4">{{ $item->title }}</h3>
                         <p>{{ $item->description }}</p>
                     </div>
                 </div>
             @empty
                 <h2>Tidak ada data</h2>
             @endforelse
-
         </div>
     </div>
 </section>

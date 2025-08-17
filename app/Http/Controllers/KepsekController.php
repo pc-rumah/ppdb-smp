@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cover;
 use App\Models\Kepsek;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,8 +11,9 @@ class KepsekController extends Controller
 {
     public function create()
     {
+        $cover = Cover::first();
         $kepsek = Kepsek::first();
-        return view('managestaff.kepsek', compact('kepsek'));
+        return view('managestaff.kepsek', compact('kepsek', 'cover'));
     }
 
     public function store(Request $request)

@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Unit;
 use App\Models\Event;
-use App\Models\Staff;
-use App\Models\Galeri;
 use App\Models\Kontak;
-use App\Models\Pondok;
-use App\Models\Sekolah;
 use App\Models\Welcome;
-use App\Models\Madrasah;
 use App\Models\Announcement;
 use App\Models\Cover;
 use Illuminate\Http\Request;

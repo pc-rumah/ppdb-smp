@@ -9,10 +9,9 @@
                 <a href="/" class="btn btn-accent btn-lg">Bergabung Bersama Kami</a>
             </div>
         </div>
-        <div class="lg:w-1/2">
-            <img src="{{ asset('storage/' . ($cover->cover_pondok ?? '')) }}"
-                onerror="this.onerror=null;this.src='https://placehold.co/600x400';"
-                class="max-w-sm rounded-lg shadow-2xl mx-auto" alt="gambar" />
-        </div>
+        <img src="{{ asset('storage/' . ($cover->cover_pondok ?? '')) }}"
+            onerror="this.onerror=null;this.src='https://placehold.co/600x400';"
+            class="w-full max-w-md min-h-[300px] object-contain rounded-lg shadow-2xl mx-auto" alt="gambar" />
+
     </div>
 </section>

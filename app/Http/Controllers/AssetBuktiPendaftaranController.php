@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\AssetBuktiPendaftaran;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreRequestAsset;
@@ -48,6 +47,13 @@ class AssetBuktiPendaftaranController extends Controller
             }
 
             $data->tanda_tangan = $request->file('tanda_tangan')->store('asset_bukti', 'public');
+        }
+
+        if ($request->hasFile('stempel')) {
+            if ($data->stempel && Storage::disk('public')->exists($data->stempel)) {
+                Storage::disk('public')->delete($data->stempel);
+            }
+            $data->stempel = $request->file('stempel')->store('asset_bukti', 'public');
         }
 
         $data->save();

@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Cover;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer('*', function ($view) {
+            $view->with('cover', Cover::first());
+        });
+
         Paginator::useBootstrapFive();
         if ($this->app->environment('production')) {
             URL::forceScheme('https');

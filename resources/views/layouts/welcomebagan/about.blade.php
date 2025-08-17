@@ -30,7 +30,7 @@
                         'judul' => 'PPDB',
                         'deskripsi' => 'Penerimaan Peserta Didik Baru online',
                         'warna' => 'bg-orange-500',
-                        'url' => '/',
+                        'url' => '/ppdb',
                         'icon' => '',
                     ],
                 ];

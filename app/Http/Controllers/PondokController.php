@@ -7,6 +7,7 @@ use App\Models\Cover;
 use App\Models\EventPondok;
 use App\Models\KategoriProgramPondok;
 use App\Models\Kegiatan;
+use App\Models\Kontak_Unit;
 use App\Models\Pengasuh;
 use App\Models\ProgramPondok;
 use App\Models\SosmedPondok;
@@ -24,7 +25,8 @@ class PondokController extends Controller
         $kegiatan = Kegiatan::orderBy('created_at', 'desc')->take(3)->get();
         $eventpondok = EventPondok::orderBy('created_at', 'desc')->get();
         $pengumumanpondok = AnnouncementPondok::orderBy('created_at', 'desc')->get();
-        return view('pondok', compact('cover', 'pengasuh', 'sosmed', 'program', 'kegiatan', 'eventpondok', 'pengumumanpondok'));
+        $kontak = Kontak_Unit::where('role_name', 'pondok')->first();
+        return view('pondok', compact('cover', 'pengasuh', 'sosmed', 'kontak', 'program', 'kegiatan', 'eventpondok', 'pengumumanpondok'));
     }
 
     public function create()

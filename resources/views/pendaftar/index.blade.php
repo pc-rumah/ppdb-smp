@@ -51,6 +51,7 @@
                                                 <th scope="col">Jenis Pendaftaran</th>
                                                 <th scope="col">Asal Sekolah</th>
                                                 <th scope="col">Status Pembayaran</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">No. WA</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
@@ -73,6 +74,7 @@
                                                             Belum Lunas
                                                         @endif
                                                     </td>
+                                                    <td>{{ $item->status }}</td>
                                                     <td>{{ $item->no_wa }}</td>
                                                     <td class="d-flex gap-2">
                                                         <a href="{{ route('pendaftar.show', $item) }}"

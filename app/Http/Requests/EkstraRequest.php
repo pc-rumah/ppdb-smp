@@ -23,6 +23,7 @@ class EkstraRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'gambar' => 'required|image|mimes:png,jpg,webp|max:4096',
             'description' => 'required|string',
         ];
     }

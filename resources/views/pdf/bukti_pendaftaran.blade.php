@@ -87,7 +87,7 @@
                 </td>
                 <td style="width: 60%;">
                     <div class="kop">
-                        <strong>PONDOK PESANTREN AL MAS'UDIYYAH PUTRI update<br>
+                        <strong>PONDOK PESANTREN AL MAS'UDIYYAH PUTRI<br>
                             02 SMP AL MAS'UDIYYAH BANDUNGAN</strong><br>
                         <em>Alamat: Dsn. Blater, Desa Jimbaran, Kec. Bandungan, Kab. Semarang 50661<br>
                             Telp. (0298) 6072011 Email : smpblater01@gmail.com</em>
@@ -217,17 +217,30 @@
                             <br>
                             <br>
                             <br>
+                            <br>
+                            <br>
                             <p style="text-align: center">{{ $pendaftar->penanggung_jawab }}</p>
                         </td>
-                        <td style="text-align: center;">
+                        <td style="text-align: center; position: relative;">
                             <p style="text-align: center;">Ketua Panitia PSB,</p>
-                            <div class="qr-image">
+
+                            <div style="position: relative; display: inline-block;">
+                                {{-- Stempel --}}
+                                @if ($stempel)
+                                    <img src="{{ $stempel }}"
+                                        style="width: 120px; position: absolute; top: -10px; left: 25%; transform: translateX(-50%); opacity: 0.6;"
+                                        alt="Stempel">
+                                @endif
+
+                                {{-- Tanda tangan --}}
                                 @if ($tanda_tangan)
                                     <img src="{{ $tanda_tangan }}" style="width: 100px;" alt="TTD">
                                 @endif
                             </div>
-                            <p style="text-align: center;"> {{ $ketua_panitia }} </p>
+
+                            <p style="text-align: center;">{{ $ketua_panitia }}</p>
                         </td>
+
                     </tr>
                 </table>
             </div>

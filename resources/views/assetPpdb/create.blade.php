@@ -66,6 +66,15 @@
                                 <img class="gambarPreview" src="{{ asset('storage/' . $data->tanda_tangan) }}">
                             @endif
                         </div>
+
+                        <div class="mb-3">
+                            <label for="stempel" class="form-label">Stempel</label>
+                            <input type="file" name="stempel" class="form-control" id="stempel"><br>
+
+                            @if (isset($data->stempel))
+                                <img class="gambarPreview" src="{{ asset('storage/' . $data->stempel) }}">
+                            @endif
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

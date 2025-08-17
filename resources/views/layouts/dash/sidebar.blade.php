@@ -2,39 +2,35 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/" class="text-nowrap logo-img">
-                @switch(true)
-                    @case(Auth::user()->hasRole('admin'))
-                        <img src="{{ asset('dash/assets/images/logos/logosidebar.webp') }}" width="180" alt="" />
-                    @break
+                @php
+                    $role = Auth::user()->roles->pluck('name')->first(); // Ambil role pertama
+                @endphp
 
-                    @case(Auth::user()->hasRole('ppdb'))
-                        <img src="{{ asset('dash/assets/images/logos/logosidebar.webp') }}" width="180" alt="" />
-                    @break
-
-                    @case(Auth::user()->hasRole('madrasah'))
-                        <div class="gruplogo">
-                            <img class="logounit" src="{{ asset('storage/' . $cover->logo_madrasah) }}" width="50"
-                                alt="" />
-                            <h4 style="margin: 0;">Madrasah</h4>
-                        </div>
-                    @break
-
-                    @case(Auth::user()->hasRole('pondok'))
-                        <div class="gruplogo">
-                            <img class="logounit" src="{{ asset('storage/' . $cover->logo_pondok) }}" width="50"
-                                alt="" />
-                            <h4 style="margin: 0;">Pondok</h4>
-                        </div>
-                    @break
-
-                    @case(Auth::user()->hasRole('staff'))
-                        <div class="gruplogo">
-                            <img class="logounit" src="{{ asset('storage/' . $cover->logo_smp) }}" width="50"
-                                alt="" />
-                            <h4 style="margin: 0; font-size: 15px;">SMP Al Mas`udiyyah</h4>
-                        </div>
-                    @break
-                @endswitch
+                @if (in_array($role, ['admin', 'ppdb']))
+                    <img src="{{ asset('dash/assets/images/logos/logosidebar.webp') }}" width="180"
+                        alt="Logo Sidebar" />
+                @elseif ($role === 'madrasah')
+                    <div class="gruplogo">
+                        <img class="logounit"
+                            src="{{ $cover?->logo_madrasah ? asset('storage/' . $cover->logo_madrasah) : asset('dash/assets/images/default-logo.webp') }}"
+                            width="50" alt="Logo Madrasah" />
+                        <h4 style="margin: 0;">Madrasah</h4>
+                    </div>
+                @elseif ($role === 'pondok')
+                    <div class="gruplogo">
+                        <img class="logounit"
+                            src="{{ $cover?->logo_pondok ? asset('storage/' . $cover->logo_pondok) : asset('dash/assets/images/default-logo.webp') }}"
+                            width="50" alt="Logo Pondok" />
+                        <h4 style="margin: 0;">Pondok</h4>
+                    </div>
+                @elseif ($role === 'staff')
+                    <div class="gruplogo">
+                        <img class="logounit"
+                            src="{{ $cover?->logo_smp ? asset('storage/' . $cover->logo_smp) : asset('dash/assets/images/default-logo.webp') }}"
+                            width="50" alt="Logo SMP" />
+                        <h4 style="margin: 0; font-size: 15px;">SMP Al Mas`udiyyah</h4>
+                    </div>
+                @endif
 
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -128,10 +124,19 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('jadwal*') ? 'active' : '' }}"
+                            href="{{ route('jadwal.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Buka/Tutup</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('sakit*') ? 'active' : '' }}"
                             href="{{ route('sakit.index') }}" aria-expanded="false">
                             <span>
-                                <i class="ti ti-alert-circle"></i>
+                                <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Riwayat Sakit</span>
                         </a>
@@ -140,7 +145,7 @@
                         <a class="sidebar-link {{ Request::is('saudara*') ? 'active' : '' }}"
                             href="{{ route('saudara.index') }}" aria-expanded="false">
                             <span>
-                                <i class="ti ti-alert-circle"></i>
+                                <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Saudara</span>
                         </a>
@@ -150,7 +155,7 @@
                         <a class="sidebar-link {{ Request::is('assetbukti*') ? 'active' : '' }}"
                             href="{{ route('assetbukti.create') }}" aria-expanded="false">
                             <span>
-                                <i class="ti ti-alert-circle"></i>
+                                <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Asset Bukti</span>
                         </a>
@@ -210,6 +215,16 @@
                                 <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Sosial Media</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kontakunit*') ? 'active' : '' }}"
+                            href="{{ route('kontakunit.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kontak Madrasah</span>
                         </a>
                     </li>
 
@@ -285,6 +300,15 @@
                                 <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Prestasi Smp</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kontakunit*') ? 'active' : '' }}"
+                            href="{{ route('kontakunit.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kontak Smp</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -378,6 +402,16 @@
                                 <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Sosial Media</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kontakunit*') ? 'active' : '' }}"
+                            href="{{ route('kontakunit.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kontak Pondok</span>
                         </a>
                     </li>
 

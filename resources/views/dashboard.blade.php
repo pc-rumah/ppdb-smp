@@ -126,7 +126,6 @@
             });
         }
 
-
         let currentPage = 1;
         let isLoading = false;
         let hasMore = true;
@@ -208,6 +207,113 @@
         waktuRadio.addEventListener('change', toggleInput);
         selesaiRadio.addEventListener('change', toggleInput);
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let provinsiSelect = document.getElementById("provinsi");
+            let kabupatenSelect = document.getElementById("kabupaten");
+            let kecamatanSelect = document.getElementById("kecamatan");
+            let desaSelect = document.getElementById("desa");
+
+            // Load Provinsi
+            fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
+                .then(res => res.json())
+                .then(data => {
+                    data.forEach(prov => {
+                        let opt = document.createElement("option");
+                        opt.value = prov.id;
+                        opt.textContent = prov.name;
+                        provinsiSelect.appendChild(opt);
+                    });
+                });
+
+            // Event Provinsi -> Kabupaten
+            provinsiSelect.addEventListener("change", function() {
+                let id = this.value;
+                document.getElementById("provinsi_id").value = id;
+                document.getElementById("provinsi_text").value = this.options[this.selectedIndex].text;
+
+                kabupatenSelect.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>';
+                kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+                kabupatenSelect.disabled = true;
+                kecamatanSelect.disabled = true;
+                desaSelect.disabled = true;
+
+                if (!id) return;
+
+                fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${id}.json`)
+                    .then(res => res.json())
+                    .then(data => {
+                        kabupatenSelect.disabled = false;
+                        data.forEach(kab => {
+                            let opt = document.createElement("option");
+                            opt.value = kab.id;
+                            opt.textContent = kab.name;
+                            kabupatenSelect.appendChild(opt);
+                        });
+                    });
+            });
+
+            // Event Kabupaten -> Kecamatan
+            kabupatenSelect.addEventListener("change", function() {
+                let id = this.value;
+                document.getElementById("kabupaten_id").value = id;
+                document.getElementById("kabupaten_text").value = this.options[this.selectedIndex].text;
+
+                kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+                kecamatanSelect.disabled = true;
+                desaSelect.disabled = true;
+
+                if (!id) return;
+
+                fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/districts/${id}.json`)
+                    .then(res => res.json())
+                    .then(data => {
+                        kecamatanSelect.disabled = false;
+                        data.forEach(kec => {
+                            let opt = document.createElement("option");
+                            opt.value = kec.id;
+                            opt.textContent = kec.name;
+                            kecamatanSelect.appendChild(opt);
+                        });
+                    });
+            });
+
+            // Event Kecamatan -> Desa
+            kecamatanSelect.addEventListener("change", function() {
+                let id = this.value;
+                document.getElementById("kecamatan_id").value = id;
+                document.getElementById("kecamatan_text").value = this.options[this.selectedIndex].text;
+
+                desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+                desaSelect.disabled = true;
+
+                if (!id) return;
+
+                fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${id}.json`)
+                    .then(res => res.json())
+                    .then(data => {
+                        desaSelect.disabled = false;
+                        data.forEach(des => {
+                            let opt = document.createElement("option");
+                            opt.value = des.id;
+                            opt.textContent = des.name;
+                            desaSelect.appendChild(opt);
+                        });
+                    });
+            });
+
+            // Event Desa -> Hidden field
+            desaSelect.addEventListener("change", function() {
+                document.getElementById("desa_id").value = this.value;
+                document.getElementById("desa_text").value = this.options[this.selectedIndex].text;
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

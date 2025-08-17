@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ekstra', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->string('gambar');
-            $table->text('description');
+        Schema::create('kontak__units', function (Blueprint $table) {
+            $table->id();
+            $table->string('role_name');
+            $table->string('telepon')->nullable();
+            $table->string('email')->nullable();
+            $table->string('alamat')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ekstra');
+        Schema::dropIfExists('kontak__units');
     }
 };

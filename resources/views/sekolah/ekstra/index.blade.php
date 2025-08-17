@@ -31,6 +31,7 @@
                                             <tr class="bg-info bg-gradient bg-opacity-75 text-dark">
                                                 <th scope="col">#</th>
                                                 <th scope="col">Nama</th>
+                                                <th scope="col">Gambar</th>
                                                 <th scope="col">Deskripsi</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
@@ -42,6 +43,12 @@
                                                         {{ $data->firstItem() + $loop->index }}
                                                     </th>
                                                     <td>{{ $item->title }}</td>
+                                                    <td>
+                                                        @isset($item->gambar)
+                                                            <img style="max-width: 60%"
+                                                                src="{{ asset('storage/' . $item->gambar) }}">
+                                                        @endisset
+                                                    </td>
                                                     <td>{{ Str::limit(strip_tags($item->description), 100) }}</td>
                                                     <td class="d-flex gap-2">
                                                         <a href="{{ route('ekstra.edit', $item) }}"

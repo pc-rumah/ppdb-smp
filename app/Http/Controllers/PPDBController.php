@@ -6,11 +6,68 @@ use App\Models\Sakit;
 use App\Models\Saudara;
 use App\Models\Pendaftar;
 use App\PendaftarService;
+use App\Models\PendaftaranStatus;
+use App\Models\AssetBuktiPendaftaran;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StorePendaftarRequest;
+use Illuminate\Http\Request;
 
 class PPDBController extends Controller
 {
+    public function home()
+    {
+        $tahun = AssetBuktiPendaftaran::pluck('tahun_ajar')->first();
+        $jadwal = PendaftaranStatus::first();
+
+        return view('ppdb', compact('tahun', 'jadwal'));
+    }
+
+    public function create_jadwal()
+    {
+        $data = PendaftaranStatus::first();
+        return view('layouts.ppdbpart.create', compact('data'));
+    }
+
+    public function jadwal(Request $request)
+    {
+        $request->validate([
+            'tanggal_mulai'   => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        ]);
+
+        $data = PendaftaranStatus::first();
+
+        if ($data) {
+            $data->update([
+                'tanggal_mulai'   => $request->tanggal_mulai,
+                'tanggal_selesai' => $request->tanggal_selesai,
+            ]);
+        } else {
+            PendaftaranStatus::create([
+                'tanggal_mulai'   => $request->tanggal_mulai,
+                'tanggal_selesai' => $request->tanggal_selesai,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Jadwal pendaftaran berhasil disimpan!');
+    }
+
+    public function status()
+    {
+        $pendaftarData = Pendaftar::select('status')->get();
+        $data = Pendaftar::all();
+
+        $stats = [
+            'total' => $pendaftarData->count(),
+            'diterima' => $pendaftarData->where('status', 'diterima')->count(),
+            'ditolak' => $pendaftarData->where('status', 'ditolak')->count(),
+            'menunggu' => $pendaftarData->where('status', 'menunggu')->count(),
+            'data' => $data
+        ];
+
+        return view('status', $stats);
+    }
+
     public function preview($id)
     {
         $pendaftar = Pendaftar::findOrFail($id);
@@ -28,7 +85,6 @@ class PPDBController extends Controller
     public function store(StorePendaftarRequest $request, PendaftarService $pendaftarService)
     {
         $noPendaftaran = $pendaftarService->generateNoPendaftaran();
-
         $buktiPembayaranPath = $request->hasFile('bukti_pembayaran') ? $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public') : null;
 
         $lastPendaftar = Pendaftar::latest()->first();
@@ -71,11 +127,10 @@ class PPDBController extends Controller
             'penanggung_jawab'    => $request->penanggung_jawab,
             'bukti_pembayaran'    => $buktiPembayaranPath,
             'piagam_penghargaan'  => $piagamPath,
+            'status'              => 'menunggu',
         ]);
 
         $pendaftarService->generateBuktiPendaftaran($pendaftar);
-
-        $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);
 
         if ($request->has('riwayat_penyakit')) {
             $pendaftar->riwayatPenyakit()->attach($request->riwayat_penyakit);

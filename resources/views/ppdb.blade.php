@@ -30,25 +30,46 @@
         <div class="container mx-auto text-center max-w-4xl">
             <div class="flex items-center justify-center gap-2 mb-8">
                 <i class="far fa-clock text-blue-500"></i>
-                <span class="text-sm text-gray-600">Pendaftaran Dibuka: 1 Januari - 31 Maret 2025</span>
+                <span class="text-sm text-gray-600">
+                    @if ($jadwal)
+                        Pendaftaran Dibuka:
+                        {{ \Carbon\Carbon::parse($jadwal->tanggal_mulai)->translatedFormat('d F Y') }}
+                        -
+                        {{ \Carbon\Carbon::parse($jadwal->tanggal_selesai)->translatedFormat('d F Y') }}
+                    @else
+                        Jadwal belum ditentukan
+                    @endif
+                </span>
             </div>
 
             <h1 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
                 Penerimaan Peserta Didik Baru
             </h1>
             <h2 class="text-3xl lg:text-4xl font-bold text-blue-500 mb-6">
-                Tahun Ajaran 2025/2026
+                Tahun Ajaran {{ $tahun }}
             </h2>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <button class="btn btn-primary btn-lg">
-                    Daftar Sekarang
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-                <button class="btn btn-outline btn-lg">
+                @php
+                    $status = \App\Models\PendaftaranStatus::first();
+                    $today = now()->toDateString();
+                @endphp
+
+                @if ($status && $today >= $status->tanggal_mulai && $today <= $status->tanggal_selesai)
+                    <a href="{{ route('ppdb.create') }}" class="btn btn-primary btn-lg">
+                        Isi Formulir
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                @else
+                    <button class="btn btn-secondary btn-lg" disabled>
+                        Pendaftaran Ditutup
+                    </button>
+                @endif
+
+                <a href="/status" class="btn btn-outline btn-lg">
                     <i class="fas fa-search mr-2"></i>
                     Status Pendaftaran
-                </button>
+                </a>
             </div>
         </div>
     </section>

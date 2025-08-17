@@ -32,17 +32,20 @@ use App\Http\Controllers\AssetBuktiPendaftaranController;
 use App\Http\Controllers\EventMadrasahController;
 use App\Http\Controllers\EventPondokController;
 use App\Http\Controllers\EventSmpController;
+use App\Http\Controllers\KontakUnitController;
 use App\Http\Controllers\SosmedPondokController;
 use App\Http\Controllers\ProgramPondokController;
 use App\Http\Controllers\SosmedMadrasahController;
 use App\Http\Controllers\ProgramMadrasahController;
 use App\Http\Controllers\PrestasiMadrasahController;
 use App\Http\Controllers\StafMadrasahController;
-use App\Models\Cover;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
-Route::view('/ppdb', 'ppdb');
+Route::get('ppdb', [PPDBController::class, 'home']);
+Route::get('status', [PPDBController::class, 'status']);
+Route::get('jadwal', [PPDBController::class, 'create_jadwal'])->name('jadwal.index');
+Route::post('jadwalupdate', [PPDBController::class, 'jadwal'])->name('jadwal.store');
 
 Route::get('/register', function () {
     return redirect('/login');
@@ -93,8 +96,7 @@ Route::get('/landing/pondok', [PondokController::class, 'home'])->name('pondok.h
 Route::redirect('/admin', 'dashboard');
 
 Route::get('/dashboard', function () {
-    $cover = Cover::first();
-    return view('dashboard', compact('cover'));
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
@@ -122,6 +124,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/kontakweb', [KontakController::class, 'create'])->name('kontakweb.create');
         Route::post('/kontakweb/store', [KontakController::class, 'store'])->name('kontakweb.store');
     });
+
+    //kontak unit
+    Route::resource('kontakunit', KontakUnitController::class);
 
     //staff aka smp
     Route::middleware('role:staff|admin,web')->group(function () {
@@ -173,6 +178,7 @@ Route::middleware('auth')->group(function () {
         Route::get('admin/{pendaftar}/download', [PendaftarController::class, 'download'])->name('admin.download');
         Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');
         Route::get('pendaftar/{pendaftar}/download', [PendaftarController::class, 'download'])->name('pendaftar.download');
+        Route::put('pendaftar/{pendaftar}/siswa', [PendaftarController::class, 'updateStatusSiswa'])->name('pendaftar.updateStatusSiswa');
     });
 });
 

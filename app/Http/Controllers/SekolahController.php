@@ -7,6 +7,7 @@ use App\Models\Cover;
 use App\Models\Ekstra;
 use App\Models\EventSmp;
 use App\Models\Kepsek;
+use App\Models\Kontak_Unit;
 use App\Models\Prestasi;
 use App\Models\SosmedSmp;
 use App\Models\Staff;
@@ -19,13 +20,14 @@ class SekolahController extends Controller
     {
         $cover = Cover::first();
         $staff = Staff::inRandomOrder()->take(4)->get();
-        $ekstra = Ekstra::inRandomOrder()->take(6)->get();
+        $ekstra = Ekstra::all();
         $prestasi = Prestasi::inRandomOrder()->take(4)->get();
         $sosmed = SosmedSmp::first();
         $kepsek = Kepsek::first();
+        $kontak = Kontak_Unit::where('role_name', 'staff')->first();
         $eventsmp = EventSmp::orderBy('created_at', 'desc')->take(5)->get();
         $pengumumansmp = AnnouncementSmp::orderBy('created_at', 'desc')->take(5)->get();
-        return view('sekolah', compact('cover', 'pengumumansmp', 'staff', 'ekstra', 'prestasi', 'sosmed', 'kepsek', 'eventsmp'));
+        return view('sekolah', compact('cover', 'pengumumansmp', 'staff', 'ekstra', 'prestasi', 'sosmed', 'kepsek', 'kontak', 'eventsmp'));
     }
 
     public function indexprestasi()

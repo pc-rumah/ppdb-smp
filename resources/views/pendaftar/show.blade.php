@@ -48,8 +48,16 @@
                                         <img src="{{ asset('storage/' . $pendaftar->foto) }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <h5>Kartu Keluarga</h5>
-                                        <p>{{ $pendaftar->asal_sekolah }}</p>
+                                        <h5>Riwayat Penyakit</h5>
+                                        @if ($pendaftar->riwayatPenyakit->isNotEmpty())
+                                            <ul>
+                                                @foreach ($pendaftar->riwayatPenyakit as $penyakit)
+                                                    <li>{{ $penyakit->nama }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <p>Tidak ada riwayat penyakit</p>
+                                        @endif
                                     </div>
 
                                     @php
@@ -103,6 +111,7 @@
                                         @endif
                                     @endforeach
 
+                                    {{-- status administrasi --}}
                                     @if ($pendaftar->administrasi_lunas)
                                         <div
                                             class="mt-3 p-3 border border-success rounded-3 bg-success bg-opacity-10 text-success">
@@ -136,6 +145,40 @@
                                         <button type="submit" class="btn btn-success btn-sm ms-2">Update
                                             Status</button>
                                     </form>
+
+                                    {{-- status penerimaan --}}
+                                    @if ($pendaftar->status == 'menunggu')
+                                        <div
+                                            class="mt-3 p-3 border border-warning rounded-3 bg-warning bg-opacity-10 text-warning">
+                                            Status: <strong>Menunggu</strong>
+                                        </div>
+                                    @elseif ($pendaftar->status == 'ditolak')
+                                        <div
+                                            class="mt-3 p-3 border border-warning rounded-3 bg-warning bg-opacity-10 text-warning">
+                                            Status: <strong>Ditolak</strong>
+                                        </div>
+                                    @else
+                                        <div
+                                            class="mt-3 p-3 border border-success rounded-3 bg-success bg-opacity-10 text-success">
+                                            Status: <strong>Disetujui</strong>
+                                        </div>
+                                    @endif
+
+                                    <form action="{{ route('pendaftar.updateStatusSiswa', $pendaftar->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <br>
+                                        <select class="form-control" name="status" onchange="this.form.submit()">
+                                            <option value="menunggu"
+                                                {{ $pendaftar->status == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                                            <option value="diterima"
+                                                {{ $pendaftar->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                            <option value="ditolak"
+                                                {{ $pendaftar->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                        </select>
+                                    </form>
+
                                     <a href="{{ route('admin.download', $pendaftar->id) }}" class="btn btn-info mt-2">
                                         Download Bukti
                                     </a>

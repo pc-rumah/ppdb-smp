@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AnnouncementMadrasah;
 use App\Models\Cover;
 use App\Models\EventMadrasah;
+use App\Models\Kontak_Unit;
 use App\Models\PrestasiMadrasah;
 use App\Models\ProgramMadrasah;
 use App\Models\SosmedMadrasah;
@@ -22,7 +23,8 @@ class MadrasahController extends Controller
         $eventmadrasah = EventMadrasah::orderBy('created_at', 'desc')->get();
         $pengumumanmadrasah = AnnouncementMadrasah::orderBy('created_at', 'desc')->get();
         $guru = StaffMadrasah::orderBy('created_at', 'desc')->get();
-        return view('madrasah', compact('cover', 'eventmadrasah', 'guru', 'pengumumanmadrasah', 'sosmed', 'program', 'prestasi'));
+        $kontak = Kontak_Unit::where('role_name', 'madrasah')->first();
+        return view('madrasah', compact('cover', 'eventmadrasah', 'guru', 'kontak', 'pengumumanmadrasah', 'sosmed', 'program', 'prestasi'));
     }
 
     public function create()
