@@ -93,7 +93,7 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('stafmadrasah*') ? 'active' : '' }}"
-                            href="{{ route('stafmadrasah.index') }}" aria-expanded="false">
+                            href="{{ route('stafmadrasah.approval') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
@@ -123,7 +123,7 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('eventmadrasah*') ? 'active' : '' }}"
-                            href="{{ route('eventmadrasah.index') }}" aria-expanded="false">
+                            href="{{ route('eventmadrasah.approval') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>

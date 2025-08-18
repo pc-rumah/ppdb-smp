@@ -23,11 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('*', function ($view) {
+        View::composer('dashboard', function ($view) {
             $view->with('cover', Cover::first());
         });
 
         Paginator::useBootstrapFive();
+
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }

@@ -20,9 +20,9 @@ class MadrasahController extends Controller
         $sosmed = SosmedMadrasah::first();
         $program = ProgramMadrasah::where('status', 'approved')->orderBy('created_at', 'desc')->take(6)->get();
         $prestasi = PrestasiMadrasah::where('status', 'approved')->get();
-        $eventmadrasah = EventMadrasah::orderBy('created_at', 'desc')->get();
+        $eventmadrasah = EventMadrasah::where('status', 'approved')->orderBy('created_at', 'desc')->get();
         $pengumumanmadrasah = AnnouncementMadrasah::orderBy('created_at', 'desc')->get();
-        $guru = StaffMadrasah::orderBy('created_at', 'desc')->get();
+        $guru = StaffMadrasah::where('status', 'approved')->get();
         $kontak = Kontak_Unit::where('role_name', 'madrasah')->first();
         return view('madrasah', compact('cover', 'eventmadrasah', 'guru', 'kontak', 'pengumumanmadrasah', 'sosmed', 'program', 'prestasi'));
     }

@@ -33,5 +33,7 @@ class KontakUnitSeeder extends Seeder
             'email' => 'info@pondok.com',
             'alamat' => 'Jl. Pondok No.3, Kota C'
         ]);
+
+        $this->command->info('Seeder Kontak Unit Berhasil');
     }
 }

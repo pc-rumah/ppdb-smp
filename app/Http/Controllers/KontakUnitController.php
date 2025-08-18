@@ -11,6 +11,7 @@ class KontakUnitController extends Controller
     public function create()
     {
         $roleName = Auth::user()->getRoleNames()->first();
+        // dd($roleName);
         $kontak = Kontak_Unit::where('role_name', $roleName)->firstOrFail();
 
         return view('layouts.kontak', compact('kontak'));
