@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->enum('status_verifikasi', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('name');
             $table->string('position');
             $table->string('image');

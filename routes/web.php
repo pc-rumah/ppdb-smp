@@ -129,7 +129,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('kontakunit', KontakUnitController::class);
 
     //staff aka smp
-    Route::middleware('role:staff|admin,web')->group(function () {
+    Route::middleware('role:staff|admin|master-admin,web')->group(function () {
         Route::resource('staff', StafController::class);
         Route::resource('sekolah', SekolahController::class);
         Route::resource('ekstra', EkstraController::class);
@@ -140,8 +140,24 @@ Route::middleware('auth')->group(function () {
         Route::resource('pengumumansmp', AnnouncementSmpController::class);
     });
 
+    Route::middleware('role:master-admin')->group(function () {
+        //program madrasah
+        Route::get('/programmadrasah/approval', [ProgramMadrasahController::class, 'approval'])->name('programmadrasah.approval');
+        Route::post('/programmadrasah/{id}/approve', [ProgramMadrasahController::class, 'approve'])->name('programmadrasah.approve');
+        Route::post('/programmadrasah/{id}/reject', [ProgramMadrasahController::class, 'reject'])->name('programmadrasah.reject');
+        Route::post('/programmadrasah/{id}/approve-delete', [ProgramMadrasahController::class, 'approveDelete'])->name('programmadrasah.approveDelete');
+        Route::post('/programmadrasah/{id}/reject-delete', [ProgramMadrasahController::class, 'rejectDelete'])->name('programmadrasah.rejectDelete');
+
+        //prestasi madrasah
+        Route::get('/prestasimadrasah/approval', [PrestasiMadrasahController::class, 'approval'])->name('prestasimadrasah.approval');
+        Route::post('/prestasimadrasah/{id}/approve', [PrestasiMadrasahController::class, 'approve'])->name('prestasimadrasah.approve');
+        Route::post('/prestasimadrasah/{id}/reject', [PrestasiMadrasahController::class, 'reject'])->name('prestasimadrasah.reject');
+        Route::post('/prestasimadrasah/{id}/approve-delete', [PrestasiMadrasahController::class, 'approveDelete'])->name('prestasimadrasah.approveDelete');
+        Route::post('/prestasimadrasah/{id}/reject-delete', [PrestasiMadrasahController::class, 'rejectDelete'])->name('prestasimadrasah.rejectDelete');
+    });
+
     //madrasah
-    Route::middleware('role:madrasah|admin,web')->group(function () {
+    Route::middleware('role:madrasah|admin|master-admin,web')->group(function () {
         Route::resource('sosmedmadrasah', SosmedMadrasahController::class);
         Route::resource('madrasah', MadrasahController::class);
         Route::resource('programmadrasah', ProgramMadrasahController::class);
@@ -152,7 +168,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //pondok
-    Route::middleware('role:pondok|admin,web')->group(function () {
+    Route::middleware('role:pondok|admin|master-admin,web')->group(function () {
         Route::resource('pondok', PondokController::class);
         Route::resource('sosmedpondok', SosmedPondokController::class);
         Route::resource('kegiatanpondok', KegiatanController::class);

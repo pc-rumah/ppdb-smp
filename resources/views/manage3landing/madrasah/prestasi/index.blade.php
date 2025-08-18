@@ -36,6 +36,7 @@
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Tingkat</th>
                                                 <th scope="col">Gambar</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -54,13 +55,50 @@
                                                             <small class="text-muted">Tidak ada gambar</small>
                                                         @endif
                                                     </td>
+                                                    <td> {{ $item->status }} </td>
                                                     <td class="d-flex gap-2">
-                                                        <a href="{{ route('prestasimadrasah.edit', $item) }}"
-                                                            class="btn btn-primary">Edit</a>
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#alert-hapus-kategori{{ $item->id }}">
-                                                            Delete
-                                                        </button>
+                                                        @if (Auth::user()->hasRole('master-admin'))
+                                                            @if ($item->status == 'pending')
+                                                                <form
+                                                                    action="{{ route('prestasimadrasah.approve', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-success btn-sm">Approve</button>
+                                                                </form>
+                                                                <form
+                                                                    action="{{ route('prestasimadrasah.reject', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm">Reject</button>
+                                                                </form>
+                                                            @else
+                                                                <form
+                                                                    action="{{ route('prestasimadrasah.approveDelete', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-success btn-sm">Approve</button>
+                                                                </form>
+                                                                <form
+                                                                    action="{{ route('prestasimadrasah.rejectDelete', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm">Reject</button>
+                                                                </form>
+                                                            @endif
+                                                        @else
+                                                            <a href="{{ route('prestasimadrasah.edit', $item) }}"
+                                                                class="btn btn-primary">Edit</a>
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#alert-hapus-kategori{{ $item->id }}">
+                                                                Delete
+                                                            </button>
+                                                        @endif
+
                                                         <!-- Modal delete -->
                                                         @if (isset($item))
                                                             <div class="modal fade"

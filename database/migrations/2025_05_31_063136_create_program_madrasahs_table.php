@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('icon')->nullable();
+            $table->enum('status', ['pending', 'pending-delete', 'approved', 'rejected'])->default('pending');
+            $table->json('previous_data')->nullable();
             $table->timestamps();
         });
     }

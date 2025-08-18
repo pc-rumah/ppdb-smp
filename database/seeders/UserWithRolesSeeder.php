@@ -15,7 +15,7 @@ class UserWithRolesSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['admin', 'ppdb', 'staff', 'madrasah', 'pondok'];
+        $roles = ['master-admin', 'admin', 'ppdb', 'staff', 'madrasah', 'pondok'];
 
         foreach ($roles as $roleName) {
             // Buat role jika belum ada
@@ -26,11 +26,10 @@ class UserWithRolesSeeder extends Seeder
                 ['email' => $roleName . '@example.com'],
                 [
                     'name' => ucfirst($roleName),
-                    'password' => Hash::make('password'), // password default
+                    'password' => Hash::make('password'),
                 ]
             );
 
-            // Assign role ke user
             $user->assignRole($role);
         }
         $this->command->info('Seeder User Berhasil');

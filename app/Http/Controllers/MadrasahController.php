@@ -18,8 +18,8 @@ class MadrasahController extends Controller
     {
         $cover = Cover::first();
         $sosmed = SosmedMadrasah::first();
-        $program = ProgramMadrasah::orderBy('created_at', 'desc')->take(6)->get();
-        $prestasi = PrestasiMadrasah::inRandomOrder()->take(3)->get();
+        $program = ProgramMadrasah::where('status', 'approved')->orderBy('created_at', 'desc')->take(6)->get();
+        $prestasi = PrestasiMadrasah::where('status', 'approved')->get();
         $eventmadrasah = EventMadrasah::orderBy('created_at', 'desc')->get();
         $pengumumanmadrasah = AnnouncementMadrasah::orderBy('created_at', 'desc')->get();
         $guru = StaffMadrasah::orderBy('created_at', 'desc')->get();

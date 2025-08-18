@@ -6,7 +6,7 @@
                     $role = Auth::user()->roles->pluck('name')->first(); // Ambil role pertama
                 @endphp
 
-                @if (in_array($role, ['admin', 'ppdb']))
+                @if (in_array($role, ['master-admin', 'admin', 'ppdb']))
                     <img src="{{ asset('dash/assets/images/logos/logosidebar.webp') }}" width="180"
                         alt="Logo Sidebar" />
                 @elseif ($role === 'madrasah')
@@ -54,6 +54,93 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+
+                @if (Auth::user()->hasRole('master-admin'))
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Manage Unit Madrasah</span>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('madrasah*') ? 'active' : '' }}"
+                            href="{{ route('madrasah.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Bagan Cover Madrasah</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('programmadrasah*') ? 'active' : '' }}"
+                            href="{{ route('programmadrasah.approval') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Bagan Program</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('prestasimadrasah*') ? 'active' : '' }}"
+                            href="{{ route('prestasimadrasah.approval') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Bagan Prestasi</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('stafmadrasah*') ? 'active' : '' }}"
+                            href="{{ route('stafmadrasah.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Staff Madrasah</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('sosmedmadrasah*') ? 'active' : '' }}"
+                            href="{{ route('sosmedmadrasah.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Sosial Media</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kontakunit*') ? 'active' : '' }}"
+                            href="{{ route('kontakunit.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kontak Madrasah</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('eventmadrasah*') ? 'active' : '' }}"
+                            href="{{ route('eventmadrasah.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Acara Mendatang</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('pengumumanmadrasah*') ? 'active' : '' }}"
+                            href="{{ route('pengumumanmadrasah.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Pengumuman Madrasah</span>
+                        </a>
+                    </li>
+                @endif
 
                 @if (Auth::user()->hasRole('admin'))
                     <li class="nav-small-cap">
