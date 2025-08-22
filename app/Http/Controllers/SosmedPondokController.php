@@ -23,7 +23,6 @@ class SosmedPondokController extends Controller
         $data->facebook_pondok = $request->facebook;
         $data->insta_pondok = $request->instagram;
         $data->youtube_pondok = $request->youtube;
-        $data->twitter_pondok = $request->twitter;
         $data->tiktok_pondok = $request->tiktok;
 
         $data->save();

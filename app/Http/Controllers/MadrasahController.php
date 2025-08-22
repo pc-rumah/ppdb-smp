@@ -18,10 +18,10 @@ class MadrasahController extends Controller
     {
         $cover = Cover::first();
         $sosmed = SosmedMadrasah::first();
-        $program = ProgramMadrasah::where('status', 'approved')->orderBy('created_at', 'desc')->take(6)->get();
+        $program = ProgramMadrasah::where('status', 'approved')->take(6)->get();
         $prestasi = PrestasiMadrasah::where('status', 'approved')->get();
-        $eventmadrasah = EventMadrasah::where('status', 'approved')->orderBy('created_at', 'desc')->get();
-        $pengumumanmadrasah = AnnouncementMadrasah::orderBy('created_at', 'desc')->get();
+        $eventmadrasah = EventMadrasah::where('status', 'approved')->get();
+        $pengumumanmadrasah = AnnouncementMadrasah::where('status', 'approved')->get();
         $guru = StaffMadrasah::where('status', 'approved')->get();
         $kontak = Kontak_Unit::where('role_name', 'madrasah')->first();
         return view('madrasah', compact('cover', 'eventmadrasah', 'guru', 'kontak', 'pengumumanmadrasah', 'sosmed', 'program', 'prestasi'));

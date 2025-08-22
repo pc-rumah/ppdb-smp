@@ -133,7 +133,7 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('pengumumanmadrasah*') ? 'active' : '' }}"
-                            href="{{ route('pengumumanmadrasah.index') }}" aria-expanded="false">
+                            href="{{ route('pengumumanmadrasah.approval') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>

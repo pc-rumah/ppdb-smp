@@ -22,7 +22,6 @@ class SosmedMadrasahController extends Controller
         $data->facebook_madrasah = $request->facebook;
         $data->insta_madrasah = $request->instagram;
         $data->youtube_madrasah = $request->youtube;
-        $data->twitter_madrasah = $request->twitter;
         $data->tiktok_madrasah = $request->tiktok;
 
         $data->save();

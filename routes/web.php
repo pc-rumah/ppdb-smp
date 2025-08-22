@@ -163,12 +163,19 @@ Route::middleware('auth')->group(function () {
         Route::post('/stafmadrasah/{id}/approve-delete', [StafMadrasahController::class, 'approveDelete'])->name('stafmadrasah.approveDelete');
         Route::post('/stafmadrasah/{id}/reject-delete', [StafMadrasahController::class, 'rejectDelete'])->name('stafmadrasah.rejectDelete');
 
-        //acara mendatang
+        //acara mendatang madrasah
         Route::get('/eventmadrasah/approval', [EventMadrasahController::class, 'approval'])->name('eventmadrasah.approval');
         Route::post('/eventmadrasah/{id}/approve', [EventMadrasahController::class, 'approve'])->name('eventmadrasah.approve');
         Route::post('/eventmadrasah/{id}/reject', [EventMadrasahController::class, 'reject'])->name('eventmadrasah.reject');
         Route::post('/eventmadrasah/{id}/approve-delete', [EventMadrasahController::class, 'approveDelete'])->name('eventmadrasah.approveDelete');
         Route::post('/eventmadrasah/{id}/reject-delete', [EventMadrasahController::class, 'rejectDelete'])->name('eventmadrasah.rejectDelete');
+
+        //announcement madrasah
+        Route::get('/pengumumanmadrasah/approval', [AnnouncementMadrasahController::class, 'approval'])->name('pengumumanmadrasah.approval');
+        Route::post('/pengumumanmadrasah/{id}/approve', [AnnouncementMadrasahController::class, 'approve'])->name('pengumumanmadrasah.approve');
+        Route::post('/pengumumanmadrasah/{id}/reject', [AnnouncementMadrasahController::class, 'reject'])->name('pengumumanmadrasah.reject');
+        Route::post('/pengumumanmadrasah/{id}/approve-delete', [AnnouncementMadrasahController::class, 'approveDelete'])->name('pengumumanmadrasah.approveDelete');
+        Route::post('/pengumumanmadrasah/{id}/reject-delete', [AnnouncementMadrasahController::class, 'rejectDelete'])->name('pengumumanmadrasah.rejectDelete');
     });
 
     //madrasah

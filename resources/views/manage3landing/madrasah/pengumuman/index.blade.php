@@ -58,12 +58,48 @@
                                                         @endif
                                                     </td>
                                                     <td class="d-flex gap-2">
-                                                        <a href="{{ route('pengumumanmadrasah.edit', $item) }}"
-                                                            class="btn btn-primary">Edit</a>
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#alert-hapus-kategori{{ $item->id }}">
-                                                            Delete
-                                                        </button>
+                                                        @if (Auth::user()->hasRole('master-admin'))
+                                                            @if ($item->status == 'pending')
+                                                                <form
+                                                                    action="{{ route('pengumumanmadrasah.approve', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-success btn-sm">Approve</button>
+                                                                </form>
+                                                                <form
+                                                                    action="{{ route('pengumumanmadrasah.reject', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm">Reject</button>
+                                                                </form>
+                                                            @else
+                                                                <form
+                                                                    action="{{ route('pengumumanmadrasah.approveDelete', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-success btn-sm">Approve</button>
+                                                                </form>
+                                                                <form
+                                                                    action="{{ route('pengumumanmadrasah.rejectDelete', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm">Reject</button>
+                                                                </form>
+                                                            @endif
+                                                        @else
+                                                            <a href="{{ route('pengumumanmadrasah.edit', $item) }}"
+                                                                class="btn btn-primary">Edit</a>
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#alert-hapus-kategori{{ $item->id }}">
+                                                                Delete
+                                                            </button>
+                                                        @endif
+
                                                         <!-- Modal delete foto -->
                                                         @if (isset($item))
                                                             <div class="modal fade"
