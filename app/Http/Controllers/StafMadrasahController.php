@@ -97,7 +97,7 @@ class StafMadrasahController extends Controller
                 'status' => 'pending-delete'
             ]);
 
-            return redirect()->route('stafmadrasah.index')->with('success', 'Penghapusan staff diajukan, menunggu persetujuan.');
+            return redirect()->route('stafmadrasah.index')->with('success', 'Penghapusan staff diajukan.');
         }
 
         if (auth()->user()->hasRole('master-admin')) {

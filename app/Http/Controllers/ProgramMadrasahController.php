@@ -82,7 +82,7 @@ class ProgramMadrasahController extends Controller
                 'status' => 'pending-delete',
             ]);
 
-            return redirect()->route('programmadrasah.index')->with('success', 'Penghapusan program diajukan, menunggu persetujuan Master Admin.');
+            return redirect()->route('programmadrasah.index')->with('success', 'Penghapusan program diajukan');
         }
 
         if (auth()->user()->hasRole('master-admin')) {

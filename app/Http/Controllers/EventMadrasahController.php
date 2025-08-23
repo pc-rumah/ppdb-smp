@@ -77,7 +77,7 @@ class EventMadrasahController extends Controller
                 'status' => 'pending-delete'
             ]);
 
-            return redirect()->route('eventmadrasah.index')->with('success', 'Penghapusan event diajukan, menunggu persetujuan.');
+            return redirect()->route('eventmadrasah.index')->with('success', 'Penghapusan event diajukan.');
         }
 
         if (auth()->user()->hasRole('master-admin')) {

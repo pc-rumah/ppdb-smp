@@ -106,7 +106,7 @@ class PrestasiMadrasahController extends Controller
                 'status' => 'pending-delete'
             ]);
 
-            return redirect()->route('prestasimadrasah.index')->with('success', 'Penghapusan prestasi diajukan, menunggu persetujuan.');
+            return redirect()->route('prestasimadrasah.index')->with('success', 'Penghapusan prestasi diajukan.');
         }
 
         if (auth()->user()->hasRole('master-admin')) {

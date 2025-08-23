@@ -91,10 +91,11 @@
                                                             @endif
                                                         @else
                                                             <a href="{{ route('prestasimadrasah.edit', $item) }}"
-                                                                class="btn btn-primary">Edit</a>
+                                                                class="btn btn-primary {{ in_array($item->status, ['pending', 'pending-delete']) ? 'disabled' : '' }}">Edit</a>
                                                             <button type="button" class="btn btn-danger"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#alert-hapus-kategori{{ $item->id }}">
+                                                                data-bs-target="#alert-hapus-kategori{{ $item->id }}"
+                                                                {{ in_array($item->status, ['pending', 'pending-status']) ? 'disabled' : '' }}>
                                                                 Delete
                                                             </button>
                                                         @endif

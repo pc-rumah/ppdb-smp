@@ -37,6 +37,7 @@
                                                 <th scope="col">Tanggal</th>
                                                 <th scope="col">Deskripsi</th>
                                                 <th scope="col">Gambar</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -57,6 +58,7 @@
                                                             </div>
                                                         @endif
                                                     </td>
+                                                    <td> {{ $item->status }} </td>
                                                     <td class="d-flex gap-2">
                                                         @if (Auth::user()->hasRole('master-admin'))
                                                             @if ($item->status == 'pending')
@@ -92,10 +94,11 @@
                                                             @endif
                                                         @else
                                                             <a href="{{ route('pengumumanmadrasah.edit', $item) }}"
-                                                                class="btn btn-primary">Edit</a>
+                                                                class="btn btn-primary {{ in_array($item->status, ['pending', 'pending-delete']) ? 'disabled' : '' }}">Edit</a>
                                                             <button type="button" class="btn btn-danger"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#alert-hapus-kategori{{ $item->id }}">
+                                                                data-bs-target="#alert-hapus-kategori{{ $item->id }}"
+                                                                {{ in_array($item->status, ['pending', 'pending-delete']) ? 'disabled' : '' }}>
                                                                 Delete
                                                             </button>
                                                         @endif
