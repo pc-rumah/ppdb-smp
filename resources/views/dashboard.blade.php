@@ -59,6 +59,30 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const modalEl = document.getElementById('confirmDeleteModal');
+            if (!modalEl) return;
+
+            modalEl.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                if (!button) return;
+
+                const action = button.getAttribute('data-action');
+                const title = button.getAttribute('data-title') || 'Konfirmasi Hapus Data';
+                const body = button.getAttribute('data-body') ||
+                    'Apakah Anda yakin ingin menghapus data ini?';
+                const name = button.getAttribute('data-name');
+
+                modalEl.querySelector('#confirmDeleteForm').setAttribute('action', action);
+                modalEl.querySelector('.modal-title').textContent = title;
+
+                const bodyEl = modalEl.querySelector('#confirmDeleteModalBody');
+                bodyEl.textContent = body + (name ? ` (${name})` : '');
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 document.querySelectorAll('.alert').forEach(function(el) {
                     // Tambahkan efek fade out

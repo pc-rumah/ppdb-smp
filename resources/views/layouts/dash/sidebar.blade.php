@@ -140,6 +140,95 @@
                             <span class="hide-menu">Pengumuman Madrasah</span>
                         </a>
                     </li>
+
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Manage Unit Sekolah</span>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ request()->routeIs('sekolah.create') ? 'active' : '' }}"
+                            href="{{ route('sekolah.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Bagan Cover Smp</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kepsek*') ? 'active' : '' }}"
+                            href="{{ route('kepsek.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kelola Kepala Sekolah</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('staff*') ? 'active' : '' }}"
+                            href="{{ route('staff.approval') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Staff Smp</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('ekstra*') ? 'active' : '' }}"
+                            href="{{ route('ekstra.approval') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Ekstra Smp</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('prestasi*') ? 'active' : '' }}"
+                            href="{{ route('prestasi.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Prestasi Smp</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kontakunit*') ? 'active' : '' }}"
+                            href="{{ route('kontakunit.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kontak Smp</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('sosmedsmp*') ? 'active' : '' }}"
+                            href="{{ route('sosmedsmp.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Sosial Media Smp</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('eventsmp*') ? 'active' : '' }}"
+                            href="{{ route('eventsmp.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Acara Mendatang</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('pengumumansmp*') ? 'active' : '' }}"
+                            href="{{ route('pengumumansmp.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Pengumuman Sekolah</span>
+                        </a>
+                    </li>
                 @endif
 
                 @if (Auth::user()->hasRole('admin'))

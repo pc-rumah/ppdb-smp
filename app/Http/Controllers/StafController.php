@@ -23,12 +23,14 @@ class StafController extends Controller
     public function store(StafRequest $request)
     {
         $validated = $request->validated();
+
         $validated['image'] = $request->file('image')->store('staff', 'public');
-        $validated['status_verifikasi'] = 'pending';
+        $validated['status'] = auth()->user()->hasRole('master-admin') ? 'approved' : 'pending';
+        $validated['status_verifikasi'] = auth()->user()->hasRole('master-admin') ? 'approved' : 'pending';
 
         Staff::create($validated);
 
-        return redirect()->route('staff.index')->with('success', 'Data staff berhasil disimpan dan menunggu verifikasi Master Admin.');
+        return redirect()->route('staff.index')->with('success', 'Data staff berhasil diajukan.');
     }
 
     public function edit(Staff $staff)
@@ -40,30 +42,58 @@ class StafController extends Controller
     {
         $request->validated();
         $data = $request->only(['name', 'position', 'description']);
+        $newImage = $staff->new_gambar;
 
         if ($request->hasFile('image')) {
-            if ($staff->image && Storage::disk('public')->exists($staff->image)) {
-                Storage::disk('public')->delete($staff->image);
-            }
-
-            $data['image'] = $request->file('image')->store('staff', 'public');
+            // simpan ke staging dulu
+            $newImage = $request->file('image')->store('staff', 'public');
         }
 
-        $data['status_verifikasi'] = 'pending';
-        $staff->update($data);
+        if (auth()->user()->hasRole('staff')) {
+            $staff->update([
+                'previous_data' => json_encode([
+                    'name' => $staff->name,
+                    'position' => $staff->position,
+                    'description' => $staff->description,
+                ]),
+                'name' => $data['name'],
+                'position' => $data['position'],
+                'description' => $data['description'],
+                'new_gambar' => $newImage,
+                'status' => 'pending',
+                'status_verifikasi' => 'pending',
+            ]);
+        } else {
+            if ($newImage) {
+                if ($staff->image && Storage::disk('public')->exists($staff->image)) {
+                    Storage::disk('public')->delete($staff->image);
+                }
+                $staff->image = $newImage;
+                $staff->new_gambar = null;
+            }
 
-        return redirect()->route('staff.index')->with('success', 'Data staff berhasil diperbarui dan menunggu verifikasi Master Admin.');
+            $staff->update([
+                'name' => $data['name'],
+                'position' => $data['position'],
+                'description' => $data['description'],
+                'status' => 'approved',
+                'status_verifikasi' => 'approved',
+                'previous_data' => null,
+            ]);
+        }
+
+        return redirect()->route('staff.index')->with('success', 'Perubahan data staff diajukan.');
     }
 
     public function destroy(Staff $staff)
     {
         if (!auth()->user()->hasRole('master-admin')) {
             $staff->update([
+                'status' => 'pending-delete',
                 'status_verifikasi' => 'pending',
-                'action_request' => 'delete',
             ]);
 
-            return redirect()->route('staff.index')->with('success', 'Permintaan hapus dikirim dan menunggu verifikasi Master Admin.');
+            return redirect()->route('staff.index')->with('success', 'Permintaan hapus dikirim.');
         }
 
         if ($staff->image && Storage::disk('public')->exists($staff->image)) {
@@ -72,37 +102,86 @@ class StafController extends Controller
 
         $staff->delete();
 
-        return redirect()->route('staff.index')->with('success', 'Data staff berhasil dihapus.');
+        return redirect()->route('staff.index')->with('success', 'Data staff berhasil dihapus permanen.');
     }
 
-    public function listVerifikasi()
+    public function approval()
     {
-        // Ambil semua data pending
-        $staffs = Staff::where('status_verifikasi', 'pending')->get();
-
-        return view('staff.verifikasi', compact('staffs'));
+        $data = Staff::whereIn('status', ['pending', 'pending-delete'])->paginate(5);
+        return view('managestaff.index', compact('data'));
     }
 
-    public function verifikasi(Request $request, Staff $staff)
+    public function approve($id)
     {
-        $request->validate([
-            'status' => 'required|in:approved,rejected',
-        ]);
+        $staff = Staff::findOrFail($id);
 
-        // Kalau request delete dan disetujui → hapus
-        if ($staff->action_request === 'delete' && $request->status === 'approved') {
+        $updateData = [
+            'status' => 'approved',
+            'status_verifikasi' => 'approved',
+            'previous_data' => null,
+        ];
+
+        if ($staff->new_gambar) {
             if ($staff->image && Storage::disk('public')->exists($staff->image)) {
                 Storage::disk('public')->delete($staff->image);
             }
-            $staff->delete();
-        } else {
-            // Kalau create/update → ubah status saja
-            $staff->update([
-                'status_verifikasi' => $request->status,
-                'action_request' => 'create', // reset ke default
-            ]);
+            $updateData['image'] = $staff->new_gambar;
+            $updateData['new_gambar'] = null;
         }
 
-        return back()->with('success', 'Data berhasil diverifikasi.');
+        $staff->update($updateData);
+
+        return back()->with('success', 'Staff disetujui.');
+    }
+
+    public function reject($id)
+    {
+        $staff = Staff::findOrFail($id);
+
+        $updateData = [
+            'status' => 'approved',
+            'status_verifikasi' => 'approved',
+            'new_gambar' => null,
+            'previous_data' => null,
+        ];
+
+        if ($staff->previous_data) {
+            $old = json_decode($staff->previous_data, true);
+            $updateData['name'] = $old['name'];
+            $updateData['position'] = $old['position'];
+            $updateData['description'] = $old['description'];
+        }
+
+        if ($staff->new_gambar && Storage::disk('public')->exists($staff->new_gambar)) {
+            Storage::disk('public')->delete($staff->new_gambar);
+        }
+
+        $staff->update($updateData);
+
+        return back()->with('success', 'Perubahan staff ditolak dan data dikembalikan.');
+    }
+
+    public function approveDelete($id)
+    {
+        $staff = Staff::findOrFail($id);
+
+        if ($staff->image && Storage::disk('public')->exists($staff->image)) {
+            Storage::disk('public')->delete($staff->image);
+        }
+
+        $staff->delete();
+
+        return back()->with('success', 'Penghapusan staff disetujui.');
+    }
+
+    public function rejectDelete($id)
+    {
+        $staff = Staff::findOrFail($id);
+        $staff->update([
+            'status' => 'approved',
+            'status_verifikasi' => 'approved',
+        ]);
+
+        return back()->with('success', 'Penghapusan staff ditolak, data tetap ada.');
     }
 }

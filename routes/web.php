@@ -128,18 +128,6 @@ Route::middleware('auth')->group(function () {
     //kontak unit
     Route::resource('kontakunit', KontakUnitController::class);
 
-    //staff aka smp
-    Route::middleware('role:staff|admin|master-admin,web')->group(function () {
-        Route::resource('staff', StafController::class);
-        Route::resource('sekolah', SekolahController::class);
-        Route::resource('ekstra', EkstraController::class);
-        Route::resource('prestasi', PrestasiController::class);
-        Route::resource('sosmedsmp', SosmedSmpController::class);
-        Route::resource('kepsek', KepsekController::class);
-        Route::resource('eventsmp', EventSmpController::class);
-        Route::resource('pengumumansmp', AnnouncementSmpController::class);
-    });
-
     //master admin
     Route::middleware('role:master-admin')->group(function () {
         //program madrasah
@@ -176,6 +164,32 @@ Route::middleware('auth')->group(function () {
         Route::post('/pengumumanmadrasah/{id}/reject', [AnnouncementMadrasahController::class, 'reject'])->name('pengumumanmadrasah.reject');
         Route::post('/pengumumanmadrasah/{id}/approve-delete', [AnnouncementMadrasahController::class, 'approveDelete'])->name('pengumumanmadrasah.approveDelete');
         Route::post('/pengumumanmadrasah/{id}/reject-delete', [AnnouncementMadrasahController::class, 'rejectDelete'])->name('pengumumanmadrasah.rejectDelete');
+
+        //staff smp
+        Route::get('/staff/approval', [StafController::class, 'approval'])->name('staff.approval');
+        Route::post('/staff/{id}/approve', [StafController::class, 'approve'])->name('staff.approve');
+        Route::post('/staff/{id}/reject', [StafController::class, 'reject'])->name('staff.reject');
+        Route::post('/staff/{id}/approve-delete', [StafController::class, 'approveDelete'])->name('staff.approveDelete');
+        Route::post('/staff/{id}/reject-delete', [StafController::class, 'rejectDelete'])->name('staff.rejectDelete');
+
+        //ekstra smp
+        Route::get('/ekstra/approval', [EkstraController::class, 'approval'])->name('ekstra.approval');
+        Route::post('/ekstra/{id}/approve', [EkstraController::class, 'approve'])->name('ekstra.approve');
+        Route::post('/ekstra/{id}/reject', [EkstraController::class, 'reject'])->name('ekstra.reject');
+        Route::post('/ekstra/{id}/approve-delete', [EkstraController::class, 'approveDelete'])->name('ekstra.approveDelete');
+        Route::post('/ekstra/{id}/reject-delete', [EkstraController::class, 'rejectDelete'])->name('ekstra.rejectDelete');
+    });
+
+    //staff aka smp
+    Route::middleware('role:staff|admin|master-admin,web')->group(function () {
+        Route::resource('staff', StafController::class);
+        Route::resource('sekolah', SekolahController::class);
+        Route::resource('ekstra', EkstraController::class);
+        Route::resource('prestasi', PrestasiController::class);
+        Route::resource('sosmedsmp', SosmedSmpController::class);
+        Route::resource('kepsek', KepsekController::class);
+        Route::resource('eventsmp', EventSmpController::class);
+        Route::resource('pengumumansmp', AnnouncementSmpController::class);
     });
 
     //madrasah

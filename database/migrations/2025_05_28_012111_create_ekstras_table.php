@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('gambar');
             $table->text('description');
+
+            $table->enum('status', ['pending', 'pending-delete', 'approved', 'rejected'])->default('pending');
+            $table->json('previous_data')->nullable();
+            $table->string('new_gambar')->nullable();
             $table->timestamps();
         });
     }

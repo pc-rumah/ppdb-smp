@@ -100,7 +100,6 @@
                                                             </button>
                                                         @endif
 
-
                                                         <!-- Modal delete foto -->
                                                         @if (isset($item))
                                                             <div class="modal fade"

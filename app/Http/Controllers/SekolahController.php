@@ -19,14 +19,14 @@ class SekolahController extends Controller
     public function home()
     {
         $cover = Cover::first();
-        $staff = Staff::all();
-        $ekstra = Ekstra::all();
-        $prestasi = Prestasi::all();
+        $staff = Staff::where('status', 'approved')->get();
+        $ekstra = Ekstra::where('status', 'approved')->get();
+        $prestasi = Prestasi::where('status', 'approved')->get();
         $sosmed = SosmedSmp::first();
         $kepsek = Kepsek::first();
         $kontak = Kontak_Unit::where('role_name', 'staff')->first();
-        $eventsmp = EventSmp::orderBy('created_at', 'desc')->take(4)->get();
-        $pengumumansmp = AnnouncementSmp::orderBy('created_at', 'desc')->take(4)->get();
+        $eventsmp = EventSmp::where('status', 'approved')->get();
+        $pengumumansmp = AnnouncementSmp::where('status', 'approved')->get();
         return view('sekolah', compact('cover', 'pengumumansmp', 'staff', 'ekstra', 'prestasi', 'sosmed', 'kepsek', 'kontak', 'eventsmp'));
     }
 
