@@ -229,6 +229,100 @@
                             <span class="hide-menu">Pengumuman Sekolah</span>
                         </a>
                     </li>
+
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Manage Unit Pondok</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('pondok*') ? 'active' : '' }}"
+                            href="{{ route('pondok.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Bagan Cover Pondok</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('pengasuh*') ? 'active' : '' }}"
+                            href="{{ route('pengasuh.approval') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Bagan Pengasuh</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('programpondok*') ? 'active' : '' }}"
+                            href="{{ route('programpondok.approval') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Bagan Program</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('itemprogrampondok*') ? 'active' : '' }}"
+                            href="{{ route('itemprogrampondok.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Bagan Item Program</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kegiatanpondok*') ? 'active' : '' }}"
+                            href="{{ route('kegiatanpondok.approval') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kegiatan Pondok</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('sosmedpondok*') ? 'active' : '' }}"
+                            href="{{ route('sosmedpondok.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Sosial Media</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('kontakunit*') ? 'active' : '' }}"
+                            href="{{ route('kontakunit.create') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Kontak Pondok</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('eventpondok*') ? 'active' : '' }}"
+                            href="{{ route('eventpondok.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Acara Mendatang</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('pengumumanpondok*') ? 'active' : '' }}"
+                            href="{{ route('pengumumanpondok.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Pengumuman Pondok</span>
+                        </a>
+                    </li>
                 @endif
 
                 @if (Auth::user()->hasRole('admin'))

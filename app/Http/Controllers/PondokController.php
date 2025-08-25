@@ -19,12 +19,12 @@ class PondokController extends Controller
     public function home()
     {
         $cover = Cover::first();
-        $pengasuh = Pengasuh::inRandomOrder()->take(4)->get();
+        $pengasuh = Pengasuh::where('status', 'approved')->get();
         $sosmed = SosmedPondok::first();
-        $program = ProgramPondok::with('kategori')->take(4)->get();
-        $kegiatan = Kegiatan::orderBy('created_at', 'desc')->take(3)->get();
-        $eventpondok = EventPondok::orderBy('created_at', 'desc')->get();
-        $pengumumanpondok = AnnouncementPondok::orderBy('created_at', 'desc')->get();
+        $program = ProgramPondok::with('kategori')->where('status', 'approved')->take(4)->get();
+        $kegiatan = Kegiatan::where('status', 'approved')->get();
+        $eventpondok = EventPondok::where('status', 'approved')->get();
+        $pengumumanpondok = AnnouncementPondok::where('status', 'approved')->get();
         $kontak = Kontak_Unit::where('role_name', 'pondok')->first();
         return view('pondok', compact('cover', 'pengasuh', 'sosmed', 'kontak', 'program', 'kegiatan', 'eventpondok', 'pengumumanpondok'));
     }

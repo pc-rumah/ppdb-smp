@@ -24,10 +24,9 @@ class KegiatanController extends Controller
     {
         $validated = $request->validated();
 
+        $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('kegiatan', 'public');
-        } else {
-            $imagePath = null;
         }
 
         Kegiatan::create([
@@ -35,9 +34,10 @@ class KegiatanController extends Controller
             'title' => $validated['title'],
             'time' => $validated['time'],
             'description' => $validated['description'],
+            'status' => auth()->user()->hasRole('master-admin') ? 'approved' : 'pending',
         ]);
 
-        return redirect()->route('kegiatanpondok.index')->with('success', 'Data Kegiatan berhasil disimpan!');
+        return redirect()->route('kegiatanpondok.index')->with('success', 'Kegiatan diajukan.');
     }
 
     public function edit(string $id)
@@ -49,33 +49,134 @@ class KegiatanController extends Controller
     public function update(KegiatanRequest $request, Kegiatan $kegiatanpondok)
     {
         $validated = $request->validated();
+        $newImage = $kegiatanpondok->new_gambar;
 
         if ($request->hasFile('image')) {
-            if ($kegiatanpondok->image && Storage::disk('public')->exists($kegiatanpondok->image)) {
-                Storage::disk('public')->delete($kegiatanpondok->image);
-            }
-            $imagePath = $request->file('image')->store('kegiatanpondok', 'public');
-        } else {
-            $imagePath = $kegiatanpondok->image;
+            $newImage = $request->file('image')->store('kegiatan', 'public');
         }
 
-        $kegiatanpondok->update([
-            'image' => $imagePath,
-            'title' => $validated['title'],
-            'time' => $validated['time'],
-            'description' => $validated['description'],
-        ]);
+        if (auth()->user()->hasRole('pondok')) {
+            $kegiatanpondok->update([
+                'previous_data' => json_encode([
+                    'title' => $kegiatanpondok->title,
+                    'time' => $kegiatanpondok->time,
+                    'description' => $kegiatanpondok->description,
+                ]),
+                'title' => $validated['title'],
+                'time' => $validated['time'],
+                'description' => $validated['description'],
+                'new_gambar' => $newImage,
+                'status' => 'pending',
+            ]);
+        } else {
+            if ($newImage) {
+                if ($kegiatanpondok->image && Storage::disk('public')->exists($kegiatanpondok->image)) {
+                    Storage::disk('public')->delete($kegiatanpondok->image);
+                }
+                $kegiatanpondok->image = $newImage;
+                $kegiatanpondok->new_gambar = null;
+            }
 
-        return redirect()->route('kegiatanpondok.index')->with('success', 'Data Kegiatan berhasil diperbarui!');
+            $kegiatanpondok->update([
+                'title' => $validated['title'],
+                'time' => $validated['time'],
+                'description' => $validated['description'],
+                'status' => 'approved',
+                'previous_data' => null,
+            ]);
+        }
+
+        return redirect()->route('kegiatanpondok.index')->with('success', 'Kegiatan diajukan.');
     }
 
     public function destroy(Kegiatan $kegiatanpondok)
     {
+        if (auth()->user()->hasRole('pondok')) {
+            $kegiatanpondok->update(['status' => 'pending-delete']);
+            return redirect()->route('kegiatanpondok.index')->with('success', 'Permintaan hapus diajukan.');
+        }
+
         if ($kegiatanpondok->image && Storage::disk('public')->exists($kegiatanpondok->image)) {
             Storage::disk('public')->delete($kegiatanpondok->image);
         }
-        // dd($kegiatanpondok);
+
         $kegiatanpondok->delete();
-        return redirect()->back()->with('success', 'Data Kegiatan berhasil dihapus.');
+        return redirect()->back()->with('success', 'Kegiatan berhasil dihapus permanen.');
+    }
+
+
+    public function approval()
+    {
+        $data = Kegiatan::whereIn('status', ['pending', 'pending-delete'])->paginate(5);
+        return view('manage3landing.pondok.kegiatan.index', compact('data'));
+    }
+
+    public function approve($id)
+    {
+        $kegiatan = Kegiatan::findOrFail($id);
+
+        $updateData = [
+            'status' => 'approved',
+            'previous_data' => null,
+        ];
+
+        if ($kegiatan->new_gambar) {
+            if ($kegiatan->image && Storage::disk('public')->exists($kegiatan->image)) {
+                Storage::disk('public')->delete($kegiatan->image);
+            }
+            $updateData['image'] = $kegiatan->new_gambar;
+            $updateData['new_gambar'] = null;
+        }
+
+        $kegiatan->update($updateData);
+
+        return back()->with('success', 'Kegiatan disetujui.');
+    }
+
+    public function reject($id)
+    {
+        $kegiatan = Kegiatan::findOrFail($id);
+
+        $updateData = [
+            'status' => 'approved',
+            'previous_data' => null,
+            'new_gambar' => null,
+        ];
+
+        if ($kegiatan->previous_data) {
+            $old = json_decode($kegiatan->previous_data, true);
+            $updateData['title'] = $old['title'];
+            $updateData['time'] = $old['time'];
+            $updateData['description'] = $old['description'];
+        }
+
+        if ($kegiatan->new_gambar && Storage::disk('public')->exists($kegiatan->new_gambar)) {
+            Storage::disk('public')->delete($kegiatan->new_gambar);
+        }
+
+        $kegiatan->update($updateData);
+
+        return back()->with('success', 'Perubahan kegiatan ditolak dan dikembalikan.');
+    }
+
+    public function approveDelete($id)
+    {
+        $kegiatan = Kegiatan::findOrFail($id);
+
+        if ($kegiatan->image && Storage::disk('public')->exists($kegiatan->image)) {
+            Storage::disk('public')->delete($kegiatan->image);
+        }
+
+        $kegiatan->delete();
+
+        return back()->with('success', 'Penghapusan kegiatan disetujui.');
+    }
+
+    public function rejectDelete($id)
+    {
+        $kegiatan = Kegiatan::findOrFail($id);
+        $kegiatan->update(['status' => 'approved']);
+
+        return back()->with('success', 'Penghapusan kegiatan ditolak, data tetap ada.');
     }
 }

@@ -199,6 +199,27 @@ Route::middleware('auth')->group(function () {
         Route::post('/pengumumansmp/{id}/reject', [AnnouncementSmpController::class, 'reject'])->name('pengumumansmp.reject');
         Route::post('/pengumumansmp/{id}/approve-delete', [AnnouncementSmpController::class, 'approveDelete'])->name('pengumumansmp.approveDelete');
         Route::post('/pengumumansmp/{id}/reject-delete', [AnnouncementSmpController::class, 'rejectDelete'])->name('pengumumansmp.rejectDelete');
+
+        //pengasuh pondok
+        Route::get('/pengasuh/approval', [PengasuhController::class, 'approval'])->name('pengasuh.approval');
+        Route::post('/pengasuh/{id}/approve', [PengasuhController::class, 'approve'])->name('pengasuh.approve');
+        Route::post('/pengasuh/{id}/reject', [PengasuhController::class, 'reject'])->name('pengasuh.reject');
+        Route::post('/pengasuh/{id}/approve-delete', [PengasuhController::class, 'approveDelete'])->name('pengasuh.approveDelete');
+        Route::post('/pengasuh/{id}/reject-delete', [PengasuhController::class, 'rejectDelete'])->name('pengasuh.rejectDelete');
+
+        //program pondok
+        Route::get('/programpondok/approval', [ProgramPondokController::class, 'approval'])->name('programpondok.approval');
+        Route::post('/programpondok/{id}/approve', [ProgramPondokController::class, 'approve'])->name('programpondok.approve');
+        Route::post('/programpondok/{id}/reject', [ProgramPondokController::class, 'reject'])->name('programpondok.reject');
+        Route::post('/programpondok/{id}/approve-delete', [ProgramPondokController::class, 'approveDelete'])->name('programpondok.approveDelete');
+        Route::post('/programpondok/{id}/reject-delete', [ProgramPondokController::class, 'rejectDelete'])->name('programpondok.rejectDelete');
+
+        //kegiatan pondok
+        Route::get('/kegiatanpondok/approval', [KegiatanController::class, 'approval'])->name('kegiatanpondok.approval');
+        Route::post('/kegiatanpondok/{id}/approve', [KegiatanController::class, 'approve'])->name('kegiatanpondok.approve');
+        Route::post('/kegiatanpondok/{id}/reject', [KegiatanController::class, 'reject'])->name('kegiatanpondok.reject');
+        Route::post('/kegiatanpondok/{id}/approve-delete', [KegiatanController::class, 'approveDelete'])->name('kegiatanpondok.approveDelete');
+        Route::post('/kegiatanpondok/{id}/reject-delete', [KegiatanController::class, 'rejectDelete'])->name('kegiatanpondok.rejectDelete');
     });
 
     //staff aka smp

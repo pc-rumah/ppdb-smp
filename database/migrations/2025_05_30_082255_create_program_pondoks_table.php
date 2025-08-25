@@ -15,6 +15,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('foto');
+
+            $table->enum('status', ['pending', 'pending-delete', 'approved', 'rejected'])->default('pending');
+            $table->json('previous_data')->nullable();
             $table->timestamps();
         });
     }
