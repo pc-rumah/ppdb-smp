@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('juara');
             $table->string('title');
             $table->string('subjudul');
+
+            $table->enum('status', ['pending', 'pending-delete', 'approved', 'rejected'])->default('pending');
+            $table->json('previous_data')->nullable();
+            $table->string('new_gambar')->nullable();
             $table->timestamps();
         });
     }

@@ -23,17 +23,22 @@ class PrestasiController extends Controller
     {
         $validated = $request->validated();
 
-        $path = $request->file('foto')->store('prestasi', 'public');
+        $foto = null;
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto')->store('prestasi', 'public');
+        }
 
         Prestasi::create([
             'juara' => $validated['juara'],
             'title' => $validated['title'],
             'subjudul' => $validated['subjudul'],
-            'foto' => $path,
+            'foto' => $foto,
+            'status' => auth()->user()->hasRole('master-admin') ? 'approved' : 'pending',
         ]);
 
-        return redirect()->route('prestasi.index')->with('success', 'Data prestasi berhasil disimpan.');
+        return redirect()->route('prestasi.index')->with('success', 'Data prestasi diajukan.');
     }
+
 
     public function edit(string $id)
     {
@@ -45,34 +50,137 @@ class PrestasiController extends Controller
     {
         $validated = $request->validated();
 
-        $data = [
-            'juara' => $validated['juara'],
-            'title' => $validated['title'],
-            'subjudul' => $validated['subjudul'],
-        ];
+        $newImage = $prestasi->new_gambar;
 
         if ($request->hasFile('foto')) {
-            if ($prestasi->foto && Storage::disk('public')->exists($prestasi->foto)) {
-                Storage::disk('public')->delete($prestasi->foto);
-            }
-            $data['foto'] = $request->file('foto')->store('prestasi', 'public');
+            $newImage = $request->file('foto')->store('prestasi', 'public');
         }
 
-        $prestasi->update($data);
+        if (auth()->user()->hasRole('staff')) {
+            $prestasi->update([
+                'previous_data' => json_encode([
+                    'juara' => $prestasi->juara,
+                    'title' => $prestasi->title,
+                    'subjudul' => $prestasi->subjudul,
+                ]),
+                'juara' => $validated['juara'],
+                'title' => $validated['title'],
+                'subjudul' => $validated['subjudul'],
+                'new_gambar' => $newImage,
+                'status' => 'pending',
+            ]);
+        } else {
+            if ($newImage) {
+                if ($prestasi->foto && Storage::disk('public')->exists($prestasi->foto)) {
+                    Storage::disk('public')->delete($prestasi->foto);
+                }
+                $prestasi->foto = $newImage;
+                $prestasi->new_gambar = null;
+            }
 
-        return redirect()->route('prestasi.index')->with('success', 'Data prestasi berhasil diperbarui.');
+            $prestasi->update([
+                'juara' => $validated['juara'],
+                'title' => $validated['title'],
+                'subjudul' => $validated['subjudul'],
+                'status' => 'approved',
+                'previous_data' => null,
+            ]);
+        }
+
+        return redirect()->route('prestasi.index')->with('success', 'Data prestasi diajukan.');
     }
 
     public function destroy(string $id)
     {
-        $data = Prestasi::findOrFail($id);
+        $prestasi = Prestasi::findOrFail($id);
 
-        if ($data->foto && Storage::disk('public')->exists($data->foto)) {
-            Storage::disk('public')->delete($data->foto);
+        if (auth()->user()->hasRole('staff')) {
+            $prestasi->update(['status' => 'pending-delete']);
+            return redirect()->route('prestasi.index')->with('success', 'Permintaan hapus diajukan.');
         }
 
-        $data->delete();
+        if ($prestasi->foto && Storage::disk('public')->exists($prestasi->foto)) {
+            Storage::disk('public')->delete($prestasi->foto);
+        }
 
-        return redirect()->route('prestasi.index')->with('success', 'Data Prestasi berhasil dihapus.');
+        $prestasi->delete();
+
+        return redirect()->route('prestasi.index')->with('success', 'Data prestasi berhasil dihapus permanen.');
+    }
+
+    public function approval()
+    {
+        $data = Prestasi::whereIn('status', ['pending', 'pending-delete'])->paginate(5);
+        return view('sekolah.prestasi.index', compact('data'));
+    }
+
+    public function approve($id)
+    {
+        $prestasi = Prestasi::findOrFail($id);
+
+        $updateData = [
+            'status' => 'approved',
+            'previous_data' => null,
+        ];
+
+        if ($prestasi->new_gambar) {
+            if ($prestasi->foto && Storage::disk('public')->exists($prestasi->foto)) {
+                Storage::disk('public')->delete($prestasi->foto);
+            }
+            $updateData['foto'] = $prestasi->new_gambar;
+            $updateData['new_gambar'] = null;
+        }
+
+        $prestasi->update($updateData);
+
+        return back()->with('success', 'Prestasi disetujui.');
+    }
+
+    public function reject($id)
+    {
+        $prestasi = Prestasi::findOrFail($id);
+
+        $updateData = [
+            'status' => 'approved',
+            'previous_data' => null,
+            'new_gambar' => null,
+        ];
+
+        if ($prestasi->previous_data) {
+            $old = json_decode($prestasi->previous_data, true);
+            $updateData['juara'] = $old['juara'];
+            $updateData['title'] = $old['title'];
+            $updateData['subjudul'] = $old['subjudul'];
+        }
+
+        if ($prestasi->new_gambar && Storage::disk('public')->exists($prestasi->new_gambar)) {
+            Storage::disk('public')->delete($prestasi->new_gambar);
+        }
+
+        $prestasi->update($updateData);
+
+        return back()->with('success', 'Perubahan prestasi ditolak dan dikembalikan.');
+    }
+
+    public function approveDelete($id)
+    {
+        $prestasi = Prestasi::findOrFail($id);
+
+        if ($prestasi->foto && Storage::disk('public')->exists($prestasi->foto)) {
+            Storage::disk('public')->delete($prestasi->foto);
+        }
+
+        $prestasi->delete();
+
+        return back()->with('success', 'Penghapusan prestasi disetujui.');
+    }
+
+    public function rejectDelete($id)
+    {
+        $prestasi = Prestasi::findOrFail($id);
+
+        $prestasi->update(['status' => 'approved']);
+
+        return back()->with('success', 'Penghapusan prestasi ditolak, data tetap ada.');
     }
 }

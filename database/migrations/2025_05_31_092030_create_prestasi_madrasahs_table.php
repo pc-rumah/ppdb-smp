@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama_kegiatan');
             $table->string('tingkat');
             $table->string('gambar')->nullable();
+
             $table->enum('status', ['pending', 'pending-delete', 'approved', 'rejected'])->default('pending');
             $table->json('previous_data')->nullable();
             $table->string('new_gambar')->nullable();

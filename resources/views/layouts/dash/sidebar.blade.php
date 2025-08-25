@@ -186,7 +186,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('prestasi*') ? 'active' : '' }}"
-                            href="{{ route('prestasi.index') }}" aria-expanded="false">
+                            href="{{ route('prestasi.approval') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>

@@ -178,6 +178,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/ekstra/{id}/reject', [EkstraController::class, 'reject'])->name('ekstra.reject');
         Route::post('/ekstra/{id}/approve-delete', [EkstraController::class, 'approveDelete'])->name('ekstra.approveDelete');
         Route::post('/ekstra/{id}/reject-delete', [EkstraController::class, 'rejectDelete'])->name('ekstra.rejectDelete');
+
+        //prestasi smp
+        Route::get('/prestasi/approval', [PrestasiController::class, 'approval'])->name('prestasi.approval');
+        Route::post('/prestasi/{id}/approve', [PrestasiController::class, 'approve'])->name('prestasi.approve');
+        Route::post('/prestasi/{id}/reject', [PrestasiController::class, 'reject'])->name('prestasi.reject');
+        Route::post('/prestasi/{id}/approve-delete', [PrestasiController::class, 'approveDelete'])->name('prestasi.approveDelete');
+        Route::post('/prestasi/{id}/reject-delete', [PrestasiController::class, 'rejectDelete'])->name('prestasi.rejectDelete');
     });
 
     //staff aka smp
