@@ -19,6 +19,9 @@ return new class extends Migration
             $table->time('waktu_mulai');
             $table->string('waktu_selesai')->nullable();
             $table->text('deskripsi');
+
+            $table->enum('status', ['pending', 'pending-delete', 'approved', 'rejected'])->default('pending');
+            $table->json('previous_data')->nullable();
             $table->timestamps();
         });
     }

@@ -213,7 +213,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('eventsmp*') ? 'active' : '' }}"
-                            href="{{ route('eventsmp.index') }}" aria-expanded="false">
+                            href="{{ route('eventsmp.approval') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
@@ -222,7 +222,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('pengumumansmp*') ? 'active' : '' }}"
-                            href="{{ route('pengumumansmp.index') }}" aria-expanded="false">
+                            href="{{ route('pengumumansmp.approval') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>

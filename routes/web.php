@@ -185,6 +185,20 @@ Route::middleware('auth')->group(function () {
         Route::post('/prestasi/{id}/reject', [PrestasiController::class, 'reject'])->name('prestasi.reject');
         Route::post('/prestasi/{id}/approve-delete', [PrestasiController::class, 'approveDelete'])->name('prestasi.approveDelete');
         Route::post('/prestasi/{id}/reject-delete', [PrestasiController::class, 'rejectDelete'])->name('prestasi.rejectDelete');
+
+        //event smp
+        Route::get('/eventsmp/approval', [EventSmpController::class, 'approval'])->name('eventsmp.approval');
+        Route::post('/eventsmp/{id}/approve', [EventSmpController::class, 'approve'])->name('eventsmp.approve');
+        Route::post('/eventsmp/{id}/reject', [EventSmpController::class, 'reject'])->name('eventsmp.reject');
+        Route::post('/eventsmp/{id}/approve-delete', [EventSmpController::class, 'approveDelete'])->name('eventsmp.approveDelete');
+        Route::post('/eventsmp/{id}/reject-delete', [EventSmpController::class, 'rejectDelete'])->name('eventsmp.rejectDelete');
+
+        //pengumuman smp
+        Route::get('/pengumumansmp/approval', [AnnouncementSmpController::class, 'approval'])->name('pengumumansmp.approval');
+        Route::post('/pengumumansmp/{id}/approve', [AnnouncementSmpController::class, 'approve'])->name('pengumumansmp.approve');
+        Route::post('/pengumumansmp/{id}/reject', [AnnouncementSmpController::class, 'reject'])->name('pengumumansmp.reject');
+        Route::post('/pengumumansmp/{id}/approve-delete', [AnnouncementSmpController::class, 'approveDelete'])->name('pengumumansmp.approveDelete');
+        Route::post('/pengumumansmp/{id}/reject-delete', [AnnouncementSmpController::class, 'rejectDelete'])->name('pengumumansmp.rejectDelete');
     });
 
     //staff aka smp
