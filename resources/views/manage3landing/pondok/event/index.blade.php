@@ -10,12 +10,11 @@
                     <li class="breadcrumb-item active">Data Event</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
         <div class="row">
             <div class="col-xl-12">
                 <div class="card  bg-info bg-gradient">
                     <div class="card-body pt-3">
-                        <!-- Bordered Tabs -->
                         <div class="row">
                             <div class="col-lg-8">
                                 <a href="{{ route('eventpondok.create') }}" type="button" class="btn btn-light">Tambah
@@ -26,7 +25,6 @@
                         <hr class="hr">
                         <div class="card">
                             <div class="card-body">
-                                <!-- Default Table -->
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -38,6 +36,7 @@
                                                 <th scope="col">Waktu Mulai</th>
                                                 <th scope="col">Waktu Selesai</th>
                                                 <th scope="col">Deskripsi</th>
+                                                <th scope="col">Status</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -51,50 +50,53 @@
                                                     <td>{{ $item->waktu_mulai }}</td>
                                                     <td>{{ $item->waktu_selesai }}</td>
                                                     <td>{{ $item->deskripsi }}</td>
+                                                    <td>{{ $item->status }}</td>
                                                     <td class="d-flex gap-2">
-                                                        <a href="{{ route('eventpondok.edit', $item) }}"
-                                                            class="btn btn-primary">Edit</a>
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#alert-hapus-kategori{{ $item->id }}">
-                                                            Delete
-                                                        </button>
-                                                        <!-- Modal delete foto -->
-                                                        @if (isset($item))
-                                                            <div class="modal fade"
-                                                                id="alert-hapus-kategori{{ $item->id }}" tabindex="-1"
-                                                                aria-labelledby="confirmDeleteModal{{ $item->id }}Label"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="confirmDeleteModal{{ $item->id }}Label">
-                                                                                Konfirmasi Hapus Data</h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            Apakah Anda yakin ingin menghapus
-                                                                            Data
-                                                                            ini?
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary"
-                                                                                data-bs-dismiss="modal">Batal</button>
-                                                                            <form id="deleteForm{{ $item->id }}"
-                                                                                action="{{ route('eventpondok.destroy', $item->id) }}"
-                                                                                method="POST">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">Hapus</button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        @if (Auth::user()->hasRole('master-admin'))
+                                                            @if ($item->status == 'pending')
+                                                                <form action="{{ route('eventpondok.approve', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-success btn-sm">Approve</button>
+                                                                </form>
+                                                                <form action="{{ route('eventpondok.reject', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm">Reject</button>
+                                                                </form>
+                                                            @else
+                                                                <form
+                                                                    action="{{ route('eventpondok.approveDelete', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-success btn-sm">Approve</button>
+                                                                </form>
+                                                                <form
+                                                                    action="{{ route('eventpondok.rejectDelete', $item->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm">Reject</button>
+                                                                </form>
+                                                            @endif
+                                                        @else
+                                                            <a href="{{ route('eventpondok.edit', $item) }}"
+                                                                class="btn btn-primary {{ in_array($item->status, ['pending', 'pending-delete']) ? 'disabled' : '' }}">Edit</a>
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                                                data-action="{{ route('eventpondok.destroy', $item->id) }}"
+                                                                data-title="Hapus Event"
+                                                                data-body="Apakah Anda yakin ingin menghapus data ini?"
+                                                                {{ in_array($item->status, ['pending', 'pending-delete']) ? 'disabled' : '' }}>
+                                                                Delete
+                                                            </button>
                                                         @endif
+
+                                                        <!-- Modal delete foto -->
+                                                        @include('modal')
                                                     </td>
                                                 </tr>
                                             @empty
@@ -106,7 +108,6 @@
                                         {{ $data->links() }}
                                     </table>
                                 </div>
-                                <!-- End Default Table Example -->
                             </div>
                         </div>
                     </div>

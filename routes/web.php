@@ -220,6 +220,20 @@ Route::middleware('auth')->group(function () {
         Route::post('/kegiatanpondok/{id}/reject', [KegiatanController::class, 'reject'])->name('kegiatanpondok.reject');
         Route::post('/kegiatanpondok/{id}/approve-delete', [KegiatanController::class, 'approveDelete'])->name('kegiatanpondok.approveDelete');
         Route::post('/kegiatanpondok/{id}/reject-delete', [KegiatanController::class, 'rejectDelete'])->name('kegiatanpondok.rejectDelete');
+
+        //event pondok
+        Route::get('/eventpondok/approval', [EventPondokController::class, 'approval'])->name('eventpondok.approval');
+        Route::post('/eventpondok/{id}/approve', [EventPondokController::class, 'approve'])->name('eventpondok.approve');
+        Route::post('/eventpondok/{id}/reject', [EventPondokController::class, 'reject'])->name('eventpondok.reject');
+        Route::post('/eventpondok/{id}/approve-delete', [EventPondokController::class, 'approveDelete'])->name('eventpondok.approveDelete');
+        Route::post('/eventpondok/{id}/reject-delete', [EventPondokController::class, 'rejectDelete'])->name('eventpondok.rejectDelete');
+
+        //announcement pondok
+        Route::get('/pengumumanpondok/approval', [AnnouncementPondokController::class, 'approval'])->name('pengumumanpondok.approval');
+        Route::post('/pengumumanpondok/{id}/approve', [AnnouncementPondokController::class, 'approve'])->name('pengumumanpondok.approve');
+        Route::post('/pengumumanpondok/{id}/reject', [AnnouncementPondokController::class, 'reject'])->name('pengumumanpondok.reject');
+        Route::post('/pengumumanpondok/{id}/approve-delete', [AnnouncementPondokController::class, 'approveDelete'])->name('pengumumanpondok.approveDelete');
+        Route::post('/pengumumanpondok/{id}/reject-delete', [AnnouncementPondokController::class, 'rejectDelete'])->name('pengumumanpondok.rejectDelete');
     });
 
     //staff aka smp

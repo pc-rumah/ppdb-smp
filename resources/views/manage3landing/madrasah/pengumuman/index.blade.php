@@ -10,12 +10,11 @@
                     <li class="breadcrumb-item active">Data Pengumuman</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
         <div class="row">
             <div class="col-xl-12">
                 <div class="card  bg-info bg-gradient">
                     <div class="card-body pt-3">
-                        <!-- Bordered Tabs -->
                         <div class="row">
                             <div class="col-lg-8">
                                 <a href="{{ route('pengumumanmadrasah.create') }}" type="button"
@@ -27,7 +26,6 @@
                         <hr class="hr">
                         <div class="card">
                             <div class="card-body">
-                                <!-- Default Table -->
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -96,50 +94,17 @@
                                                             <a href="{{ route('pengumumanmadrasah.edit', $item) }}"
                                                                 class="btn btn-primary {{ in_array($item->status, ['pending', 'pending-delete']) ? 'disabled' : '' }}">Edit</a>
                                                             <button type="button" class="btn btn-danger"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#alert-hapus-kategori{{ $item->id }}"
+                                                                data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                                                data-action="{{ route('prestasi.destroy', $item->id) }}"
+                                                                data-title="Hapus Pengumuman"
+                                                                data-body="Apakah Anda yakin ingin menghapus data ini?"
                                                                 {{ in_array($item->status, ['pending', 'pending-delete']) ? 'disabled' : '' }}>
                                                                 Delete
                                                             </button>
                                                         @endif
 
-                                                        <!-- Modal delete foto -->
-                                                        @if (isset($item))
-                                                            <div class="modal fade"
-                                                                id="alert-hapus-kategori{{ $item->id }}" tabindex="-1"
-                                                                aria-labelledby="confirmDeleteModal{{ $item->id }}Label"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="confirmDeleteModal{{ $item->id }}Label">
-                                                                                Konfirmasi Hapus Data</h5>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            Apakah Anda yakin ingin menghapus
-                                                                            Data
-                                                                            ini?
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary"
-                                                                                data-bs-dismiss="modal">Batal</button>
-                                                                            <form id="deleteForm{{ $item->id }}"
-                                                                                action="{{ route('pengumumanmadrasah.destroy', $item->id) }}"
-                                                                                method="POST">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">Hapus</button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endif
+                                                        <!-- Modal delete -->
+                                                        @include('modal')
                                                     </td>
                                                 </tr>
                                             @empty
@@ -151,7 +116,6 @@
                                         {{ $data->links() }}
                                     </table>
                                 </div>
-                                <!-- End Default Table Example -->
                             </div>
                         </div>
                     </div>

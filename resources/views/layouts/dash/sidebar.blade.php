@@ -306,7 +306,7 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('eventpondok*') ? 'active' : '' }}"
-                            href="{{ route('eventpondok.index') }}" aria-expanded="false">
+                            href="{{ route('eventpondok.approval') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
@@ -316,7 +316,7 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('pengumumanpondok*') ? 'active' : '' }}"
-                            href="{{ route('pengumumanpondok.index') }}" aria-expanded="false">
+                            href="{{ route('pengumumanpondok.approval') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
