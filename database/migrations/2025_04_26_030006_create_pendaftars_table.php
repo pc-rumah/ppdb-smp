@@ -54,6 +54,9 @@ return new class extends Migration
             $table->text('piagam_penghargaan')->nullable();
             $table->foreignId('saudaras_id')->constrained();
             $table->string('penanggung_jawab');
+
+            $table->index('created_at');
+            $table->index(['status', 'created_at']);
             $table->timestamps();
         });
     }

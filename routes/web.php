@@ -39,6 +39,7 @@ use App\Http\Controllers\SosmedMadrasahController;
 use App\Http\Controllers\ProgramMadrasahController;
 use App\Http\Controllers\PrestasiMadrasahController;
 use App\Http\Controllers\StafMadrasahController;
+use App\Http\Controllers\RekapPendaftaranController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
@@ -282,6 +283,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('pendaftar', PendaftarController::class);
 
         Route::resource('assetbukti', AssetBuktiPendaftaranController::class);
+
+        Route::get('/rekap/pendaftar', [RekapPendaftaranController::class, 'index'])->name('rekap.pendaftar.index'); // form + ringkasan
+        Route::get('/rekap/pendaftar/download', [RekapPendaftaranController::class, 'download'])->name('rekap.pendaftar.download'); // download xlsx/csv
 
         Route::get('admin/{pendaftar}/download', [PendaftarController::class, 'download'])->name('admin.download');
         Route::put('/pendaftar/{pendaftar}/update-status', [PendaftarController::class, 'updateStatus'])->name('pendaftar.updateStatus');

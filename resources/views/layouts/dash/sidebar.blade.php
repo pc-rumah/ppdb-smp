@@ -385,6 +385,15 @@
                         <span class="hide-menu">PPDB</span>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request::is('rekap*') ? 'active' : '' }}"
+                            href="{{ route('rekap.pendaftar.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Rekap</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ Request::is('pendaftar*') ? 'active' : '' }}"
                             href="{{ route('pendaftar.index') }}" aria-expanded="false">
                             <span>
@@ -707,6 +716,5 @@
                 @endif
             </ul>
         </nav>
-        <!-- End Sidebar navigation -->
     </div>
 </aside>

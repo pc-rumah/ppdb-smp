@@ -10,21 +10,62 @@
                         'deskripsi' => 'Halaman Sekolah',
                         'warna' => 'bg-green-600',
                         'url' => '/landing/sekolah',
-                        'icon' => $cover->logo_smp ? asset('storage/' . $cover->logo_smp) : null,
+                        'icon' =>
+                            isset($cover) && $cover && $cover->logo_smp ? asset('storage/' . $cover->logo_smp) : null,
                     ],
                     [
                         'judul' => 'Madrasah',
                         'deskripsi' => 'Halaman Madrasah',
                         'warna' => 'bg-blue-500',
                         'url' => '/landing/madrasah',
-                        'icon' => $cover->logo_madrasah ? asset('storage/' . $cover->logo_madrasah) : null,
+                        'icon' =>
+                            isset($cover) && $cover && $cover->logo_madrasah
+                                ? asset('storage/' . $cover->logo_madrasah)
+                                : null,
                     ],
                     [
                         'judul' => 'Ponpes',
                         'deskripsi' => 'Halaman Ponpes',
                         'warna' => 'bg-yellow-500',
                         'url' => '/landing/pondok',
-                        'icon' => $cover->logo_pondok ? asset('storage/' . $cover->logo_pondok) : null,
+                        'icon' =>
+                            isset($cover) && $cover && $cover->logo_pondok
+                                ? asset('storage/' . $cover->logo_pondok)
+                                : null,
+                    ],
+                    [
+                        'judul' => 'PPDB',
+                        'deskripsi' => 'Penerimaan Peserta Didik Baru online',
+                        'warna' => 'bg-orange-500',
+                        'url' => '/ppdb',
+                        'icon' => '',
+                    ],
+                ];
+            @endphp
+
+            {{-- ATAU Solusi 4: Menggunakan null safe operator (PHP 8.0+) --}}
+            @php
+                $unitList = [
+                    [
+                        'judul' => 'Sekolah',
+                        'deskripsi' => 'Halaman Sekolah',
+                        'warna' => 'bg-green-600',
+                        'url' => '/landing/sekolah',
+                        'icon' => $cover?->logo_smp ? asset('storage/' . $cover->logo_smp) : null,
+                    ],
+                    [
+                        'judul' => 'Madrasah',
+                        'deskripsi' => 'Halaman Madrasah',
+                        'warna' => 'bg-blue-500',
+                        'url' => '/landing/madrasah',
+                        'icon' => $cover?->logo_madrasah ? asset('storage/' . $cover->logo_madrasah) : null,
+                    ],
+                    [
+                        'judul' => 'Ponpes',
+                        'deskripsi' => 'Halaman Ponpes',
+                        'warna' => 'bg-yellow-500',
+                        'url' => '/landing/pondok',
+                        'icon' => $cover?->logo_pondok ? asset('storage/' . $cover->logo_pondok) : null,
                     ],
                     [
                         'judul' => 'PPDB',

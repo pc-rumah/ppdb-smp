@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $cover->judul_smp ?? 'ini title' }}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $cover->logo_smp) }}">
+    <link rel="icon" type="image/x-icon" href="{{ $cover?->logo_smp ? asset('storage/' . $cover->logo_smp) : '#' }}">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">

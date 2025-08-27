@@ -2,7 +2,6 @@
 
 @section('content')
     <main id="main" class="main">
-        <!-- Page Title -->
         <div class="pagetitle">
             <h4>Kelola Data PPDB</h4>
             <nav>
@@ -11,13 +10,12 @@
                     <li class="breadcrumb-item active">PPDB</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
 
         <div class="row">
             <div class="col-xl-12">
                 <div class="card bg-info bg-gradient">
                     <div class="card-body pt-3">
-                        <!-- Bordered Tabs -->
                         <div class="row">
                             <div class="col-8 col-lg-2 mb-2">
                                 <a href="{{ route('pendaftar.create') }}" class="btn btn-light w-100">Tambah Data</a>
